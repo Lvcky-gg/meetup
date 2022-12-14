@@ -50,18 +50,27 @@ router.post(
 
   router.get(
     '/',
-    requireAuth,
     async ( req, res) => {
-      const { id, firstName, lastName, email } = req.user.dataValues;
-      const { token } = req.cookies
+      if(req.user){
+        const { id, firstName, lastName, email } = req.user.dataValues;
+        const { token } = req.cookies
+        
+        res.json({
+          id,
+          firstName,
+          lastName,
+          email,
+          token
+        })
+      }else {
+        res.status(200);
+        res.json(
+        {
+          "user": null
+        }
+        )
+      }
       
-      res.json({
-        id,
-        firstName,
-        lastName,
-        email,
-        token
-      })
     }
 
 
