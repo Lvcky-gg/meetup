@@ -5,6 +5,7 @@ const { User } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
+
 const router = express.Router();
 
 const validateSignup = [
@@ -46,6 +47,26 @@ router.post(
       });
     }
   );
+
+  router.get(
+    '/',
+    requireAuth,
+    async ( req, res) => {
+      const { id, firstName, lastName, email } = req.user.dataValues;
+      const { token } = req.cookies
+      
+      res.json({
+        id,
+        firstName,
+        lastName,
+        email,
+        token
+      })
+    }
+
+
+  )
+ 
   
 
 module.exports = router;
