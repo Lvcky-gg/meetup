@@ -1,9 +1,9 @@
 'use strict';
 const {
-  Model
+  Model, ForeignKeyConstraintError
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class group extends Model {
+  class Group extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,10 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Group.hasMany(models.GroupImage,{foreignKey:'groupId'});
+      Group.belongsTo(models.Membership, {foreignKey:'groupId'});
+      Group.hasMany(models.User, {foreignKey:'organizerId'});
+      Group.belongsTo(models.Venue, {foreignKey:'groupId'});
     }
   }
-  group.init({
-    organizerId: DataTypes.INTEGER,
+  Group.init({
     name: DataTypes.STRING,
     about: DataTypes.STRING,
     type: DataTypes.STRING,
@@ -23,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     state: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'group',
+    modelName: 'Group',
   });
-  return group;
+  return Group;
 };
