@@ -24,6 +24,8 @@ router.post(
       const { credential, password } = req.body;
  
       const user = await User.login({ credential, password });
+      const { id, firstName, lastName, email } = req.user.dataValues;
+      const { token } = req.cookies;
   
       if (!user) {
         const err = new Error('Login failed');
@@ -36,7 +38,11 @@ router.post(
       await setTokenCookie(res, user);
   
       return res.json({
-        user
+        id,
+        firstName,
+        lastName,
+        email,
+        token
       });
     }
   );
