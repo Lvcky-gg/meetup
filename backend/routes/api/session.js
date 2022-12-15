@@ -25,8 +25,8 @@ router.post(
  
       const user = await User.login({ credential, password });
       const { id, firstName, lastName, email } = user.dataValues;
-      console.log(req)
-      const { token } = req.cookies;
+      const token = await setTokenCookie(res, user)
+      
 
       if(!credential || !password) {
         const err = new Error('Login Failed');
