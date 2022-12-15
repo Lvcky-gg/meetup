@@ -2,11 +2,15 @@ const router = require('express').Router();
 
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
+const groupRouter = require('./groups.js')
 // const { setTokenCookie } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');
 const { restoreUser } = require('../../utils/auth.js');
 // const { requireAuth } = require('../../utils/auth.js');
 router.use(restoreUser);
+
+// router.get('/login', )
+router.use('/groups', groupRouter)
 
 router.use('/session', sessionRouter);
 

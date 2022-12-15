@@ -16,7 +16,7 @@ const validateLogin = [
       .withMessage('Please provide a password.'),
     handleValidationErrors
   ];
-
+//needs work inconsistent due to the use of req.user
 router.post(
     '/',
     // validateLogin,
@@ -24,7 +24,8 @@ router.post(
       const { credential, password } = req.body;
  
       const user = await User.login({ credential, password });
-      const { id, firstName, lastName, email } = req.user.dataValues;
+      const { id, firstName, lastName, email } = user.dataValues;
+      console.log(req)
       const { token } = req.cookies;
 
       if(!credential || !password) {
