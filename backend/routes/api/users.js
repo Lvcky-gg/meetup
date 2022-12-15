@@ -38,13 +38,13 @@ router.post(
     '/',
     validateSignup,
     async (req, res) => {
+      try{
       const { firstName, lastName, email, password, username } = req.body;
       const user = await User.signup({firstName, lastName, email, username, password });
       // const { }
       await setTokenCookie(res, user);
       const { token } = req.cookies;
-  
-      
+ 
       return res.json({
           firstName,
           lastName,
@@ -53,6 +53,19 @@ router.post(
           username,
           token
       });
+    }catch(e){
+      console.log(e.message)
+      const errors = []
+      const array = e.errors;
+      for(let i = 0; i < array.length; i++)errors.push(array[i].message)
+      res.status = 403;
+    
+      res.json({
+        "message": "User already exists",
+      "statusCode": 403,
+      errors
+      })
+    }
     }
   );
 
