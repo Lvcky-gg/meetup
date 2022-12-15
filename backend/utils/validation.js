@@ -17,7 +17,7 @@ const handleValidationErrors = (req, _res, next) => {
   }
   next();
 };
-const handleValidationForSignup = (req, _res, next) =>{
+const handleValidationForSignup = (req, res, next) =>{
    const validationErrors = validationResult(req);
 
    if(!validationErrors.isEmpty()){
@@ -29,14 +29,16 @@ const handleValidationForSignup = (req, _res, next) =>{
     err.title = 'Validation error';
     err.status = 400;
     err.errors = errors;
-    _res.json({
-      "message":err.title,
-      "statusCode":err.status,
-      "errors":err.errors
 
-    })
+      // res.json({
+      //   "message":err.title,
+      //   "statusCode":err.status,
+      //   "errors":err.errors
+      // })
+    
+   next(err);
    }
-  //  next();
+   next();
 }
 
 module.exports = {
