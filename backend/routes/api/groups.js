@@ -5,6 +5,7 @@ const { User, Group, GroupImage } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const e = require('express');
+const group = require('../../db/models/group');
 
 
 
@@ -81,6 +82,55 @@ async (req, res) => {
         res.json(group)
     }
     res.json()
+});
+
+router.put('/:groupId',
+async (req, res) => {
+    const { groupId } = req.params;
+
+    if(req.user){
+        const groupAssociated = await Group.findByPk(groupId);
+        if(groupAssociated){
+            
+            if(req.user.dataValues.id === groupAssociated.dataValues.organizerId ){
+
+                
+                const { name, about, type, private, city, state } = req.body;
+                // groupAssociated.name = name;
+                // groupAssociated.about = about;
+                // groupAssociated.type = type;
+                // groupAssociated.private = private;
+                // groupAssociated.city = city;
+                // groupAssociated.state = state;
+                await groupAssociated.update({
+                    name,
+                    about,
+                    type,
+                    private,
+                    city,
+                    state
+                })
+
+                res.json(groupAssociated)
+
+            }else{
+                res.status = 403;
+                res.json({
+                    "message":"Unauthorized",
+                    "statusCode":403
+                })
+            }
+            
+        }else{
+
+            res.status = 404;
+            res.json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+             })
+        }
+
+    };
 });
 
 router.delete('/:groupId',
