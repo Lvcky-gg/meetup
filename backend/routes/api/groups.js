@@ -96,12 +96,7 @@ async (req, res) => {
 
                 
                 const { name, about, type, private, city, state } = req.body;
-                // groupAssociated.name = name;
-                // groupAssociated.about = about;
-                // groupAssociated.type = type;
-                // groupAssociated.private = private;
-                // groupAssociated.city = city;
-                // groupAssociated.state = state;
+            
                 await groupAssociated.update({
                     name,
                     about,
