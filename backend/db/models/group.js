@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
    
     static associate(models) {
       // define association here
-      // Group.hasMany(models.GroupImage,{foreignKey:'groupId'});
+      Group.hasMany(models.GroupImage,{foreignKey:'groupId'});
       // Group.belongsTo(models.Membership, {foreignKey:'groupId'});
       Group.belongsTo(models.User, {foreignKey:'organizerId'});
       // Group.belongsTo(models.Venue, {foreignKey:'groupId'});
