@@ -3,16 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-   // groupId: {
-      //   type: Sequelize.INTEGER,
-      //   references: { model: 'Groups' },
-      //   onDelete: 'CASCADE'
-      // },
-      // memberId: {
-      //   type: Sequelize.INTEGER,
-      //   references: { model: 'Users' },
-      //   onDelete: 'CASCADE'
-      // },
+  
    await queryInterface.addColumn(
     'Memberships',
     'groupId',

@@ -25,7 +25,7 @@ router.post(
  
       const user = await User.login({ credential, password });
       const { id, firstName, lastName, email } = user.dataValues;
-      const token = await setTokenCookie(res, user)
+      const token = await setTokenCookie(res, user);
       
 
       if(!credential || !password) {

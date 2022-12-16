@@ -15,22 +15,27 @@ module.exports = {
       //   // onDelete: 'CASCADE'
       // },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(60),
+        allowNull:false
       },
       about: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false
       },
       type: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false
       },
       private: {
         type: Sequelize.BOOLEAN
       },
       city: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false
       },
       state: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull:false
       },
       createdAt: {
         allowNull: false,
