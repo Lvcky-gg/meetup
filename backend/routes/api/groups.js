@@ -233,7 +233,64 @@ async (req, res) => {
 
     };
 });
+//works except Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+router.delete('/:groupId/members/:memberId',
+async (req, res) => {
+    if(req.user){
+        const { groupId, memberId } = req.params;
+        const groupAssociated = await Group.findByPk(groupId,{
+            include:{model:Membership}
+        });
+        const membership =  await Membership.findAll({
+            where:{ groupId }
+        })
+       
+        if(groupAssociated){
 
+            
+            for(let i = 0; i < membership.length; i++){
+                if (membership[i].dataValues.memberId === parseInt(memberId)){
+                    console.log(membership[i].dataValues.memberId)
+                    if((membership[i].dataValues.status === "host")||membership[i].dataValues.status === "owner"){
+                        await membership[i].destroy();
+                        res.json({
+                            "message": "Successfully deleted membership from group"
+                          })
+                        
+                    }else if(membership[i].dataValues.memberId === req.user.dataValues.id){
+                        await membership[i].destroy();
+                        res.json({
+                            "message": "Successfully deleted membership from group"
+                          })
+                    }else{
+                        res.status = 403
+                        res.json({"message":"unauthorized"})
+                    }
+                }
+            }
+          
+                res.status = 404
+                res.json({
+                    "message": "Member couldn't be found",
+                    "statusCode": 404
+                  })
+            
+
+        }else{
+            res.status = 404
+            res.json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+              })
+        }
+
+        
+
+    }else{
+        res.status = 403;
+        res.json({"message":"You must be logged in to complete this action"})
+    }
+})
 
 router.delete('/:groupId/photos/:photoId',
 async (req, res) => {
