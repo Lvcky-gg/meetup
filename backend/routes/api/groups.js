@@ -7,7 +7,20 @@ const { handleValidationErrors } = require('../../utils/validation');
 const e = require('express');
 const group = require('../../db/models/group');
 
+router.get('/:groupId/members',
+async (req, res) => {
+    const { groupId } = req.params;
 
+   
+    const members = await Membership.findAll({
+        where:{ groupId }, include:{model:User}
+    })
+
+    //scope
+
+    res.json()
+
+});
 
 router.get('/',
 async (req, res) => {
@@ -16,15 +29,45 @@ async (req, res) => {
         include:{model:GroupImage}
      });
 
-    //  const numMembers = User.findAll({
-    //     where:{}
-    //  })
-    // let imgUrl;
-    //  for (let i = 0; i < groups.length; i++){
-    //     imgUrl = groups[i].dataValues.GroupImages[0].dataValues.url;
-    //     console.log(imgUrl)
-    //  }
-    res.json(groups)
+     const response  = [];
+     for(let i = 0; i < groups.length; i++){
+       let groupId = groups[i].dataValues.id;
+       let type = groups[i].dataValues.id;
+       let organizerId = groups[i].dataValues.organizerId;
+       let name = groups[i].dataValues.name;
+       let private = groups[i].dataValues.private;
+       let city = groups[i].dataValues.city;
+       let state = groups[i].dataValues.state;
+       let about = groups[i].dataValues.about;
+       let createdAt = groups[i].dataValues.createdAt;
+       let updatedAt = groups[i].dataValues.updatedAt;
+       let id = groups[i].dataValues.id;
+       let previewImage;
+       console.log(groups[i].dataValues)
+       let numMembers = await Membership.count({
+            where:{groupId}
+         });
+        if(groups[i].dataValues.GroupImages[0]){
+         previewImage = groups[i].dataValues.GroupImages[0].dataValues.url;
+        }
+        
+        response.push({
+            id,
+            organizerId,
+            name,
+            about,
+            type,
+            private,
+            city,
+            state,
+            createdAt,
+            updatedAt,
+            numMembers,
+            previewImage
+        })
+     }
+   
+    res.json(response)
 
 })
 
@@ -190,6 +233,7 @@ async (req, res) => {
 
     };
 });
+
 
 router.delete('/:groupId/photos/:photoId',
 async (req, res) => {
