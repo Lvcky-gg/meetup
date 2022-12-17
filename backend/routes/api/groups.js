@@ -22,6 +22,16 @@ async (req, res) => {
 
 });
 
+// router.get('/:groupId',
+// async (req, res) => {
+//     if(req.user){
+
+//     }else{
+//         res.status = 403;
+//         res.json({"message":"unauthorized"})
+//     }
+// })
+
 router.get('/:userId', 
 async (req, res) =>{
     if(req.user){
@@ -254,6 +264,43 @@ async (req, res) => {
     }
     res.json()
 });
+//START HERE NEXT EDIT A MEMBERSHIP
+router.put('/:groupId/members/:memberId',
+async (req, res) => {
+    if(req.user){
+        const { groupId, memberId } = req.params
+        const group = await Group.findByPk(groupId,
+            {
+                include:{model:Membership}
+            })
+            if(group){
+
+                
+                for(let i = 0; i < group.dataValues.Memberships.length; i++){
+                    console.log(group.dataValues.Memberships[i].dataValues)
+                    //for owner
+                    if(group.dataValues.organizerId === req.user.dataValues.id){
+
+                    }
+                }
+                
+            
+             
+                res.json(group)
+            }else{
+                res.status = 404;
+                res.json({
+                    "message": "Group couldn't be found",
+                    "statusCode": 404
+                  })
+            }
+        
+
+    }else{
+        res.status = 403;
+        res.json({"message":"unauthorized"})
+    }
+})
 
 router.put('/:groupId',
 async (req, res) => {
