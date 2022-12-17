@@ -22,6 +22,71 @@ async (req, res) => {
 
 });
 
+router.get('/:userId', 
+async (req, res) =>{
+    if(req.user){
+        const result = []
+        const currUser = req.user.dataValues.id;
+        const groups = await Group.findAll({
+             include:{model:Membership}
+        });
+        const images = await Group.findAll({
+            include:{model:GroupImage}
+       });
+       for(let i = 0; i < groups.length; i++){
+        const memberships = groups[i].Memberships;
+        for(let k = 0; k < memberships.length; k++){
+            console.log(memberships[k].dataValues)
+            if(memberships[k].dataValues.memberId === currUser){
+              
+                let groupId = groups[i].dataValues.id;
+                 let type = groups[i].dataValues.id;
+                 let organizerId = groups[i].dataValues.organizerId;
+                 let name = groups[i].dataValues.name;
+                  let private = groups[i].dataValues.private;
+                 let city = groups[i].dataValues.city;
+                 let state = groups[i].dataValues.state;
+                 let about = groups[i].dataValues.about;
+                 let createdAt = groups[i].dataValues.createdAt;
+                 let updatedAt = groups[i].dataValues.updatedAt;
+                 let id = groups[i].dataValues.id;
+                 let previewImage;
+                 let numMembers = await Membership.count({
+                where:{groupId}
+             });
+              if(images[i].dataValues.GroupImages[0]){
+                  previewImage = images[i].dataValues.GroupImages[0].dataValues.url;
+                 }
+        
+        result.push({
+            id,
+            organizerId,
+            name,
+            about,
+            type,
+            private,
+            city,
+            state,
+            createdAt,
+            updatedAt,
+            numMembers,
+            previewImage
+        })
+
+            }
+        }
+
+       }
+
+
+
+        res.json(result);
+    }else{
+        res.status = 403;
+        res.json({"message":"unauthorized"})
+    }
+})
+
 router.get('/',
 async (req, res) => {
     // console.log(await Group.findByPk(1))
