@@ -298,6 +298,7 @@ async (req, res) => {
 
     };
 });
+//delete membership to a group specified by Id
 //works except Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
 router.delete('/:groupId/members/:memberId',
 async (req, res) => {
@@ -318,24 +319,24 @@ async (req, res) => {
                     console.log(membership[i].dataValues.memberId)
                     if((membership[i].dataValues.status === "host")||membership[i].dataValues.status === "owner"){
                         await membership[i].destroy();
-                        res.json({
+                        return res.json({
                             "message": "Successfully deleted membership from group"
                           })
                         
                     }else if(membership[i].dataValues.memberId === req.user.dataValues.id){
                         await membership[i].destroy();
-                        res.json({
+                       return res.json({
                             "message": "Successfully deleted membership from group"
                           })
                     }else{
                         res.status = 403
-                        res.json({"message":"unauthorized"})
+                        return  res.json({"message":"unauthorized"})
                     }
                 }
             }
           
                 res.status = 404
-                res.json({
+                return  res.json({
                     "message": "Member couldn't be found",
                     "statusCode": 404
                   })
@@ -343,7 +344,7 @@ async (req, res) => {
 
         }else{
             res.status = 404
-            res.json({
+            return  res.json({
                 "message": "Group couldn't be found",
                 "statusCode": 404
               })
@@ -353,7 +354,7 @@ async (req, res) => {
 
     }else{
         res.status = 403;
-        res.json({"message":"You must be logged in to complete this action"})
+        return  res.json({"message":"You must be logged in to complete this action"})
     }
 })
 
