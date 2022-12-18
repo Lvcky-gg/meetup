@@ -268,25 +268,75 @@ async (req, res) => {
 router.put('/:groupId/members/:memberId',
 async (req, res) => {
     if(req.user){
-        const { groupId, memberId } = req.params
+        const { groupId, memberId } = req.params;
+        const { status } = req.body;
+        if(status  === "pending"){
+            res.status = 400;
+            res.json({
+                "status":res.status,
+                "message":"May not change status to pending"})
+        }
         const group = await Group.findByPk(groupId,
             {
                 include:{model:Membership}
             })
+        const members = await Membership.findAll({where:{groupId}})
             if(group){
 
                 
                 for(let i = 0; i < group.dataValues.Memberships.length; i++){
-                    console.log(group.dataValues.Memberships[i].dataValues)
-                    //for owner
+                    
+                   if(members[i].memberId === parseInt(memberId)) {
                     if(group.dataValues.organizerId === req.user.dataValues.id){
-
+                        
+                        members[i].update({ status })
+                        return res.json({
+                            "id":members[i].id,
+                            "groupId":members[i].groupId,
+                            "memberId":members[i].memberId,
+                            "status":members[i].status
+                        })
+                    }else if(req.user.dataValues.id === members[i].id){
+                        if((members[i].status === "cohost") || (members[i].status === "host")){
+                            if(status === "cohost"){
+                                res.status =  403
+                                return res.json({
+                                    "message":"must be organizer to change to co-host",
+                                    "statusCode":res.status
+                                })
+                            }
+                            members[i].update({ status })
+                            return res.json({
+                                "id":members[i].id,
+                                "groupId":members[i].groupId,
+                                "memberId":members[i].memberId,
+                                "status":members[i].status
+                            })
+                        }
+                    }else{
+                        res.status = 403;
+                        return res.json({
+                            "message":"forbidden",
+                            "statusCode":res.status
+                        })
                     }
+                   }
                 }
                 
-            
+                if(status === "cohost"){
+                    res.status =  403
+                    return res.json({
+                        "message":"must be organizer to change to co-host",
+                        "statusCode":res.status
+                    })
+                }
              
-                res.json(group)
+                res.status = 404
+                res.json({
+                    "message": "Memeber couldn't be found",
+                    "statusCode": 404
+
+                })
             }else{
                 res.status = 404;
                 res.json({
