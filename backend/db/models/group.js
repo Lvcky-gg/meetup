@@ -2,18 +2,22 @@
 const {
   Model, ForeignKeyConstraintError
 } = require('sequelize');
+// const { Membership } = require('./membership')
 module.exports = (sequelize, DataTypes) => {
   class Group extends Model {
    
     static associate(models) {
       // define association here
       Group.hasMany(models.GroupImage,{foreignKey:'groupId'});
-      Group.hasMany(models.Membership, {foreignKey:'groupId'});
+      // Group.hasMany(models.Membership, {foreignKey:'groupId'});
       Group.belongsTo(models.User, {foreignKey:'organizerId'});
       Group.hasMany(models.Event, {foreignKey:'groupId'})
       Group.hasMany(models.Venue, {foreignKey:'groupId'});
       // Group.belongsToMany(models.Venue,
       //   {through:models.group, onDelete:"CASCADE"});
+      Group.hasMany(models.Membership, {foreignKey:"groupId"})
+      Group.belongsToMany(models.User,
+        {through:models.Membership, foreignKey:"groupId", otherKey:"memberId"})
     }
   }
   Group.init({

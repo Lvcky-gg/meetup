@@ -9,11 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      // organizerId: {
-      //   type: Sequelize.INTEGER,
-      //   // references: { model: 'Users' },
-      //   // onDelete: 'CASCADE'
-      // },
       name: {
         type: Sequelize.STRING(60),
         allowNull:false

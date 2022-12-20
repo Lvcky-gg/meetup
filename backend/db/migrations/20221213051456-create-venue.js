@@ -15,7 +15,7 @@ module.exports = {
       //   // onDelete: 'CASCADE'
       // },
       address: {
-        type: Sequelize.FLOAT
+        type: Sequelize.INTEGER
       },
       city: {
         type: Sequelize.STRING

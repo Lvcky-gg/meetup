@@ -12,12 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // Venue.belongsTo(models.Event, {foreignKey:'venueId'});
       Venue.belongsTo(models.Group, {foreignKey:'groupId'});
+      // Venue.hasMany(models.Attendee, {foreignKey:'venueId'})
+      Venue.hasMany(models.Event, {foreignKey:'venueId'});
       // Venue.belongsToMany(models.Event,
-      //   {through:models.group, onDelete:"CASCADE"});
+      //   {through:models.Attendee, onDelete:"CASCADE", foreignKey:'venueId' });
     }
   }
   Venue.init({
-    address: DataTypes.FLOAT,
+    address: DataTypes.INTEGER,
     city: DataTypes.STRING,
     state: DataTypes.STRING,
     lat: DataTypes.DECIMAL,

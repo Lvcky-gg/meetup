@@ -9,16 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      // groupId: {
-      //   type: Sequelize.INTEGER,
-      //   references: { model: 'Groups' },
-      //   onDelete: 'CASCADE'
-      // },
-      // memberId: {
-      //   type: Sequelize.INTEGER,
-      //   references: { model: 'Users' },
-      //   onDelete: 'CASCADE'
-      // },
       status: {
         type: Sequelize.STRING
       },

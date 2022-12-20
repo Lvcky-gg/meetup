@@ -1,52 +1,130 @@
 const router = require('express').Router();
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Group, GroupImage, Membership } = require('../../db/models');
+const { User, Group, GroupImage, Membership, Venue, Attendee, EventImage, Event } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const e = require('express');
 const group = require('../../db/models/group');
+//get all members of a group specified by Id
+
+router.get('/:groupId/events',
+async (req, res) =>{
+    const { groupId } = req.params;
+    const result = [];
+    const currGroup = await Group.findByPk(groupId)
+  if(currGroup){ 
+    const events = await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}], where:{groupId}})
+    for(let i = 0; i < events.length; i++){
+        // console.log(events[0].dataValues)
+        let id = events[0].dataValues.id;
+        let groupId =events[0].dataValues.groupId;
+        let venueId = events[0].dataValues.venueId;
+        let name = events[0].dataValues.name;
+        let type = events[0].dataValues.type;
+        let startDate = events[0].dataValues.startDate;
+        let endDate = events[0].dataValues.endDate;
+        let numAttending = await Attendee.count({where:events[0].dataValues.id})
+        let previewImage;
+        if(events[0].EventImages[0])previewImage = events[0].EventImages[0].dataValues.url
+        let group = {
+            "id":events[0].dataValues.Group.dataValues.id,
+            "name":events[0].dataValues.Group.dataValues.name,
+            "city":events[0].dataValues.Group.dataValues.city,
+            "State":events[0].dataValues.Group.dataValues.state
+        };
+        let venue = {
+            "id":events[0].dataValues.Venue.dataValues.id,
+            "city":events[0].dataValues.Venue.dataValues.city,
+            "state":events[0].dataValues.Venue.dataValues.state
+        }
+        result.push({id, groupId, venueId, name, type, startDate, endDate, numAttending, previewImage, group, venue})
+    }
+    
+    return res.json(result)
+}else{
+    res.status = 404;
+    res.json( {
+        "message": "Group couldn't be found",
+        "statusCode": 404
+      })
+}
+});
+
 
 router.get('/:groupId/members',
 async (req, res) => {
     const { groupId } = req.params;
 
-   
+   const result = []
     const members = await Membership.findAll({
         where:{ groupId }, include:{model:User}
     })
-
-    //scope
-
-    res.json()
+    // console.log(req.user.dataValues.id)
+    const currentGroup = await Group.findByPk(groupId)
+if(currentGroup){
+    for(let i = 0; i < members.length; i++){
+        
+        if((members[i].dataValues.status === 'co-host') || (req.user.dataValues.id === currentGroup.organizerId)){
+            if(req.user.dataValues.id === members[i].dataValues.memberId){
+                 res.status = 200;
+                 let  id = members[i].dataValues.User.dataValues.id;
+                 let firstName = members[i].dataValues.User.dataValues.firstName;
+                 let lastName = members[i].dataValues.User.dataValues.lastName;
+                 let status = members[i].dataValues.status;
+                 result.push({
+                    id,
+                    firstName,
+                    lastName,
+                    status
+                })
+                
+            }
+        }
+        if(members[i].dataValues.status !== "pending" ){
+           let  id = members[i].dataValues.User.dataValues.id;
+            let firstName = members[i].dataValues.User.dataValues.firstName;
+            let lastName = members[i].dataValues.User.dataValues.lastName;
+            let status = members[i].dataValues.status;
+            result.push({
+                id,
+                firstName,
+                lastName,
+                status
+            })
+        }
+    }
+       
+    
+        res.json(result)
+    
+}else{
+    res.status = 404;
+    res.json({
+        "message": "Group couldn't be found",
+        "statusCode": 404
+      })
+}
 
 });
 
-// router.get('/:groupId',
-// async (req, res) => {
-//     if(req.user){
-
-//     }else{
-//         res.status = 403;
-//         res.json({"message":"unauthorized"})
-//     }
-// })
-
-router.get('/:userId', 
+router.get('/users/:userId', 
 async (req, res) =>{
     if(req.user){
         const result = []
         const currUser = req.user.dataValues.id;
+        // const groups = await Membership.findAll()
         const groups = await Group.findAll({
-             include:{model:Membership}
+            include:[{model:Membership}]
         });
         const images = await Group.findAll({
             include:{model:GroupImage}
        });
+    //    console.log(groups)
        for(let i = 0; i < groups.length; i++){
         const memberships = groups[i].Memberships;
         for(let k = 0; k < memberships.length; k++){
-            console.log(memberships[k].dataValues)
+            // console.log(memberships[k].dataValues)
             if(memberships[k].dataValues.memberId === currUser){
               
                 let groupId = groups[i].dataValues.id;
@@ -97,6 +175,45 @@ async (req, res) =>{
     }
 })
 
+router.get('/:groupId',
+async (req, res) => {
+    const {groupId} = req.params
+
+ 
+ const numMembers = await Membership.count({where:{ groupId }});
+ const currentGroup = await Group.findByPk(groupId, {
+    include:{model:GroupImage}
+ });
+ if(currentGroup){
+ const organizer = await User.findByPk(currentGroup.organizerId);
+ const venues = await Venue.findAll({
+    where:{groupId}
+ })
+console.log(numMembers)
+ res.json({
+    id:currentGroup.id,
+    organizerId:currentGroup.organizerId,
+    name:currentGroup.name,
+    about:currentGroup.about,
+    type:currentGroup.type,
+    private:currentGroup.private,
+    city:currentGroup.city,
+    state:currentGroup.state,
+    createdAt:currentGroup.createdAt,
+    updatedAt:currentGroup.updatedAt,
+    GroupImages:currentGroup.GroupImages,
+    Organizer:organizer,
+    Venues:venues
+ })
+}else{
+    res.status = 404;
+    res.json( {
+        "message": "Group couldn't be found",
+        "statusCode": 404
+      })
+}
+})
+
 router.get('/',
 async (req, res) => {
     // console.log(await Group.findByPk(1))
@@ -118,7 +235,6 @@ async (req, res) => {
        let updatedAt = groups[i].dataValues.updatedAt;
        let id = groups[i].dataValues.id;
        let previewImage;
-       console.log(groups[i].dataValues)
        let numMembers = await Membership.count({
             where:{groupId}
          });
@@ -297,8 +413,8 @@ async (req, res) => {
                             "status":members[i].status
                         })
                     }else if(req.user.dataValues.id === members[i].id){
-                        if((members[i].status === "cohost") || (members[i].status === "host")){
-                            if(status === "cohost"){
+                        if((members[i].status === "co-host") || (members[i].status === "host")){
+                            if(status === "co-host"){
                                 res.status =  403
                                 return res.json({
                                     "message":"must be organizer to change to co-host",
@@ -323,7 +439,7 @@ async (req, res) => {
                    }
                 }
                 
-                if(status === "cohost"){
+                if(status === "co-host"){
                     res.status =  403
                     return res.json({
                         "message":"must be organizer to change to co-host",

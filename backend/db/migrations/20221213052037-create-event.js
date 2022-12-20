@@ -9,30 +9,27 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      // venueId: {
-      //   type: Sequelize.INTEGER,
-      //   references: { model: 'Venues' },
-      //   onDelete: 'CASCADE'
-      // },
-      // groupId: {
-      //   type: Sequelize.INTEGER,
-      //   references: { model: 'Users' },
-      //   onDelete: 'CASCADE'
-      // },
+
       name: {
-        type: Sequelize.FLOAT
+        type: Sequelize.STRING
       },
       type: {
-        type: Sequelize.FLOAT
+        type: Sequelize.STRING
       },
       capacity: {
         type: Sequelize.NUMERIC
+      },
+      startDate:{
+        type:Sequelize.DATE
+      },
+      endDate:{
+        type:Sequelize.DATE
       },
       price: {
         type: Sequelize.DECIMAL
       },
       description: {
-        type: Sequelize.FLOAT
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

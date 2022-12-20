@@ -1,7 +1,9 @@
 'use strict';
 const {
-  Model
+  Model, INTEGER
 } = require('sequelize');
+const Group = require('./group');
+const User = require('./user')
 module.exports = (sequelize, DataTypes) => {
   class Membership extends Model {
     /**
@@ -15,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Membership.init({
-    status: DataTypes.STRING
+    status: DataTypes.STRING,
+    groupId:{type:DataTypes.INTEGER,references:{model:Group, key:"id"}},
+    memberId:{type:DataTypes.INTEGER,references:{model:User, key:"id"}}
   }, {
     sequelize,
     modelName: 'Membership',
