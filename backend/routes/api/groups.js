@@ -272,7 +272,7 @@ async (req, res) => {
         const { status } = req.body;
         if(status  === "pending"){
             res.status = 400;
-            res.json({
+            return res.json({
                 "status":res.status,
                 "message":"May not change status to pending"})
         }
@@ -332,14 +332,13 @@ async (req, res) => {
                 }
              
                 res.status = 404
-                res.json({
-                    "message": "Memeber couldn't be found",
+                return res.json(  {
+                    "message": "Membership between the user and the group does not exits",
                     "statusCode": 404
-
-                })
+                  })
             }else{
                 res.status = 404;
-                res.json({
+                return res.json({
                     "message": "Group couldn't be found",
                     "statusCode": 404
                   })
@@ -348,7 +347,7 @@ async (req, res) => {
 
     }else{
         res.status = 403;
-        res.json({"message":"unauthorized"})
+        return res.json({"message":"unauthorized"})
     }
 })
 
