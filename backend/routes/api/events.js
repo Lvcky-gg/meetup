@@ -6,6 +6,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const e = require('express');
 const attendee = require('../../db/models/attendee');
 
+
 router.get('/', 
 async (req, res) =>{
 
@@ -14,26 +15,26 @@ async (req, res) =>{
         const events = await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}]})
         for(let i = 0; i < events.length; i++){
             // console.log(events[0].dataValues)
-            let id = events[0].dataValues.id;
-            let groupId =events[0].dataValues.groupId;
-            let venueId = events[0].dataValues.venueId;
-            let name = events[0].dataValues.name;
-            let type = events[0].dataValues.type;
-            let startDate = events[0].dataValues.startDate;
-            let endDate = events[0].dataValues.endDate;
-            let numAttending = await Attendee.count({where:events[0].dataValues.id})
+            let id = events[i].dataValues.id;
+            let groupId =events[i].dataValues.groupId;
+            let venueId = events[i].dataValues.venueId;
+            let name = events[i].dataValues.name;
+            let type = events[i].dataValues.type;
+            let startDate = events[i].dataValues.startDate;
+            let endDate = events[i].dataValues.endDate;
+            let numAttending = await Attendee.count({where:events[i].dataValues.id})
             let previewImage;
-            if(events[0].EventImages[0])previewImage = events[0].EventImages[0].dataValues.url
+            if(events[i].EventImages[0])previewImage = events[i].EventImages[0].dataValues.url
             let group = {
-                "id":events[0].dataValues.Group.dataValues.id,
-                "name":events[0].dataValues.Group.dataValues.name,
-                "city":events[0].dataValues.Group.dataValues.city,
-                "State":events[0].dataValues.Group.dataValues.state
+                "id":events[i].dataValues.Group.dataValues.id,
+                "name":events[i].dataValues.Group.dataValues.name,
+                "city":events[i].dataValues.Group.dataValues.city,
+                "State":events[i].dataValues.Group.dataValues.state
             };
             let venue = {
-                "id":events[0].dataValues.Venue.dataValues.id,
-                "city":events[0].dataValues.Venue.dataValues.city,
-                "state":events[0].dataValues.Venue.dataValues.state
+                "id":events[i].dataValues.Venue.dataValues.id,
+                "city":events[i].dataValues.Venue.dataValues.city,
+                "state":events[i].dataValues.Venue.dataValues.state
             }
             result.push({id, groupId, venueId, name, type, startDate, endDate, numAttending, previewImage, group, venue})
         }
@@ -113,7 +114,6 @@ async (req, res)=>{
                     console.log(venueId)
                     event.update({
                         venueId,
-                        // groupId,
                         name,
                         type,
                         capacity,
@@ -152,6 +152,70 @@ async (req, res)=>{
         
 
         // res.json()
+
+    }else{
+        res.status = 403;
+        res.json({
+            "status":403,
+            "message":"Unauthorized"
+        })
+    }
+})
+
+
+
+router.post('/:eventId/attendees', 
+async (req, res) =>{
+
+    if(req.user){
+        const { eventId } = req.params;
+        const eventAssociated = await Event.findByPk(eventId, {include:{model:Attendee}})
+        const { userId, status} = req.body;
+
+        if(eventAssociated){
+            console.log(eventAssociated)
+
+          for(let i = 0; i < eventAssociated.Attendees.length; i++ ){
+            // console.log((eventAssociated.Attendees[i].dataValues.userId === req.user.dataValues.id))
+            if( (eventAssociated.Attendees[i].dataValues.eventId === parseInt(eventId))){
+                if(eventAssociated.Attendees[i].dataValues.status === "pending"){
+                    res.status = 400;
+                   return res.json({
+                        "message": "Attendance has already been requested",
+                        "statusCode": 400
+                      })
+                }else if(eventAssociated.Attendees[i].dataValues.status === "accepted"){
+                    res.status = 400;
+                   return res.json( {
+                        "message": "User is already an attendee of the event",
+                        "statusCode": 400
+                      })
+                }
+                  
+                
+            }
+          }
+          const attendee = await Attendee.create({
+            eventId,
+            userId,
+            status
+        })
+        return res.json({
+            eventId:attendee.eventId,
+            userId:attendee.userId,
+            status:attendee.status
+        })
+        
+        }else{
+            res.status = 404;
+            res.json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+              })
+
+        }
+
+        res.json()
 
     }else{
         res.status = 403;
