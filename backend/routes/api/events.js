@@ -88,29 +88,32 @@ async (req, res)=>{
     if(req.user){
 
         const { eventId } = req.params;
-        const event = await Event.findByPk(eventId, {include:[{model:Group}]});
+        const event = await Event.findByPk(parseInt(eventId), {include:[{model:Group}]});
         const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body;
 
         if(event){
         const groupId = event.Group.dataValues.id
         const memberships = await Membership.findAll({where:{groupId}});
        
-        const venue = await Venue.findByPk(event.dataValues.venueId);
+        const venue = await Venue.findByPk(venueId);
         
-        if(!venue && (venue != null)){
+        
+        if(!venue  && (venueId != null)){
             res.status = 404
            return res.json({
                 "message": "Venue couldn't be found",
                 "statusCode": 404
               })
-            }
+            
+        }
         for(let i = 0; i < memberships.length; i++){
             
             if(req.user.dataValues.id === memberships[i].dataValues.memberId){
-                if((memberships[i].dataValues.status === "host")||(memberships[i].dataValues.status === "co-host")){
+                if((memberships[i].dataValues.status === "accepted")||(memberships[i].dataValues.status === "co-host")){
+                    console.log(venueId)
                     event.update({
                         venueId,
-                        groupId,
+                        // groupId,
                         name,
                         type,
                         capacity,
