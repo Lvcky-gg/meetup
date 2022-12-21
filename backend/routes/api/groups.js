@@ -262,6 +262,56 @@ async (req, res) => {
 
 })
 
+router.post('/:groupId/events',
+async (req, res) =>{
+    if(req.user){
+        const { groupId } = req.params;
+        const { venueId, name, type, capacity, price, description, startDate, endDate} = req.body;
+
+        const currentGroup =await Group.findByPk(groupId, {include:{model:Membership}});
+        if(currentGroup){
+        
+        for(let i = 0 ; i < currentGroup.Memberships.length; i++){
+            
+            if(currentGroup.Memberships[i].dataValues.memberId === req.user.dataValues.id){
+                if((currentGroup.Memberships[i].dataValues.status === "host")||(currentGroup.Memberships[i].dataValues.status === "co-host")){
+                    const event = await Event.create({
+                        venueId,groupId, name, type, capacity, price, description, startDate, endDate
+                    })
+                    return res.json({
+                        id:event.id,
+                        groupId:event.groupId,
+                        name:event.name,
+                        type:event.type,
+                        capacity:event.capacity,
+                        description:event.description,
+                        startDate:event.startDate,
+                        endDate:event.endDate
+                    })
+                }
+
+            }
+        }
+    }else{
+        res.status = 404;
+        res.json({
+            "message": "Group couldn't be found",
+            "statusCode": 404
+          })
+    }
+      
+
+        res.json()
+    }else{
+        res.status = 403;
+        res.json({
+            "status":403,
+            "message":"Unauthorized"
+        })
+    }
+
+})
+
 router.post('/:groupId/members',
 async (req, res) => {
     // console.log(req.user)

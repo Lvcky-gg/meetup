@@ -81,6 +81,82 @@ async (req, res) => {
             "message":"Must be logged in"
         })
     }
+});
+//issues
+router.put('/:eventId', 
+async (req, res)=>{
+    if(req.user){
+
+        const { eventId } = req.params;
+        const event = await Event.findByPk(eventId, {include:[{model:Group}]});
+        const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body;
+
+        if(event){
+        const groupId = event.Group.dataValues.id
+        const memberships = await Membership.findAll({where:{groupId}});
+       
+        const venue = await Venue.findByPk(event.dataValues.venueId);
+        
+        if(!venue && (venue != null)){
+            res.status = 404
+           return res.json({
+                "message": "Venue couldn't be found",
+                "statusCode": 404
+              })
+            }
+        for(let i = 0; i < memberships.length; i++){
+            
+            if(req.user.dataValues.id === memberships[i].dataValues.memberId){
+                if((memberships[i].dataValues.status === "host")||(memberships[i].dataValues.status === "co-host")){
+                    event.update({
+                        venueId,
+                        groupId,
+                        name,
+                        type,
+                        capacity,
+                        price,
+                        description,
+                        startDate,
+                        endDate
+                    })
+                    return res.json({
+                        id:event.id,
+                        groupId:event.groupId,
+                        venueId:event.venueId,
+                        name:event.name,
+                        type:event.type,
+                        capacity:event.capacity,
+                        price:event.price,
+                        description:event.description,
+                        startDate:event.startDate,
+                        endDate:event.endDate
+                    })
+                    
+                }
+            }
+            return res.json({
+                "message":"Must be host or cohost to update"
+            })
+        }
+        }else{
+            res.status = 404;
+            res.json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+              })
+            
+        }
+        
+
+        // res.json()
+
+    }else{
+        res.status = 403;
+        res.json({
+            "status":403,
+            "message":"Unauthorized"
+        })
+    }
 })
 
 module.exports = router;

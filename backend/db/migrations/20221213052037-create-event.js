@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       capacity: {
-        type: Sequelize.NUMERIC
+        type: Sequelize.INTEGER
       },
       startDate:{
         type:Sequelize.DATE
