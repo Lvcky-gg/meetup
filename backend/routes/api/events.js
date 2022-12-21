@@ -92,6 +92,73 @@ async (req, res) =>{
    
 });
 
+router.delete('/:eventId/attendees/:attendeeId',
+async (req, res) => {
+if(req.user){
+    const { eventId, attendeeId } = req.params;
+    const currEvent = await Event.findByPk(eventId)
+    
+    if(currEvent){
+       
+    const currGroup = await Group.findByPk(currEvent.dataValues.groupId, {include:{model:Membership}})
+    if(!currGroup){
+        res.status = 404;
+        return res.json({
+            "message": "Group couldn't be found",
+            "statusCode": 404
+          })
+    
+    }
+    const memberships = currGroup.Memberships;
+    const userId = parseInt(attendeeId);
+    const attendee = await Attendee.findOne({where:{eventId:currEvent.dataValues.id,userId  }})
+    if(!attendee){
+        res.status = 404;
+        return res.json({
+            "message": "Attendance does not exist for this User",
+            "statusCode": 404
+          })
+    
+    }
+    
+    for(let i = 0; i < memberships.length; i++){
+        const member = memberships[i];
+        
+        if(req.user.dataValues.id === member.dataValues.memberId){
+            if((member.dataValues.status === "host") ||(member.dataValues.status === "co-host")){
+                await attendee.destroy()
+                res.status = 200;
+                return res.json({
+                    "message": "Successfully deleted attendance from event"
+                  })
+                
+                
+            }
+
+        }
+    }
+    res.status =403
+    return res.json({
+        "message": "Only the User or organizer may delete an Attendance",
+        "statusCode": 403
+      })
+    }else{
+        res.status = 404;
+        return res.json({
+            "message": "Event couldn't be found",
+            "statusCode": 404
+          })
+    }
+    
+}else{
+        res.status = 403;
+        res.json({
+            "status":403,
+            "message":"Must be logged in"
+        })
+    }
+})
+
 router.delete('/:eventId',
 async (req, res) => {
     if(req.user){
@@ -270,6 +337,53 @@ async (req, res)=>{
 })
 
 
+router.post('/:eventId/photos',
+async (req, res) =>{
+    if(req.user){
+        const { eventId } = req.params;
+        const { url, preview } = req.body;
+        const currEvent = await Event.findByPk(eventId, {include:{model:Attendee}});
+        if(currEvent){
+
+            for(let i = 0; i < currEvent.Attendees.length; i++){
+               
+                if(currEvent.Attendees[i].dataValues.userId === req.user.dataValues.id){
+
+                    const photo = await EventImage.create({
+                        url,
+                        preview,
+                        eventId
+                    })
+                    return res.json({
+                        id:photo.id,
+                        url,
+                        preview
+                    })
+                }
+            }
+            res.status=403
+            return res.json({
+                "message":"Must be member of event to submit photo",
+                "status":403
+            })
+        }else{
+            res.status = 404;
+            res.json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+              })
+        }
+
+    
+    }else{
+        res.status = 403;
+        res.json({
+            "status":403,
+            "message":"Unauthorized"
+        })
+    }
+
+});
 
 router.post('/:eventId/attendees', 
 async (req, res) =>{

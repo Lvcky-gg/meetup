@@ -382,30 +382,41 @@ async (req, res) => {
 
         const { url, preview } = req.body;
 
-        const groupAssociated = await Group.findByPk(groupId)
+        const groupAssociated = await Group.findByPk(groupId, {include:{model:Membership}})
     if(groupAssociated){
         console.log(groupAssociated.dataValues)
-        if(req.user.dataValues.id === groupAssociated.dataValues.organizerId ){
+        for(let i = 0; i < groupAssociated.Memberships.length; i++){
+            // console.log(groupAssociated.Memberships[i].dataValues.memberId)
+        if(req.user.dataValues.id === groupAssociated.Memberships[i].dataValues.memberId){
             const photo = await GroupImage.create({
                 url, 
                 preview,
                 groupId
             })
     
-            res.json({
+            return res.json({
                 id:photo.id,
                 url,
                 preview
             });
         }
+    }
+    res.status = 403
+    return res.json({
+        "message":"Must be member of group to add photo",
+        "status":403
+    })
     }else{
         res.status= 404;
-        res.json({
+        return res.json({
             "message": "Group couldn't be found",
             "statusCode": 404
           })
     }
        
+    }else{
+        res.status = 403
+        res.json({"message":"unauthorized"})
     }
     
 })
