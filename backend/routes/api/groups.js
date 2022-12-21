@@ -630,44 +630,47 @@ async (req, res) => {
         return  res.json({"message":"You must be logged in to complete this action"})
     }
 })
-
+//add host and cohost to delete perms
 router.delete('/:groupId/photos/:photoId',
 async (req, res) => {
 if(req.user){
     const { groupId, photoId } = req.params;
     const groupAssociated = await Group.findByPk(groupId,{
-        include:{model:GroupImage}
+        include:[{model:GroupImage}, {model:Membership}]
     });
-    console.log(req.user.dataValues.id)
+    const currPhoto = await GroupImage.findByPk(photoId)
+    if(!currPhoto){
+        res.status = 404;
+      return  res.json( {
+            "message": "Event Image couldn't be found",
+            "statusCode": 404
+          })
+    }
 
-    if (req.user.dataValues.id === groupAssociated.dataValues.organizerId){
+  
         
-        for(let i = 0; i < groupAssociated.GroupImages.length; i++){
-            const groupImage = groupAssociated.GroupImages[i];
-            console.log(groupImage.dataValues.id)
+        for(let i = 0; i < groupAssociated.Memberships.length; i++){
         
-            if(groupImage.dataValues.id === parseInt(photoId)){
+            console.log(groupAssociated.Memberships[i].dataValues.memberId)
+    
+    
+            if(req.user.dataValues.id === groupAssociated.Memberships[i].dataValues.memberId){
+                if((groupAssociated.Memberships[i].dataValues.status === "host")||(groupAssociated.Memberships[i].dataValues.status === "co-host")){
                 groupImage.destroy();
                 res.status = 200;
-                res.json({
+                return res.json({
                     "message": "Successfully deleted",
                     "statusCode": 200
                   });
+                }
             }
 
         }
         res.status = 404
-        res.json({
-            "message":"Photo is not present"
+       return res.json({
+            "message":"Must be host or co-host to delete image"
         });
-    }else{
-        res.status = 403
-        res.json({
-            "message":"Must be group organizer to delete image"
-        })
-    }
-
-    res.json()
+   
 }else{
     res.status = 403;
     res.json({"message":"User must be logged in to use this feature"})
