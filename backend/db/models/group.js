@@ -85,8 +85,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         len:[2,2]
       }
-    }
-  }, {
+    },
+    organizerId:{type:DataTypes.INTEGER} 
+
+  },
+  {
     sequelize,
     modelName: 'Group',
   });

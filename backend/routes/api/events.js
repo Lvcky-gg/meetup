@@ -7,6 +7,55 @@ const e = require('express');
 const attendee = require('../../db/models/attendee');
 
 
+router.get('/:eventId/attendees', 
+async (req, res) =>{
+    const { eventId } = req.params;
+    const result = [];
+    const currEvent = await Event.findByPk(eventId)
+    if(currEvent){
+        const attendees = await Attendee.findAll({include:[{model:User}], where:{eventId}});
+
+        for(let i = 0; i < attendees.length; i++){
+  
+                let id = attendees[i].User.dataValues.id;
+                let firstName = attendees[i].User.dataValues.firstName;
+                let lastName = attendees[i].User.dataValues.lastName;
+                let attendance = {
+                    "status":attendees[i].dataValues.status
+
+                }
+              
+                if(req.user.dataValues.id === attendees[i].dataValues.userId){
+                    if((attendees[i].dataValues.status === "co-host")||(attendees[i].dataValues.status === "host")){
+                       result.push({
+                        id,
+                        firstName,
+                        lastName,
+                        attendance
+                       })
+                    }
+                }
+                if(attendees[i].dataValues.status !== "pending"){
+                    result.push({
+                        id,
+                        firstName,
+                        lastName,
+                        attendance
+                       })
+                
+            }
+        }
+        res.json(result)
+    }else{
+        res.status = 404;
+        res.json( {
+            "message": "Event couldn't be found",
+            "statusCode": 404
+          })
+    }
+    
+})
+
 router.get('/', 
 async (req, res) =>{
 
@@ -84,6 +133,64 @@ async (req, res) => {
     }
 });
 //issues
+router.put('/:eventId/attendees',
+async (req, res) =>{
+    if(req.user){
+        const { eventId } = req.params;
+        const event = await Event.findByPk(eventId, {include:{model:Group}})
+        const { userId, status } = req.body;
+        if(status === "pending"){
+            res.status = 400;
+            return res.json({
+                "message": "Cannot change an attendance status to pending",
+                "statusCode": 400
+              })
+        }
+        
+        const memberId = event.Group.dataValues.organizerId
+        const  organizer = await Membership.findAll({where:{memberId, groupId:event.dataValues.groupId}})
+        const attendee = await Attendee.findAll({where:{eventId}})
+        if(!attendee){
+            res.status = 404;
+            res.json({
+                "message": "Attendance between the user and the event does not exist",
+                "statusCode": 404
+              })
+        }
+        for(let i = 0; i < attendee.length; i++){
+        if((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "accepted")){
+            if(req.user.dataValues.id === organizer[i].dataValues.memberId){
+                await attendee[i].update({
+                    userId,
+                    status
+                })
+                // console.log(userId)
+                return res.json({
+                    id:attendee[i].dataValues.id,
+                    eventId:attendee[i].dataValues.eventId,
+                    userId,
+                    status
+                })
+                
+            }
+        }
+     }
+     res.status=403
+        res.json({
+            "status":403,
+            "message":"must be host or co-host to change attendance to member"
+        })
+
+    }else{
+        res.status = 404;
+        res.json({
+            "message": "Event couldn't be found",
+            "statusCode": 404
+          })
+    }
+
+});
+
 router.put('/:eventId', 
 async (req, res)=>{
     if(req.user){
@@ -178,6 +285,7 @@ async (req, res) =>{
           for(let i = 0; i < eventAssociated.Attendees.length; i++ ){
             // console.log((eventAssociated.Attendees[i].dataValues.userId === req.user.dataValues.id))
             if( (eventAssociated.Attendees[i].dataValues.eventId === parseInt(eventId))){
+                console.log(eventAssociated.Attendees[i])
                 if(eventAssociated.Attendees[i].dataValues.status === "pending"){
                     res.status = 400;
                    return res.json({
