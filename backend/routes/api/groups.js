@@ -468,6 +468,7 @@ async (req, res) => {
         for(let i = 0; i < groupAssociated.Memberships.length; i++){
             // console.log(groupAssociated.Memberships[i].dataValues.memberId)
         if(req.user.dataValues.id === groupAssociated.Memberships[i].dataValues.memberId){
+            console.log(req.user.dataValues.id)
             const photo = await GroupImage.create({
                 url, 
                 preview,
@@ -506,6 +507,7 @@ async (req, res) => {
     if(req.user){
         
         const {name, about, type, private, city, state} = req.body;
+        
         const organizerId = req.user.dataValues.id;
         const group = await Group.create({
             name,

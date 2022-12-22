@@ -451,7 +451,7 @@ Create and return a new image for a group specified by id.
 * Require proper authorization: Current User must be the organizer for the group
 * Request
   * Method: POST
-  * URL: /groups/:groupId/photos
+  * URL: /groups/:groupId/images
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1384,7 +1384,7 @@ Request a new membership for a group specified by id.
 * Require Authentication: true
 * Request
   * Method: POST
-  * URL: /groups/:groupId/members
+  * URL: /groups/:groupId/membership
   * Headers:
     * Content-Type: application/json
   * Body: none
@@ -1456,7 +1456,7 @@ Change the status of a membership for a group specified by id.
     * Current User must already be the organizer
 * Request
   * Method: PUT
-  * URL: /groups/:groupId/members/:memberId
+  * URL: /groups/:groupId/membership/:memberId
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1718,7 +1718,7 @@ Request attendance for an event specified by id.
 * Require Authorization: Current User must be a member of the group
 * Request
   * Method: POST
-  * URL: /events/:eventId/attendees
+  * URL: /events/:eventId/attendance
   * Headers:
     * Content-Type: application/json
   * Body: none
@@ -1861,7 +1861,7 @@ Delete an attendance to an event specified by id.
   the user whose attendance is being deleted
 * Request
   * Method: DELETE
-  * URL: /events/:eventId/attendees
+  * URL: /events/:eventId/attendance
   * Headers:
     * Content-Type: application/json
   * Body:
