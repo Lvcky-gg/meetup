@@ -111,10 +111,71 @@ async (req, res)=>{
 
 router.get('/', 
 async (req, res) =>{
+    let { page, size, name, type, startDate} = req.query;
+    const errors = [];
 
+
+    page = parseInt(page);
+    size = parseInt(size);
     
+    if(page && (page < 0)){
+        errors.push("Page must be greater than or equal to 0")
+    }
+    if(size && (size < 0)){
+        errors.push("Size must be greater than or equal to 0")
+    }
+    if(name && (parseInt(name))){
+        errors.push("Name must be a string")
+    }
+    if(type && !((type.toLowerCase() === "online")||(type.toLowerCase() === "in person"))){
+        errors.push("Type must be 'Online' or 'In Person'")
+    }
+    if(startDate){
+            let date = new Date(startDate)
+
+        if(date.toString() === "Invalid Date"){
+
+            errors.push("Start date must be a valid datetime")
+        }
+    }
+
+
+    if(errors.length > 0){
+    res.status = 400;
+    return res.json({
+        "message": "Validation Error",
+        "statusCode": 400,
+        errors
+    })
+    }
+    if(isNaN(page))page = 0;
+    if(isNaN(size))size = 20;
+    if(size > 20)size = 20;
+    
+    let events = await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1)});
     const result = []
-        const events = await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}]})
+       if(name){
+       events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where:{name}});
+       }
+       if(type){
+        events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where:{type}});
+       }
+       if(startDate){
+        events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where:{startDate}});
+       }
+       if(name && type){
+        events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where:{name, type}});
+       }
+       if(name && startDate){
+        events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where:{name, startDate}});
+       }
+       if(startDate && type){
+        events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where:{type, startDate}});
+       }
+       if(name && startDate && type){
+        events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where:{name, startDate, type}});
+       }
+
         for(let i = 0; i < events.length; i++){
             // console.log(events[0].dataValues)
             let id = events[i].dataValues.id;
@@ -141,7 +202,7 @@ async (req, res) =>{
             result.push({id, groupId, venueId, name, type, startDate, endDate, numAttending, previewImage, group, venue})
         }
         
-        res.json(result)
+        res.json({result, page, size})
    
 });
 router.delete('/:eventId/photos/:photoId',
