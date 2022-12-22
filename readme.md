@@ -52,7 +52,7 @@ Returns the information about the current user that is logged in.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /users/:id
+  * URL: /users
   * Body: none
 
 * Successful Response when there is a logged in user
@@ -93,7 +93,7 @@ information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /users/:id/login
+  * URL: /session
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -162,7 +162,7 @@ user's information.
 * Require Authentication: false
 * Request
   * Method: POST
-  * URL: /users/signup
+  * URL: /users
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -275,7 +275,7 @@ Returns all the groups.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /groups/:userId
+  * URL: /groups/users/:userId
   * Body: none
 
 * Successful Response
@@ -451,7 +451,7 @@ Create and return a new image for a group specified by id.
 * Require proper authorization: Current User must be the organizer for the group
 * Request
   * Method: POST
-  * URL: /groups/:groupId/photo
+  * URL: /groups/:groupId/photos
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -615,7 +615,7 @@ Returns all venues for a group specified by its id
   the group with a status of "co-host"
 * Request
   * Method: GET
-  * URL: groups/venues/:venueId
+  * URL: groups/:goupId/venues
   * Headers:
     * Content-Type: application/json
   * Body: none
@@ -665,7 +665,7 @@ Creates and returns a new venue for a group specified by its id
   the group with a status of "co-host"
 * Request
   * Method: POST
-  * URL: groups/venues/:venueId
+  * URL: groups/:groupId/venues
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -878,7 +878,7 @@ Returns all the events of a group specified by its id
 * Require Authentication: false
 * Request
   * Method: GET
-  * URL: /groups/events/:eventId
+  * URL: /groups/:groupId/events
   * Body: none
 
 * Successful Response
@@ -1028,7 +1028,7 @@ Creates and returns a new event for a group specified by its id
   the group with a status of "co-host"
 * Request
   * Method: POST
-  * URL: /events/groups/:groupId
+  * URL: /groups/:groupId/events
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1111,7 +1111,7 @@ Create and return a new image for an event specified by id.
 * Require proper authorization: Current User must be an attendee of the event
 * Request
   * Method: POST
-  * URL: /events/:eventId/addImg
+  * URL: /events/:eventId/photos
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1718,7 +1718,7 @@ Request attendance for an event specified by id.
 * Require Authorization: Current User must be a member of the group
 * Request
   * Method: POST
-  * URL: /events/:eventId/attendees/add
+  * URL: /events/:eventId/attendees
   * Headers:
     * Content-Type: application/json
   * Body: none
@@ -1786,7 +1786,7 @@ Change the status of an attendance for an event specified by id.
   have a membership to the group with the status of "co-host"
 * Request
   * Method: PUT
-  * URL: /events/:eventId/attendees/:attendeeId
+  * URL: /events/:eventId/attendees
   * Headers:
     * Content-Type: application/json
   * Body:
@@ -1861,7 +1861,7 @@ Delete an attendance to an event specified by id.
   the user whose attendance is being deleted
 * Request
   * Method: DELETE
-  * URL: /events/:eventId/attendees/:attendeeId
+  * URL: /events/:eventId/attendees
   * Headers:
     * Content-Type: application/json
   * Body:

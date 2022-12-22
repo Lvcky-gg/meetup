@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -37,5 +36,6 @@
     "dotenv-cli": "^6.0.0",
     "nodemon": "^2.0.20",
     "sqlite3": "^5.1.2"
-  }
+  },
+  "description": ""
 }
