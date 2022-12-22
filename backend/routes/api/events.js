@@ -56,6 +56,59 @@ async (req, res) =>{
     
 })
 
+router.get('/:eventId', 
+async (req, res)=>{
+    const { eventId } = req.params;
+    const event = await Event.findByPk(eventId, {include:[{model:Group},{model:Venue}, {model:EventImage}]});
+    if(!event){
+        res.status = 404;
+       return res.json({
+            "message": "Event couldn't be found",
+            "statusCode": 404
+          })
+    }
+    const EventImages = []
+    const numAttending = await Attendee.count({where:{eventId}})
+    for(let i = 0; i < event.EventImages.length; i++){
+        const eventData = event.EventImages[i].dataValues;
+        EventImages.push({
+            id:eventData.id,
+            url:eventData.url,
+            preview:eventData.preview
+        })
+
+    }
+
+   return res.json({
+    id:event.dataValues.id,
+    name:event.dataValues.name,
+    description:event.dataValues.description,
+    type:event.dataValues.type,
+    capacity:event.dataValues.capacity,
+    price:event.dataValues.price,
+    startDate:event.dataValues.startDate,
+    endDate:event.dataValues.endDate,
+    numAttending,
+    Group:{
+        id:event.Group.dataValues.id,
+        name:event.Group.dataValues.name,
+        private:event.Group.dataValues.private,
+        city:event.Group.dataValues.city,
+        state:event.Group.dataValues.state
+    },
+    Venue:{
+        id:event.Venue.dataValues.id,
+        address:event.Venue.dataValues.address,
+        city:event.Venue.dataValues.city,
+        state:event.Venue.dataValues.state,
+        lat:event.Venue.dataValues.lat,
+        lng:event.Venue.dataValues.lng
+    },
+    EventImages
+   });
+
+});
+
 router.get('/', 
 async (req, res) =>{
 
@@ -337,7 +390,7 @@ async (req, res)=>{
         for(let i = 0; i < memberships.length; i++){
             
             if(req.user.dataValues.id === memberships[i].dataValues.memberId){
-                if((memberships[i].dataValues.status === "accepted")||(memberships[i].dataValues.status === "co-host")){
+                if((memberships[i].dataValues.status === "host")||(memberships[i].dataValues.status === "co-host")){
                     console.log(venueId)
                     event.update({
                         venueId,

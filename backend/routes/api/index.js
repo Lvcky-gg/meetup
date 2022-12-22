@@ -4,6 +4,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const groupRouter = require('./groups.js');
 const eventRouter = require('./events.js')
+const venueRouter = require('./venues')
 // const { setTokenCookie } = require('../../utils/auth.js');
 // const { User } = require('../../db/models');
 const { restoreUser } = require('../../utils/auth.js');
@@ -13,6 +14,7 @@ router.use(restoreUser);
 // router.get('/login', )
 router.use('/groups', groupRouter);
 router.use('/events', eventRouter);
+router.use('/venues', venueRouter);
 
 router.use('/session', sessionRouter);
 
