@@ -7,9 +7,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up (queryInterface, Sequelize) {
-  
+    options.tableName = 'Memberships'
    await queryInterface.addColumn(
-    'Memberships',
+    options,
     'groupId',
     {
         type: Sequelize.INTEGER,
@@ -18,7 +18,7 @@ module.exports = {
     }
    );
    await queryInterface.addColumn(
-    'Memberships',
+    options,
     'memberId',
     {
          type: Sequelize.INTEGER,

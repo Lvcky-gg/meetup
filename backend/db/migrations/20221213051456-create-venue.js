@@ -6,7 +6,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Venues', {
+    options.tableName = 'Venues'
+    await queryInterface.createTable(options, {
       id: {
         allowNull: false,
         autoIncrement: true,

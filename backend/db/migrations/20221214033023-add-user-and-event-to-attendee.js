@@ -7,9 +7,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 module.exports = {
   async up (queryInterface, Sequelize) {
-  
+    options.tableName = 'Attendees'
       await queryInterface.addColumn(
-        'Attendees',
+        options,
         'eventId',
         {
             type: Sequelize.INTEGER,
@@ -18,7 +18,7 @@ module.exports = {
         }
       );
       await queryInterface.addColumn(
-        'Attendees',
+        options,
         'userId',
         {
             type: Sequelize.INTEGER,
