@@ -205,7 +205,7 @@ async (req, res) =>{
         res.json({result, page, size})
    
 });
-router.delete('/:eventId/photos/:photoId',
+router.delete('/:eventId/images/:photoId',
 async (req, res)=>{
     if(req.user){
         const { eventId, photoId } = req.params;
@@ -259,7 +259,7 @@ async (req, res)=>{
 
 });
 
-router.delete('/:eventId/attendees/:attendeeId',
+router.delete('/:eventId/attendance/:attendeeId',
 async (req, res) => {
 if(req.user){
     const { eventId, attendeeId } = req.params;
@@ -350,7 +350,9 @@ async (req, res) => {
                 }
     
             }
-            return res.json()
+            return res.json({
+                "message":"must be host or co-host"
+            })
         }else{
             return res.json( {
                 "message": "Event couldn't be found",
@@ -367,7 +369,7 @@ async (req, res) => {
     }
 });
 //issues
-router.put('/:eventId/attendees',
+router.put('/:eventId/attendance',
 async (req, res) =>{
     if(req.user){
         const { eventId } = req.params;
@@ -381,6 +383,13 @@ async (req, res) =>{
               })
         }
         
+        if(!event){
+            res.status = 404;
+        return res.json({
+            "message": "Event couldn't be found",
+            "statusCode": 404
+          })
+        }
         const memberId = event.Group.dataValues.organizerId
         const  organizer = await Membership.findAll({where:{memberId, groupId:event.dataValues.groupId}})
         const attendee = await Attendee.findAll({where:{eventId}})
@@ -391,7 +400,8 @@ async (req, res) =>{
                 "statusCode": 404
               })
         }
-        for(let i = 0; i < attendee.length; i++){
+        for(let i = 0; i < organizer.length; i++){
+            
         if((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "accepted")){
             if(req.user.dataValues.id === organizer[i].dataValues.memberId){
                 await attendee[i].update({
@@ -504,7 +514,7 @@ async (req, res)=>{
 })
 
 
-router.post('/:eventId/photos',
+router.post('/:eventId/images',
 async (req, res) =>{
     if(req.user){
         const { eventId } = req.params;
@@ -552,7 +562,7 @@ async (req, res) =>{
 
 });
 
-router.post('/:eventId/attendees', 
+router.post('/:eventId/attendance', 
 async (req, res) =>{
 
     if(req.user){

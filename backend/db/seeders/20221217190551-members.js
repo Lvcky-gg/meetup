@@ -10,7 +10,7 @@ module.exports = {
      options.tableName = "Memberships";
    return queryInterface.bulkInsert(options, [
     {
-      "status":"accepted",
+      "status":"host",
       "groupId":1,
       "memberId":1
     },

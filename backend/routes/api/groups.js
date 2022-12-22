@@ -392,7 +392,7 @@ async (req, res) =>{
 
 })
 
-router.post('/:groupId/members',
+router.post('/:groupId/membership',
 async (req, res) => {
     // console.log(req.user)
     if(req.user){
@@ -454,7 +454,7 @@ async (req, res) => {
     }
 })
 
-router.post('/:groupId/photos',
+router.post('/:groupId/images',
 async (req, res) => {
     if(req.user){
     
@@ -522,7 +522,7 @@ async (req, res) => {
     res.json()
 });
 //START HERE NEXT EDIT A MEMBERSHIP
-router.put('/:groupId/members/:memberId',
+router.put('/:groupId/membership/:memberId',
 async (req, res) => {
     if(req.user){
         const { groupId, memberId } = req.params;
@@ -653,7 +653,7 @@ async (req, res) => {
 });
 //delete membership to a group specified by Id
 //works except Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-router.delete('/:groupId/members/:memberId',
+router.delete('/:groupId/membership/:memberId',
 async (req, res) => {
     if(req.user){
         const { groupId, memberId } = req.params;
