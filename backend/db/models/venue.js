@@ -19,11 +19,46 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Venue.init({
-    address: DataTypes.INTEGER,
-    city: DataTypes.STRING,
-    state: DataTypes.STRING,
-    lat: DataTypes.DECIMAL,
-    lng: DataTypes.DECIMAL
+    address:{ 
+      type:DataTypes.STRING,
+      validate:{
+        streetAddressExists(val){
+          if(!val)throw new Error("Street address is required")
+        }
+      }
+    },
+    city: {
+      type:DataTypes.STRING,
+      validate:{
+        cityExists(val){
+          if(!val)throw new Error("City is required")
+        }
+      }
+    },
+    state: {
+      type:DataTypes.STRING,
+      validate:{
+        stateExists(val){
+          if(!val)throw new Error("State is required")
+        }
+      }
+    },
+    lat: {
+      type:DataTypes.DECIMAL,
+      validate:{
+      latIsVal(val){
+        if(typeof val != "number")throw new Error("Latitude is not valid")
+      }
+    }
+    },
+    lng: {
+      type:DataTypes.DECIMAL,
+      validate:{
+        latIsVal(val){
+          if(typeof val != "number")throw new Error("Longitude is not valid")
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Venue',

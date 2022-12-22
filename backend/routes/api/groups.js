@@ -6,7 +6,34 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const e = require('express');
 const group = require('../../db/models/group');
-//get all members of a group specified by Id
+
+router.get('/:groupId/venues',
+async (req, res)=>{
+    const { groupId } = req.params;
+    const currGroup = await Group.findByPk(groupId, {include:{model:Venue}});
+    if(!currGroup){
+        res.status = 403;
+        return res.json( {
+            "message": "Group couldn't be found",
+            "statusCode": 404
+          })
+    }
+    const result = []
+    for(let i = 0; i < currGroup.Venues.length; i++){
+        console.log(currGroup.Venues[i])
+        result.push({
+            id:currGroup.Venues[i].dataValues.id,
+            groupId,
+            address:currGroup.Venues[i].dataValues.address,
+            city:currGroup.Venues[i].dataValues.city,
+            state:currGroup.Venues[i].dataValues.state,
+            lat:currGroup.Venues[i].dataValues.lat,
+            lng:currGroup.Venues[i].dataValues.lng
+        })
+    }
+    return res.json(result)
+
+});
 
 router.get('/:groupId/events',
 async (req, res) =>{
@@ -262,6 +289,59 @@ async (req, res) => {
 
 })
 
+router.post('/:groupId/venues',
+async (req, res) =>{
+if(req.user){
+    const { groupId } = req.params;
+    const currGroup = await Group.findByPk(parseInt(groupId), {include:{model:Membership}});
+    const { address, city, state, lat, lng } = req.body;
+    if(!currGroup){
+        res.status = 404;
+        return res.json({
+                "message": "Group couldn't be found",
+                "statusCode": 404
+        })
+    }
+    // console.log(currGroup.Memberships)
+    for(let i = 0; i < currGroup.Memberships.length; i++){
+        
+        if(req.user.dataValues.id === currGroup.Memberships[i].memberId){
+            
+            if((currGroup.Memberships[i].status === "host")||(currGroup.Memberships[i].status === "co-host")){
+                const venue = await Venue.create({
+                    groupId,
+                    address,
+                    city,
+                    state,
+                    lat,
+                    lng
+                })
+                return res.json({
+                    id:venue.dataValues.id,
+                    groupId,
+                    address,
+                    city,
+                    state,
+                    lat, 
+                    lng
+                })
+                
+            }
+        }
+    }
+    res.status = 403
+    return res.json({
+        "message":"must be host or cohost to create venue",
+        "status":403
+    })
+}else{
+    res.status = 403;
+   return res.json({
+        "status":403,
+        "message":"Must be logged in"
+    })
+}
+})
 router.post('/:groupId/events',
 async (req, res) =>{
     if(req.user){
