@@ -245,9 +245,11 @@ if(req.user){
           })
     
     }
+    
     const memberships = currGroup.Memberships;
-    const userId = req.user.dataValues.id;
-    const attendee = await Attendee.findOne({where:{eventId:currEvent.dataValues.id,userId  }})
+    const userId  = req.user.dataValues.id;
+    const attendee = await Attendee.findOne({where:{eventId:currEvent.dataValues.id,userId   }})
+    
     if(!attendee){
         res.status = 404;
         return res.json({
@@ -256,9 +258,10 @@ if(req.user){
           })
     
     }
-    
+   
     for(let i = 0; i < memberships.length; i++){
         const member = memberships[i];
+       
         
         if(req.user.dataValues.id === member.dataValues.memberId){
             if((member.dataValues.status === "host") ||(member.dataValues.status === "co-host")){
@@ -359,9 +362,11 @@ async (req, res) =>{
               })
         }
         const memberId = event.Group.dataValues.organizerId
+        
         const  organizer = await Membership.findAll({where:{memberId}})
         
         const attendee = await Attendee.findAll({where:{eventId}})
+
 
         if(status === "pending"){
             res.status = 400;
@@ -383,8 +388,10 @@ async (req, res) =>{
         if(organizer.length > attendee.length)val = organizer
         if(attendee.length > organizer)val = attendee
         for(let i = 0; i < val.length; i++){
-        if(organizer[i]){
-        if((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "host")){     
+        if(organizer[i] && attendee[i]){
+            
+        if((memberId === req.user.dataValues.id)||((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "host"))){   
+            
             if(req.user.dataValues.id === attendee[i].dataValues.userId){
 
                 await attendee[i].update({
