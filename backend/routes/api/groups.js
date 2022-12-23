@@ -541,6 +541,7 @@ async (req, res) => {
         const {name, about, type, private, city, state} = req.body;
         
         const organizerId = req.user.dataValues.id;
+        
         const group = await Group.create({
             name,
             about,
@@ -549,6 +550,12 @@ async (req, res) => {
             city,
             state,
             organizerId
+        });
+
+        const membership = await Membership.create({
+            status:"host",
+            groupId:group.dataValues.id,
+            memberId:req.user.dataValues.id
         })
         
         res.json(group)
