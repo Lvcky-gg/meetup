@@ -7,51 +7,52 @@ const e = require('express');
 const attendee = require('../../db/models/attendee');
 
 
-// router.delete('/:groupimageId',
-// async (req, res) => {
-// if(req.user){
-//     const { groupId, photoId } = req.params;
-//     const groupAssociated = await Group.findByPk(groupId,{
-//         include:[{model:GroupImage}, {model:Membership}]
-//     });
-//     const currPhoto = await GroupImage.findByPk(photoId)
-//     if(!currPhoto){
-//         res.status = 404;
-//       return  res.json( {
-//             "message": "Event Image couldn't be found",
-//             "statusCode": 404
-//           })
-//     }
+router.delete('/:groupImageId',
+async (req, res) => {
 
-  
+    if(req.user){
+        const { groupImageId } = req.params;
+        const image = await GroupImage.findByPk(groupImageId);
+        if(!image){
+            res.status = 404;
+            return res.json({
+                "message": "Group Image couldn't be found",
+                "statusCode": 404
+            })
+        }
         
-//         for(let i = 0; i < groupAssociated.Memberships.length; i++){
+       
+        const currGroup = await Group.findByPk(image.dataValues.groupId, {include:{model:Membership}})
         
-//             console.log(groupAssociated.Memberships[i].dataValues.memberId)
-    
-    
-//             if(req.user.dataValues.id === groupAssociated.Memberships[i].dataValues.memberId){
-//                 if((groupAssociated.Memberships[i].dataValues.status === "host")||(groupAssociated.Memberships[i].dataValues.status === "co-host")){
-//                 groupImage.destroy();
-//                 res.status = 200;
-//                 return res.json({
-//                     "message": "Successfully deleted",
-//                     "statusCode": 200
-//                   });
-//                 }
-//             }
+        for(let i = 0; i < currGroup.Memberships.length; i++){
+            if(currGroup.Memberships[i].memberId === req.user.id){
+                                if((currGroup.Memberships[i].status === "host")||(currGroup.Memberships[i].status === "co-host")){
+                
+                                    image.destroy();
+                                    res.status = 200;
+                                    return res.json({
+                                        "message": "Successfully deleted",
+                                        "statusCode": 200
+                                      })
+                                }
+                            }
 
-//         }
-//         res.status = 404
-//        return res.json({
-//             "message":"Must be host or co-host to delete image"
-//         });
-   
-// }else{
-//     res.status = 403;
-//     res.json({"message":"User must be logged in to use this feature"})
-// }
-// });
+        }
+       
+        res.status = 403
+        return res.json({
+            "message":"must be host or co-host to delete image.",
+            "status":403
+        })
+    }else{
+        res.status = 403;
+        res.json({
+            "status":403,
+            "message":"Must be logged in"
+        })
+    }
+
+});
 
 
 module.exports = router;

@@ -16,6 +16,8 @@ async (req, res) =>{
         const attendees = await Attendee.findAll({include:[{model:User}], where:{eventId}});
 
         for(let i = 0; i < attendees.length; i++){
+            if(attendees[i]){
+                console.log(attendees[i].dataValues)
   
                 let id = attendees[i].User.dataValues.id;
                 let firstName = attendees[i].User.dataValues.firstName;
@@ -45,7 +47,9 @@ async (req, res) =>{
                 
             }
         }
-        res.json(result)
+    }
+        return res.json(result)
+    
     }else{
         res.status = 404;
         res.json( {
@@ -367,11 +371,18 @@ async (req, res) => {
     }
 });
 //issues
-router.put('/:eventId/attendees',
+router.put('/:eventId/attendance',
 async (req, res) =>{
     if(req.user){
         const { eventId } = req.params;
         const event = await Event.findByPk(eventId, {include:{model:Group}})
+        if(!event){
+            res.status = 404;
+            return res.json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+              })
+        }
         const { userId, status } = req.body;
         if(status === "pending"){
             res.status = 400;
@@ -380,11 +391,11 @@ async (req, res) =>{
                 "statusCode": 400
               })
         }
-        
+       
         const memberId = event.Group.dataValues.organizerId
         const  organizer = await Membership.findAll({where:{memberId, groupId:event.dataValues.groupId}})
         const attendee = await Attendee.findAll({where:{eventId}})
-        if(!attendee){
+        if(!attendee || !organizer){
             res.status = 404;
             res.json({
                 "message": "Attendance between the user and the event does not exist",
@@ -392,7 +403,12 @@ async (req, res) =>{
               })
         }
         for(let i = 0; i < attendee.length; i++){
-        if((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "accepted")){
+            
+        if(organizer[i]){
+            
+           
+        if((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "host")){
+            
             if(req.user.dataValues.id === organizer[i].dataValues.memberId){
                 await attendee[i].update({
                     userId,
@@ -408,6 +424,7 @@ async (req, res) =>{
                 
             }
         }
+        }
      }
      res.status=403
         res.json({
@@ -418,7 +435,7 @@ async (req, res) =>{
     }else{
         res.status = 404;
         res.json({
-            "message": "Event couldn't be found",
+            "message": "Must be logged in",
             "statusCode": 404
           })
     }
@@ -551,7 +568,7 @@ async (req, res) =>{
 
 });
 
-router.post('/:eventId/attendees', 
+router.post('/:eventId/attendance', 
 async (req, res) =>{
 
     if(req.user){
@@ -560,7 +577,6 @@ async (req, res) =>{
         const { userId, status} = req.body;
 
         if(eventAssociated){
-            console.log(eventAssociated)
 
           for(let i = 0; i < eventAssociated.Attendees.length; i++ ){
             // console.log((eventAssociated.Attendees[i].dataValues.userId === req.user.dataValues.id))
@@ -583,6 +599,7 @@ async (req, res) =>{
                 
             }
           }
+          
           const attendee = await Attendee.create({
             eventId,
             userId,

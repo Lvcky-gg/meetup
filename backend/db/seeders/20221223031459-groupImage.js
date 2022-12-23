@@ -4,32 +4,33 @@ const { options } = require('../../routes');
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-     options.tableName = "Memberships";
+     options.tableName = "GroupImages";
    return queryInterface.bulkInsert(options, [
     {
-      "status":"host",
-      "groupId":1,
-      "memberId":1
+      "url": "image url",
+      "preview": false,
+      "groupId":1
     },
     {
-      "status":"pending",
-      "groupId":1,
-      "memberId":2
+      "url": "image url",
+      "preview": false,
+      "groupId":1
+    
     },
     {
-      "status":"pending",
-      "groupId":1,
-      "memberId":3
+      "url": "image url",
+      "preview": false,
+      "groupId":1
     }
    ])
   
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = "Memberships";
+    options.tableName = "GroupImages";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      memberId: { [Op.in]: [1,2, 3] }
+      eventId: { [Op.in]: [1] }
     }, {});
   
   }

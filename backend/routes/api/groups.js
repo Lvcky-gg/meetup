@@ -409,13 +409,13 @@ async (req, res) => {
                if((groupAssociated.Memberships[i].dataValues.memberId === req.user.dataValues.id) && (groupAssociated.Memberships[i].dataValues.groupId === parseInt(groupId)) ){
                 if(groupAssociated.Memberships[i].dataValues.status === "pending"){
                     res.status = 400;
-                    res.json( {
+                   return res.json( {
                         "message": "Membership has already been requested",
                         "statusCode": 400
                       })
                 }else if(groupAssociated.Memberships[i].dataValues.status === "accepted"){
                     res.status = 400;
-                    res.json( {
+                    return res.json( {
                         "message": "User is already a member of the group",
                         "statusCode": 400
                       })
@@ -431,14 +431,14 @@ async (req, res) => {
                 status:"pending"
             })
 
-            res.json({
+            return res.json({
                 groupId,
                 "memberId":member.memberId,
                 "status":member.status
             })
         }else{
             res.status = 404;
-            res.json({
+           return res.json({
                 "message": "Group couldn't be found",
                 "statusCode": 404
               });
@@ -447,7 +447,7 @@ async (req, res) => {
 
     }else{
         res.status = 403;
-        res.json({
+        return res.json({
             "message":"Unauthorized",
             "statusCode":403
         })
@@ -464,10 +464,23 @@ async (req, res) => {
 
         const groupAssociated = await Group.findByPk(groupId, {include:{model:Membership}})
     if(groupAssociated){
-        console.log(groupAssociated.dataValues)
+        if((req.user.dataValues.id === groupAssociated.dataValues.organizerId)){
+            const photo = await GroupImage.create({
+                url, 
+                preview,
+                groupId
+            })
+    
+            return res.json({
+                id:photo.id,
+                url,
+                preview
+            });
+        }
+        // console.log(groupAssociated.dataValues)
         for(let i = 0; i < groupAssociated.Memberships.length; i++){
-            // console.log(groupAssociated.Memberships[i].dataValues.memberId)
-        if(req.user.dataValues.id === groupAssociated.Memberships[i].dataValues.memberId){
+            // console.log(req.user.dataValues.id === groupAssociated.dataValues.organizerId)
+        if((req.user.dataValues.id === groupAssociated.Memberships[i].dataValues.memberId)){
             const photo = await GroupImage.create({
                 url, 
                 preview,

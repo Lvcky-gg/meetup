@@ -14,7 +14,7 @@ const { restoreUser } = require('../../utils/auth.js');
 router.use(restoreUser);
 
 // router.get('/login', )
-router.use('./event-images', eventImagesRouter);
+router.use('/event-images', eventImagesRouter);
 router.use('/group-images', groupImagesRouter);
 router.use('/groups', groupRouter);
 router.use('/events', eventRouter);
