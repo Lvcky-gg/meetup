@@ -302,12 +302,31 @@ if(req.user){
                 "statusCode": 404
         })
     }
-
+    if(req.user.dataValues.id === currGroup.dataValues.organizerId){
+        const venue = await Venue.create({
+            groupId,
+            address,
+            city,
+            state,
+            lat,
+            lng
+        })
+        return res.json({
+            id:venue.dataValues.id,
+            groupId,
+            address,
+            city,
+            state,
+            lat, 
+            lng
+        })
+    }
     for(let i = 0; i < currGroup.Memberships.length; i++){
         
+        
         if(req.user.dataValues.id === currGroup.Memberships[i].memberId){
-            
-            if((currGroup.Memberships[i].status === "host")||(currGroup.Memberships[i].status === "co-host")){
+        
+            if(((currGroup.Memberships[i].status === "host")||(currGroup.Memberships[i].status === "co-host"))){
                 const venue = await Venue.create({
                     groupId,
                     address,
@@ -667,10 +686,11 @@ async (req, res) => {
 });
 //delete membership to a group specified by Id
 //works except Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
-router.delete('/:groupId/membership/:memberId',
+router.delete('/:groupId/membership',
 async (req, res) => {
     if(req.user){
-        const { groupId, memberId } = req.params;
+       
+        const { groupId } = req.params;
         const groupAssociated = await Group.findByPk(groupId,{
             include:{model:Membership}
         });
@@ -682,9 +702,8 @@ async (req, res) => {
 
             
             for(let i = 0; i < membership.length; i++){
-                if (membership[i].dataValues.memberId === parseInt(memberId)){
-            
-                    if((membership[i].dataValues.status === "host")||membership[i].dataValues.status === "owner"){
+            if(req.user.dataValues.id === membership[i].dataValues.id ){
+                    if((membership[i].dataValues.status === "host")||membership[i].dataValues.status === "member"){
                         await membership[i].destroy();
                         return res.json({
                             "message": "Successfully deleted membership from group"
@@ -698,10 +717,10 @@ async (req, res) => {
                     }else{
                         res.status = 403
                         return  res.json({"message":"unauthorized"})
-                    }
+                    
                 }
             }
-          
+        }
                 res.status = 404
                 return  res.json({
                     "message": "Member couldn't be found",
