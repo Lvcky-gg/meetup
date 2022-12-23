@@ -14,7 +14,8 @@ module.exports = {
         {
             type: Sequelize.INTEGER,
             references: { model: 'Events' },
-            onDelete: 'CASCADE'
+            onDelete: 'CASCADE',
+            allowNull:false
         }
       );
       await queryInterface.addColumn(
@@ -23,7 +24,8 @@ module.exports = {
         {
             type: Sequelize.INTEGER,
             references: { model: 'Users' },
-            onDelete: 'CASCADE'
+            onDelete: 'CASCADE',
+            allowNull:false
         }
       )
   },

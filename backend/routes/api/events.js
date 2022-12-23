@@ -16,6 +16,7 @@ async (req, res) =>{
         const attendees = await Attendee.findAll({include:[{model:User}], where:{eventId}});
 
         for(let i = 0; i < attendees.length; i++){
+            if(attendees[i]){
   
                 let id = attendees[i].User.dataValues.id;
                 let firstName = attendees[i].User.dataValues.firstName;
@@ -45,7 +46,9 @@ async (req, res) =>{
                 
             }
         }
-        res.json(result)
+    }
+        return res.json(result)
+    
     }else{
         res.status = 404;
         res.json( {
@@ -78,6 +81,32 @@ async (req, res)=>{
         })
 
     }
+    let group;
+    if(event.Group){
+        group = {
+                id:event.Group.dataValues.id,
+                name:event.Group.dataValues.name,
+                private:event.Group.dataValues.private,
+                city:event.Group.dataValues.city,
+                state:event.Group.dataValues.state
+            }
+
+        }
+    
+    let venue = {};
+    if(event.Venue){
+        
+           
+            venue ={
+                id:event.Venue.dataValues.id,
+                address:event.Venue.dataValues.address,
+                city:event.Venue.dataValues.city,
+                state:event.Venue.dataValues.state,
+                lat:event.Venue.dataValues.lat,
+                lng:event.Venue.dataValues.lng
+            }
+    }
+
 
    return res.json({
     id:event.dataValues.id,
@@ -89,21 +118,8 @@ async (req, res)=>{
     startDate:event.dataValues.startDate,
     endDate:event.dataValues.endDate,
     numAttending,
-    Group:{
-        id:event.Group.dataValues.id,
-        name:event.Group.dataValues.name,
-        private:event.Group.dataValues.private,
-        city:event.Group.dataValues.city,
-        state:event.Group.dataValues.state
-    },
-    Venue:{
-        id:event.Venue.dataValues.id,
-        address:event.Venue.dataValues.address,
-        city:event.Venue.dataValues.city,
-        state:event.Venue.dataValues.state,
-        lat:event.Venue.dataValues.lat,
-        lng:event.Venue.dataValues.lng
-    },
+    Group:group,
+    Venue:venue,
     EventImages
    });
 
@@ -177,7 +193,7 @@ async (req, res) =>{
        }
 
         for(let i = 0; i < events.length; i++){
-            // console.log(events[0].dataValues)
+    
             let id = events[i].dataValues.id;
             let groupId =events[i].dataValues.groupId;
             let venueId = events[i].dataValues.venueId;
@@ -188,23 +204,30 @@ async (req, res) =>{
             let numAttending = await Attendee.count({where:events[i].dataValues.id})
             let previewImage;
             if(events[i].EventImages[0])previewImage = events[i].EventImages[0].dataValues.url
-            let group = {
+           let group = {};
+           if(events[i].Group){
+             group = {
                 "id":events[i].dataValues.Group.dataValues.id,
                 "name":events[i].dataValues.Group.dataValues.name,
                 "city":events[i].dataValues.Group.dataValues.city,
                 "State":events[i].dataValues.Group.dataValues.state
             };
-            let venue = {
-                "id":events[i].dataValues.Venue.dataValues.id,
-                "city":events[i].dataValues.Venue.dataValues.city,
-                "state":events[i].dataValues.Venue.dataValues.state
+        }
+            let venue = {};
+            if(events[i].Venue){
+             venue = {
+                "id":events[i].Venue.dataValues.id,
+                "city":events[i].Venue.dataValues.city,
+                "state":events[i].Venue.dataValues.state
             }
+        }
             result.push({id, groupId, venueId, name, type, startDate, endDate, numAttending, previewImage, group, venue})
         }
         
         res.json({result, page, size})
    
 });
+<<<<<<< HEAD
 router.delete('/:eventId/images/:photoId',
 async (req, res)=>{
     if(req.user){
@@ -258,6 +281,8 @@ async (req, res)=>{
     }
 
 });
+=======
+>>>>>>> dev
 
 router.delete('/:eventId/attendance/:attendeeId',
 async (req, res) => {
@@ -330,14 +355,14 @@ router.delete('/:eventId',
 async (req, res) => {
     if(req.user){
         const { eventId } = req.params;
-        console.log(parseInt(eventId))
+       
         const event = await Event.findByPk(eventId, {include:[{model:Group}]});
         if(event){
             const organizer = event.Group.dataValues.organizerId;
             const memberships = await Group.findByPk(event.dataValues.groupId, {include:{model:Membership}});
-            // console.log(memberships.Memberships)
+          
             for(let i = 0 ; i < memberships.Memberships.length; i++){
-                console.log(memberships.Memberships[i].status)
+             
                 if((memberships.Memberships[i].status === "co-host")|| (memberships.Memberships[i].status === "host")){
                     
                     if(req.user.dataValues.id === memberships.Memberships[i].memberId){
@@ -374,6 +399,13 @@ async (req, res) =>{
     if(req.user){
         const { eventId } = req.params;
         const event = await Event.findByPk(eventId, {include:{model:Group}})
+        if(!event){
+            res.status = 404;
+            return res.json({
+                "message": "Event couldn't be found",
+                "statusCode": 404
+              })
+        }
         const { userId, status } = req.body;
         if(status === "pending"){
             res.status = 400;
@@ -382,6 +414,7 @@ async (req, res) =>{
                 "statusCode": 400
               })
         }
+<<<<<<< HEAD
         
         if(!event){
             res.status = 404;
@@ -390,25 +423,38 @@ async (req, res) =>{
             "statusCode": 404
           })
         }
+=======
+       
+>>>>>>> dev
         const memberId = event.Group.dataValues.organizerId
         const  organizer = await Membership.findAll({where:{memberId, groupId:event.dataValues.groupId}})
         const attendee = await Attendee.findAll({where:{eventId}})
-        if(!attendee){
+        if(!attendee || !organizer){
             res.status = 404;
             res.json({
                 "message": "Attendance between the user and the event does not exist",
                 "statusCode": 404
               })
         }
+<<<<<<< HEAD
         for(let i = 0; i < organizer.length; i++){
             
         if((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "accepted")){
+=======
+        for(let i = 0; i < attendee.length; i++){
+            
+        if(organizer[i]){
+            
+           
+        if((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "host")){
+            
+>>>>>>> dev
             if(req.user.dataValues.id === organizer[i].dataValues.memberId){
                 await attendee[i].update({
                     userId,
                     status
                 })
-                // console.log(userId)
+             
                 return res.json({
                     id:attendee[i].dataValues.id,
                     eventId:attendee[i].dataValues.eventId,
@@ -417,6 +463,7 @@ async (req, res) =>{
                 })
                 
             }
+        }
         }
      }
      res.status=403
@@ -428,7 +475,7 @@ async (req, res) =>{
     }else{
         res.status = 404;
         res.json({
-            "message": "Event couldn't be found",
+            "message": "Must be logged in",
             "statusCode": 404
           })
     }
@@ -462,7 +509,7 @@ async (req, res)=>{
             
             if(req.user.dataValues.id === memberships[i].dataValues.memberId){
                 if((memberships[i].dataValues.status === "host")||(memberships[i].dataValues.status === "co-host")){
-                    console.log(venueId)
+               
                     event.update({
                         venueId,
                         name,
@@ -520,10 +567,10 @@ async (req, res) =>{
         const { eventId } = req.params;
         const { url, preview } = req.body;
         const currEvent = await Event.findByPk(eventId, {include:{model:Attendee}});
+       
         if(currEvent){
 
             for(let i = 0; i < currEvent.Attendees.length; i++){
-               
                 if(currEvent.Attendees[i].dataValues.userId === req.user.dataValues.id){
 
                     const photo = await EventImage.create({
@@ -571,12 +618,10 @@ async (req, res) =>{
         const { userId, status} = req.body;
 
         if(eventAssociated){
-            console.log(eventAssociated)
 
           for(let i = 0; i < eventAssociated.Attendees.length; i++ ){
-            // console.log((eventAssociated.Attendees[i].dataValues.userId === req.user.dataValues.id))
+         
             if( (eventAssociated.Attendees[i].dataValues.eventId === parseInt(eventId))){
-                console.log(eventAssociated.Attendees[i])
                 if(eventAssociated.Attendees[i].dataValues.status === "pending"){
                     res.status = 400;
                    return res.json({
@@ -594,6 +639,7 @@ async (req, res) =>{
                 
             }
           }
+          
           const attendee = await Attendee.create({
             eventId,
             userId,
