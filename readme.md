@@ -275,7 +275,7 @@ Returns all the groups.
 * Require Authentication: true
 * Request
   * Method: GET
-  * URL: /groups/:userId
+  * URL: /groups/current
   * Body: none
 
 * Successful Response
@@ -1973,7 +1973,7 @@ Delete an existing image for an Event.
   of the Group that the Event belongs to
 * Request
   * Method: DELETE
-  * URL: /events/:eventId/photos/:photoId
+  * URL: /event-images/:eventImageid
   * Body: none
 
 * Successful Response
