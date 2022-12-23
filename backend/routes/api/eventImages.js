@@ -29,6 +29,7 @@ async (req, res) => {
             })
         }
         const currGroup = await Group.findByPk(event.dataValues.groupId, {include:{model:Membership}})
+        // if(req.user.dataValues.id === currGroup.dataValues.orga)
 // console.log(event.dataValues.gr)
         // if(req.user.dataValues.id === currGroup.dataValues.or)
         

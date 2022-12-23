@@ -304,7 +304,12 @@ async (req, res) => {
         if(event){
             const organizer = event.Group.dataValues.organizerId;
             const memberships = await Group.findByPk(event.dataValues.groupId, {include:{model:Membership}});
-          
+            if(organizer === req.user.dataValues.id){
+                event.destroy();
+                        return res.json({
+                            "message": "Successfully deleted"
+                          })
+            }
             for(let i = 0 ; i < memberships.Memberships.length; i++){
              
                 if((memberships.Memberships[i].status === "co-host")|| (memberships.Memberships[i].status === "host")){
@@ -342,7 +347,21 @@ router.put('/:eventId/attendance',
 async (req, res) =>{
     if(req.user){
         const { eventId } = req.params;
+        const { status, userId } = req.body
         const event = await Event.findByPk(eventId, {include:{model:Group}})
+        if(event.Group.dataValues.organizerId === req.user.dataValues.id){
+            await attendee[i].update({
+                userId,
+                status
+            })
+         
+            return res.json({
+                id:attendee[i].dataValues.id,
+                eventId:attendee[i].dataValues.eventId,
+                userId,
+                status
+            })
+        }
         if(!event){
             res.status = 404;
             return res.json({
@@ -350,7 +369,7 @@ async (req, res) =>{
                 "statusCode": 404
               })
         }
-        const { userId, status } = req.body;
+
         if(status === "pending"){
             res.status = 400;
             return res.json({
@@ -521,6 +540,19 @@ async (req, res) =>{
         const { url, preview } = req.body;
         const currEvent = await Event.findByPk(eventId, {include:{model:Attendee}});
        
+        const currGroup = await Group.findByPk(currEvent.dataValues.groupId)
+        if(currGroup.dataValues.id === req.user.dataValues.id){
+            const photo = await EventImage.create({
+                url,
+                preview,
+                eventId
+            })
+            return res.json({
+                id:photo.id,
+                url,
+                preview
+            })
+        }
         if(currEvent){
 
             for(let i = 0; i < currEvent.Attendees.length; i++){

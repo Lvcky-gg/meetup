@@ -12,6 +12,26 @@ async (req, res) => {
         const { venueId } = req.params;
         const venue = await Venue.findByPk(venueId);
         const { address, city, state, lat, lng } = req.body;
+        const currGroup = await Group.findByPk(venue.dataValues.groupId, {include:{model:Membership}})
+       
+        if(currGroup.dataValues.organizerId === req.user.dataValues.id){
+            const updated = await venue.update({
+                address,
+                city,
+                state,
+                lat,
+                lng
+            });
+            return res.json({
+                id:updated.id,
+                groupId:venue.dataValues.groupId,
+                address:updated.address,
+                state:updated.state,
+                lat:updated.lat,
+                lng:updated.lng
+
+            })
+        }
         
 
         if(venue){
@@ -32,7 +52,7 @@ async (req, res) => {
                         });
                         return res.json({
                             id:updated.id,
-                            groupId,
+                            groupId:venue.dataValues.groupId,
                             address:updated.address,
                             state:updated.state,
                             lat:updated.lat,

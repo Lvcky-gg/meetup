@@ -142,20 +142,21 @@ async (req, res) =>{
         const currUser = req.user.dataValues.id;
         // const groups = await Membership.findAll()
         const groups = await Group.findAll({
-            include:[{model:Membership}]
+            include:[{model:Membership}],
         });
+
         const images = await Group.findAll({
             include:{model:GroupImage}
        });
 
        for(let i = 0; i < groups.length; i++){
         const memberships = groups[i].Memberships;
+        
         for(let k = 0; k < memberships.length; k++){
-  
+        
             if((memberships[k].dataValues.memberId === currUser)){
-              
                 let groupId = groups[i].dataValues.id;
-                 let type = groups[i].dataValues.id;
+                 let type = groups[i].dataValues.type;
                  let organizerId = groups[i].dataValues.organizerId;
                  let name = groups[i].dataValues.name;
                   let private = groups[i].dataValues.private;
