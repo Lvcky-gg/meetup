@@ -20,7 +20,7 @@ async (req, res)=>{
     }
     const result = []
     for(let i = 0; i < currGroup.Venues.length; i++){
-        console.log(currGroup.Venues[i])
+  
         result.push({
             id:currGroup.Venues[i].dataValues.id,
             groupId,
@@ -43,7 +43,7 @@ async (req, res) =>{
   if(currGroup){ 
     const events = await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}], where:{groupId}})
     for(let i = 0; i < events.length; i++){
-        // console.log(events[0].dataValues)
+
         let id = events[0].dataValues.id;
         let groupId =events[0].dataValues.groupId;
         let venueId = events[0].dataValues.venueId;
@@ -87,7 +87,7 @@ async (req, res) => {
     const members = await Membership.findAll({
         where:{ groupId }, include:{model:User}
     })
-    // console.log(req.user.dataValues.id)
+
     const currentGroup = await Group.findByPk(groupId)
 if(currentGroup){
     for(let i = 0; i < members.length; i++){
@@ -147,11 +147,11 @@ async (req, res) =>{
         const images = await Group.findAll({
             include:{model:GroupImage}
        });
-    //    console.log(groups)
+
        for(let i = 0; i < groups.length; i++){
         const memberships = groups[i].Memberships;
         for(let k = 0; k < memberships.length; k++){
-            // console.log(memberships[k].dataValues)
+  
             if(memberships[k].dataValues.memberId === currUser){
               
                 let groupId = groups[i].dataValues.id;
@@ -216,7 +216,7 @@ async (req, res) => {
  const venues = await Venue.findAll({
     where:{groupId}
  })
-console.log(numMembers)
+
  res.json({
     id:currentGroup.id,
     organizerId:currentGroup.organizerId,
@@ -243,7 +243,7 @@ console.log(numMembers)
 
 router.get('/',
 async (req, res) => {
-    // console.log(await Group.findByPk(1))
+
      const groups = await Group.findAll({
         include:{model:GroupImage}
      });
@@ -302,7 +302,7 @@ if(req.user){
                 "statusCode": 404
         })
     }
-    // console.log(currGroup.Memberships)
+
     for(let i = 0; i < currGroup.Memberships.length; i++){
         
         if(req.user.dataValues.id === currGroup.Memberships[i].memberId){
@@ -394,7 +394,7 @@ async (req, res) =>{
 
 router.post('/:groupId/membership',
 async (req, res) => {
-    // console.log(req.user)
+
     if(req.user){
         const { groupId } = req.params;
         const groupAssociated = await Group.findByPk(groupId,{
@@ -402,7 +402,7 @@ async (req, res) => {
         });
     
         if(groupAssociated){
-            // console.log(groupAssociated.Memberships)
+
 
             for(let i = 0; i < groupAssociated.Memberships.length; i++){
                
@@ -477,9 +477,9 @@ async (req, res) => {
                 preview
             });
         }
-        // console.log(groupAssociated.dataValues)
+       
         for(let i = 0; i < groupAssociated.Memberships.length; i++){
-            // console.log(req.user.dataValues.id === groupAssociated.dataValues.organizerId)
+         
         if((req.user.dataValues.id === groupAssociated.Memberships[i].dataValues.memberId)){
             const photo = await GroupImage.create({
                 url, 
@@ -682,7 +682,7 @@ async (req, res) => {
             
             for(let i = 0; i < membership.length; i++){
                 if (membership[i].dataValues.memberId === parseInt(memberId)){
-                    console.log(membership[i].dataValues.memberId)
+            
                     if((membership[i].dataValues.status === "host")||membership[i].dataValues.status === "owner"){
                         await membership[i].destroy();
                         return res.json({
@@ -723,52 +723,7 @@ async (req, res) => {
         return  res.json({"message":"You must be logged in to complete this action"})
     }
 })
-//add host and cohost to delete perms
-// router.delete('/:groupId/photos/:photoId',
-// async (req, res) => {
-// if(req.user){
-//     const { groupId, photoId } = req.params;
-//     const groupAssociated = await Group.findByPk(groupId,{
-//         include:[{model:GroupImage}, {model:Membership}]
-//     });
-//     const currPhoto = await GroupImage.findByPk(photoId)
-//     if(!currPhoto){
-//         res.status = 404;
-//       return  res.json( {
-//             "message": "Event Image couldn't be found",
-//             "statusCode": 404
-//           })
-//     }
 
-  
-        
-//         for(let i = 0; i < groupAssociated.Memberships.length; i++){
-        
-//             console.log(groupAssociated.Memberships[i].dataValues.memberId)
-    
-    
-//             if(req.user.dataValues.id === groupAssociated.Memberships[i].dataValues.memberId){
-//                 if((groupAssociated.Memberships[i].dataValues.status === "host")||(groupAssociated.Memberships[i].dataValues.status === "co-host")){
-//                 groupImage.destroy();
-//                 res.status = 200;
-//                 return res.json({
-//                     "message": "Successfully deleted",
-//                     "statusCode": 200
-//                   });
-//                 }
-//             }
-
-//         }
-//         res.status = 404
-//        return res.json({
-//             "message":"Must be host or co-host to delete image"
-//         });
-   
-// }else{
-//     res.status = 403;
-//     res.json({"message":"User must be logged in to use this feature"})
-// }
-// });
 
 router.delete('/:groupId',
 async (req, res) => {
