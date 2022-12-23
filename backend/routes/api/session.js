@@ -16,7 +16,6 @@ const validateLogin = [
       .withMessage('Please provide a password.'),
     handleValidationErrors
   ];
-//needs work inconsistent due to the use of req.user
 router.post(
     '/',
     // validateLogin,
