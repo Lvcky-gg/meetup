@@ -29,6 +29,8 @@ async (req, res) => {
             })
         }
         const currGroup = await Group.findByPk(event.dataValues.groupId, {include:{model:Membership}})
+// console.log(event.dataValues.gr)
+        // if(req.user.dataValues.id === currGroup.dataValues.or)
         
         for(let i = 0; i < currGroup.Memberships.length; i++){
             if(currGroup.Memberships[i].memberId === req.user.id){

@@ -5,6 +5,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const e = require('express');
 const attendee = require('../../db/models/attendee');
+const group = require('../../db/models/group');
 
 
 router.delete('/:groupImageId',
@@ -23,6 +24,15 @@ async (req, res) => {
         
        
         const currGroup = await Group.findByPk(image.dataValues.groupId, {include:{model:Membership}})
+      
+        if(req.user.dataValues.id === currGroup.dataValues.organizerId){
+            image.destroy();
+            res.status = 200;
+            return res.json({
+                "message": "Successfully deleted",
+                "statusCode": 200
+              })
+        }
         
         for(let i = 0; i < currGroup.Memberships.length; i++){
             if(currGroup.Memberships[i].memberId === req.user.id){

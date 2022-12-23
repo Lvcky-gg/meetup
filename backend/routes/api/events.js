@@ -228,10 +228,10 @@ async (req, res) =>{
    
 });
 
-router.delete('/:eventId/attendance/:attendeeId',
+router.delete('/:eventId/attendance',
 async (req, res) => {
 if(req.user){
-    const { eventId, attendeeId } = req.params;
+    const { eventId } = req.params;
     const currEvent = await Event.findByPk(eventId)
     
     if(currEvent){
@@ -246,7 +246,7 @@ if(req.user){
     
     }
     const memberships = currGroup.Memberships;
-    const userId = parseInt(attendeeId);
+    const userId = req.user.dataValues.id;
     const attendee = await Attendee.findOne({where:{eventId:currEvent.dataValues.id,userId  }})
     if(!attendee){
         res.status = 404;
@@ -418,7 +418,33 @@ async (req, res)=>{
         const { venueId, name, type, capacity, price, description, startDate, endDate } = req.body;
 
         if(event){
-        const groupId = event.Group.dataValues.id
+        const groupId = event.Group.dataValues.id;
+        const organizer = event.Group.dataValues.organizerId;
+        if(organizer === req.user.dataValues.id){
+            event.update({
+                venueId,
+                name,
+                type,
+                capacity,
+                price,
+                description,
+                startDate,
+                endDate
+            })
+            return res.json({
+                id:event.id,
+                groupId:event.groupId,
+                venueId:event.venueId,
+                name:event.name,
+                type:event.type,
+                capacity:event.capacity,
+                price:event.price,
+                description:event.description,
+                startDate:event.startDate,
+                endDate:event.endDate
+            })
+            
+        }
         const memberships = await Membership.findAll({where:{groupId}});
        
         const venue = await Venue.findByPk(venueId);
