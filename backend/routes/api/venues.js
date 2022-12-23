@@ -11,6 +11,13 @@ async (req, res) => {
     if(req.user){
         const { venueId } = req.params;
         const venue = await Venue.findByPk(venueId);
+        if(!venue){
+            res.status = 404;
+            return res.json({
+                "Message":"Venue could not be found",
+                "status":404
+            })
+        }
         const { address, city, state, lat, lng } = req.body;
         const currGroup = await Group.findByPk(venue.dataValues.groupId, {include:{model:Membership}})
        

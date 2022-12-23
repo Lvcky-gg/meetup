@@ -378,6 +378,12 @@ async (req, res) =>{
                     const event = await Event.create({
                         venueId,groupId, name, type, capacity, price, description, startDate, endDate
                     })
+                    const attendance = await Attendee.create({
+                        status:"host",
+                        eventId:event.dataValues.id,
+                        groupId:currentGroup.dataValues.id,
+                        userId:req.user.dataValues.id
+                    })
                     return res.json({
                         id:event.id,
                         groupId:event.groupId,

@@ -349,19 +349,8 @@ async (req, res) =>{
         const { eventId } = req.params;
         const { status, userId } = req.body
         const event = await Event.findByPk(eventId, {include:{model:Group}})
-        if(event.Group.dataValues.organizerId === req.user.dataValues.id){
-            await attendee[i].update({
-                userId,
-                status
-            })
-         
-            return res.json({
-                id:attendee[i].dataValues.id,
-                eventId:attendee[i].dataValues.eventId,
-                userId,
-                status
-            })
-        }
+      
+       
         if(!event){
             res.status = 404;
             return res.json({
@@ -369,6 +358,10 @@ async (req, res) =>{
                 "statusCode": 404
               })
         }
+        const memberId = event.Group.dataValues.organizerId
+        const  organizer = await Membership.findAll({where:{memberId}})
+        
+        const attendee = await Attendee.findAll({where:{eventId}})
 
         if(status === "pending"){
             res.status = 400;
@@ -378,9 +371,7 @@ async (req, res) =>{
               })
         }
        
-        const memberId = event.Group.dataValues.organizerId
-        const  organizer = await Membership.findAll({where:{memberId, groupId:event.dataValues.groupId}})
-        const attendee = await Attendee.findAll({where:{eventId}})
+       
         if(!attendee || !organizer){
             res.status = 404;
             res.json({
@@ -388,14 +379,14 @@ async (req, res) =>{
                 "statusCode": 404
               })
         }
-        for(let i = 0; i < attendee.length; i++){
-            
+        let val;
+        if(organizer.length > attendee.length)val = organizer
+        if(attendee.length > organizer)val = attendee
+        for(let i = 0; i < val.length; i++){
         if(organizer[i]){
-            
-           
-        if((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "host")){
-            
-            if(req.user.dataValues.id === organizer[i].dataValues.memberId){
+        if((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "host")){     
+            if(req.user.dataValues.id === attendee[i].dataValues.userId){
+
                 await attendee[i].update({
                     userId,
                     status
@@ -539,8 +530,15 @@ async (req, res) =>{
         const { eventId } = req.params;
         const { url, preview } = req.body;
         const currEvent = await Event.findByPk(eventId, {include:{model:Attendee}});
-       
+        if(!currEvent){
+            res.status = 404;
+            return res.json({
+                "Message":"Event could not be found",
+                "Status":404
+            })
+        }
         const currGroup = await Group.findByPk(currEvent.dataValues.groupId)
+       
         if(currGroup.dataValues.id === req.user.dataValues.id){
             const photo = await EventImage.create({
                 url,
