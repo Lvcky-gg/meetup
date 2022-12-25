@@ -29,9 +29,14 @@ async (req, res) => {
             })
         }
         const currGroup = await Group.findByPk(event.dataValues.groupId, {include:{model:Membership}})
-        // if(req.user.dataValues.id === currGroup.dataValues.orga)
-// console.log(event.dataValues.gr)
-        // if(req.user.dataValues.id === currGroup.dataValues.or)
+        if(req.user.dataValues.id === currGroup.dataValues.organizerId){
+            image.destroy();
+            res.status = 200;
+            return res.json({
+                "message": "Successfully deleted",
+                "statusCode": 200
+              })
+        }
         
         for(let i = 0; i < currGroup.Memberships.length; i++){
             if(currGroup.Memberships[i].memberId === req.user.dataValues.id){
