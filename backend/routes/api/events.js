@@ -606,7 +606,7 @@ async (req, res) =>{
     if(req.user){
         const { eventId } = req.params;
         const eventAssociated = await Event.findByPk(eventId, {include:{model:Attendee}})
-        const { userId, status} = req.body;
+        // const { userId, status} = req.body;
 
         if(eventAssociated){
 
@@ -633,8 +633,8 @@ async (req, res) =>{
           
           const attendee = await Attendee.create({
             eventId,
-            userId,
-            status
+            userId:req.user.dataValues.id,
+            status:"pending"
         })
         return res.json({
             eventId:attendee.eventId,
