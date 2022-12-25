@@ -235,6 +235,7 @@ if(req.user){
     const currEvent = await Event.findByPk(eventId)
     
     if(currEvent){
+      
        
     const currGroup = await Group.findByPk(currEvent.dataValues.groupId, {include:{model:Membership}})
     if(!currGroup){
@@ -249,7 +250,7 @@ if(req.user){
     const memberships = currGroup.Memberships;
     const userId  = req.user.dataValues.id;
     const attendee = await Attendee.findOne({where:{eventId:currEvent.dataValues.id,userId   }})
-    
+   
     if(!attendee){
         res.status = 404;
         return res.json({
