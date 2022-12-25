@@ -35,7 +35,7 @@ async (req, res) => {
         }
         
         for(let i = 0; i < currGroup.Memberships.length; i++){
-            if(currGroup.Memberships[i].memberId === req.user.id){
+            if(currGroup.Memberships[i].memberId === req.user.dataValues.id){
                                 if((currGroup.Memberships[i].status === "host")||(currGroup.Memberships[i].status === "co-host")){
                 
                                     image.destroy();
