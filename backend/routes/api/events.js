@@ -34,7 +34,10 @@ async (req, res) =>{
                         lastName,
                         attendance
                        })
+                       
                     }
+                    
+                    
                 }
                 else if(attendees[i].dataValues.status !== "pending"){
                     result.push({
