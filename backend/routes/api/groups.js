@@ -721,7 +721,7 @@ async (req, res) => {
         const membership =  await Membership.findAll({
             where:{ groupId }
         })
-        //may need to remove groupId
+
         const member =  await Membership.findOne({where:{ memberId, groupId }});
         if(!member){
             res.status = 404
@@ -731,7 +731,8 @@ async (req, res) => {
               })
         }
         
-        // Member couldn't be found
+        
+        
         if(groupAssociated){
             if(req.user.dataValues.id === groupAssociated.dataValues.organizerId){
                 await member.destroy();
@@ -745,7 +746,7 @@ async (req, res) => {
             if(req.user.dataValues.id === membership[i].dataValues.id ){
                 
                     if((membership[i].dataValues.status === "host")||membership[i].dataValues.status === "co-host"){
-                        // await membership[i].destroy();
+                        await membership[i].destroy();
                         return res.json({
                             "message": "Successfully deleted membership from group"
                           })
