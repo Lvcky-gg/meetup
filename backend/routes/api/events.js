@@ -50,7 +50,7 @@ async (req, res) =>{
             }
         }
     }
-        return res.json(result)
+        return res.json({"Attendees":result})
     
     }else{
         res.status = 404;
@@ -113,6 +113,8 @@ async (req, res)=>{
 
    return res.json({
     id:event.dataValues.id,
+    groupId:event.dataValues.groupId,
+    venueId:event.dataValues.venueId,
     name:event.dataValues.name,
     description:event.dataValues.description,
     type:event.dataValues.type,
@@ -227,7 +229,7 @@ async (req, res) =>{
             result.push({id, groupId, venueId, name, type, startDate, endDate, numAttending, previewImage, group, venue})
         }
         
-        res.json({result, page, size})
+        res.json({"Events":result, page, size})
    
 });
 

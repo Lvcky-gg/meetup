@@ -72,13 +72,13 @@ router.post(
   
       await setTokenCookie(res, user);
   
-      return res.json({
+      return res.json({"User":{
         id,
         firstName,
         lastName,
         email,
         token
-      });
+      }});
     }
   );
 
@@ -87,10 +87,15 @@ router.post(
     restoreUser,
     (req, res) => {
       const { user } = req;
+      
       if (user) {
-        return res.json({
-          user: user.toSafeObject()
-        });
+        return res.json({"User":{
+          "id":req.user.dataValues.id,
+          "firstName":req.user.dataValues.firstName,
+          "lastName":req.user.dataValues.lastName,
+          "email":req.user.dataValues.email
+          // "token":req.cookies.token
+        }});
       } else return res.json({});
     }
   );

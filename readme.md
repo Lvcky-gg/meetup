@@ -1111,7 +1111,7 @@ Create and return a new image for an event specified by id.
 * Require proper authorization: Current User must be an attendee of the event
 * Request
   * Method: POST
-  * URL: /events/:eventId/photos
+  * URL: /events/:eventId/images
   * Headers:
     * Content-Type: application/json
   * Body:

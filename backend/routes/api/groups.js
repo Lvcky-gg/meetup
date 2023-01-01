@@ -31,7 +31,7 @@ async (req, res)=>{
             lng:currGroup.Venues[i].dataValues.lng
         })
     }
-    return res.json(result)
+    return res.json({"Venues":result})
 
 });
 
@@ -68,7 +68,7 @@ async (req, res) =>{
         result.push({id, groupId, venueId, name, type, startDate, endDate, numAttending, previewImage, group, venue})
     }
     
-    return res.json(result)
+    return res.json({"Events":result})
 }else{
     res.status = 404;
     res.json( {
@@ -126,7 +126,7 @@ if(currentGroup){
     }
        
     
-        res.json(result)
+        res.json({"Members":result})
     
 }else{
     res.status = 404;
@@ -199,7 +199,7 @@ async (req, res) =>{
 
 
 
-        res.json(result);
+        res.json({"Groups":result});
     }else{
         res.status = 403;
         res.json({"message":"unauthorized"})
@@ -232,6 +232,7 @@ async (req, res) => {
     state:currentGroup.state,
     createdAt:currentGroup.createdAt,
     updatedAt:currentGroup.updatedAt,
+    numMembers,
     GroupImages:currentGroup.GroupImages,
     Organizer:organizer,
     Venues:venues
@@ -289,7 +290,7 @@ async (req, res) => {
         })
      }
    
-    res.json(response)
+    res.json({"Groups":response})
 
 })
 
@@ -372,6 +373,7 @@ async (req, res) =>{
         const { venueId, name, type, capacity, price, description, startDate, endDate} = req.body;
         const currentGroup =await Group.findByPk(groupId, {include:{model:Membership}});
         if(currentGroup){
+            
         
         for(let i = 0 ; i < currentGroup.Memberships.length; i++){
             
@@ -380,6 +382,7 @@ async (req, res) =>{
                     const event = await Event.create({
                         venueId,groupId, name, type, capacity, price, description, startDate, endDate
                     })
+                 
                     const attendance = await Attendee.create({
                         status:"host",
                         eventId:event.dataValues.id,
@@ -388,10 +391,12 @@ async (req, res) =>{
                     })
                     return res.json({
                         id:event.id,
+                        venueId:event.venueId,
                         groupId:event.groupId,
                         name:event.name,
                         type:event.type,
                         capacity:event.capacity,
+                        price:event.price,
                         description:event.description,
                         startDate:event.startDate,
                         endDate:event.endDate
