@@ -581,6 +581,7 @@ async (req, res) => {
     if(req.user){
         const { groupId} = req.params;
         const { status, memberId } = req.body;
+        
         if(status  === "pending"){
             res.status = 400;
             return res.json({
@@ -595,10 +596,12 @@ async (req, res) => {
             if(group){
                 
                 
-                for(let i = 0; i < group.dataValues.Memberships.length; i++){
-                    console.log( members[i].memberId)
+                for(let i = 0; i < group.Memberships.length; i++){
+                   
                    if(members[i].memberId) {
+                    
                     if(group.dataValues.organizerId === req.user.dataValues.id){
+                        
                         if(memberId === members[i].memberId){
                         members[i].update({ status })
                         return res.json({
@@ -609,7 +612,9 @@ async (req, res) => {
                         })
                      } 
                     }else if(memberId === members[i].memberId){
+                        
                         if((members[i].status === "co-host") || (members[i].status === "host")){
+                            
                             if(status === "co-host"){
                                 res.status =  403
                                 return res.json({

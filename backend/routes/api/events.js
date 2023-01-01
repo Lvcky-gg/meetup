@@ -374,10 +374,18 @@ async (req, res) =>{
               })
         }
         const memberId = event.Group.dataValues.organizerId
+
         
-        const  organizer = await Membership.findAll({where:{memberId}})
         
-        const attendee = await Attendee.findAll({where:{eventId}})
+        const attendee = await Attendee.findAll({where:{eventId}});
+        const modifiedAttendee = await Attendee.findOne({where:{eventId, userId}});
+        if(!modifiedAttendee){
+            res.status = 404;
+            return res.json(  {
+                "message": "Attendance between the user and the event does not exist",
+                "statusCode": 404
+              })
+        }
 
 
         if(status === "pending"){
@@ -388,40 +396,30 @@ async (req, res) =>{
               })
         }
        
-       
-        if(!attendee || !organizer){
-            res.status = 404;
-            res.json({
-                "message": "Attendance between the user and the event does not exist",
-                "statusCode": 404
-              })
-        }
-        let val;
-        if(organizer.length > attendee.length)val = organizer
-        if(attendee.length > organizer.length)val = attendee
-        for(let i = 0; i < val.length; i++){
+      
+        for(let i = 0; i < attendee.length; i++){
             
-        if(organizer[i] && attendee[i]){
+        
             
-        if((memberId === req.user.dataValues.id)||((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "host"))){   
+        if((memberId === req.user.dataValues.id)||((attendee[i].dataValues.status === "cohost")||(attendee[i].dataValues.status === "host"))){   
         //modified memberId from req.user.dataValues.id
-            if(userId === attendee[i].dataValues.userId){
+        
+           
 
-                await attendee[i].update({
-                    userId,
+                await modifiedAttendee.update({
                     status
                 })
              
                 return res.json({
-                    id:attendee[i].dataValues.id,
-                    eventId:attendee[i].dataValues.eventId,
+                    id:modifiedAttendee.dataValues.id,
+                    eventId:modifiedAttendee.dataValues.eventId,
                     userId,
                     status
                 })
                 
-            }
+            
         }
-        }
+        
      }
      res.status=403
         res.json({
