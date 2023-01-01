@@ -404,7 +404,7 @@ async (req, res) =>{
         if(organizer[i] && attendee[i]){
             
         if((memberId === req.user.dataValues.id)||((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "host"))){   
-            
+        
             if(req.user.dataValues.id === attendee[i].dataValues.userId){
 
                 await attendee[i].update({
