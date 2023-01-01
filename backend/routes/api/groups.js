@@ -87,13 +87,15 @@ async (req, res) => {
     const members = await Membership.findAll({
         where:{ groupId }, include:{model:User}
     })
+    // console.log(members)
 
     const currentGroup = await Group.findByPk(groupId)
 if(currentGroup){
     for(let i = 0; i < members.length; i++){
         
         if((members[i].dataValues.status === 'co-host') || (req.user.dataValues.id === currentGroup.organizerId)){
-            if(req.user.dataValues.id === members[i].dataValues.memberId){
+           
+                
                  res.status = 200;
                  let  id = members[i].dataValues.User.dataValues.id;
                  let firstName = members[i].dataValues.User.dataValues.firstName;
@@ -105,8 +107,9 @@ if(currentGroup){
                     lastName,
                     status
                 })
+               
                 
-            }
+          
         }
         else if(members[i].dataValues.status !== "pending" ){
            let  id = members[i].dataValues.User.dataValues.id;
