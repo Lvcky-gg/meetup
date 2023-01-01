@@ -108,7 +108,7 @@ if(currentGroup){
                 
             }
         }
-        if(members[i].dataValues.status !== "pending" ){
+        else if(members[i].dataValues.status !== "pending" ){
            let  id = members[i].dataValues.User.dataValues.id;
             let firstName = members[i].dataValues.User.dataValues.firstName;
             let lastName = members[i].dataValues.User.dataValues.lastName;
