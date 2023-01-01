@@ -231,13 +231,16 @@ async (req, res) =>{
 router.delete('/:eventId/attendance',
 async (req, res) => {
 if(req.user){
+    const { memberId } = req.body
     const { eventId } = req.params;
     const currEvent = await Event.findByPk(eventId)
+   
     
     if(currEvent){
       
        
     const currGroup = await Group.findByPk(currEvent.dataValues.groupId, {include:{model:Membership}})
+    
     if(!currGroup){
         res.status = 404;
         return res.json({
@@ -248,9 +251,9 @@ if(req.user){
     }
     
     const memberships = currGroup.Memberships;
-    const userId  = req.user.dataValues.id;
-    const attendee = await Attendee.findOne({where:{eventId:currEvent.dataValues.id,userId   }})
-   
+    
+    
+    const attendee = await Attendee.findOne({where:{eventId:currEvent.dataValues.id,userId:memberId   }})
     if(!attendee){
         res.status = 404;
         return res.json({
@@ -258,6 +261,14 @@ if(req.user){
             "statusCode": 404
           })
     
+    }
+    if((currGroup.dataValues.organizerId === req.user.dataValues.id)||(req.user.dataValues.id ===memberId)){
+        await attendee.destroy()
+        res.status = 200;
+        return res.json({
+            "message": "Successfully deleted attendance from event"
+          })
+        
     }
    
     for(let i = 0; i < memberships.length; i++){
@@ -387,8 +398,9 @@ async (req, res) =>{
         }
         let val;
         if(organizer.length > attendee.length)val = organizer
-        if(attendee.length > organizer)val = attendee
+        if(attendee.length > organizer.length)val = attendee
         for(let i = 0; i < val.length; i++){
+            
         if(organizer[i] && attendee[i]){
             
         if((memberId === req.user.dataValues.id)||((organizer[i].dataValues.status === "cohost")||(organizer[i].dataValues.status === "host"))){   
