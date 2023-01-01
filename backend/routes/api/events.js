@@ -36,7 +36,7 @@ async (req, res) =>{
                        })
                     }
                 }
-                if(attendees[i].dataValues.status !== "pending"){
+                else if(attendees[i].dataValues.status !== "pending"){
                     result.push({
                         id,
                         firstName,
