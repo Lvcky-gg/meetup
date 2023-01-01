@@ -432,7 +432,9 @@ async (req, res) => {
             for(let i = 0; i < groupAssociated.Memberships.length; i++){
                
                if((groupAssociated.Memberships[i].dataValues.memberId === req.user.dataValues.id) && (groupAssociated.Memberships[i].dataValues.groupId === parseInt(groupId)) ){
+            
                 if(groupAssociated.Memberships[i].dataValues.status === "pending"){
+                    
                     res.status = 400;
                    return res.json( {
                         "message": "Membership has already been requested",
@@ -445,6 +447,12 @@ async (req, res) => {
                         "statusCode": 400
                       })
 
+                }else if((groupAssociated.Memberships[i].dataValues.status === "member")||(groupAssociated.Memberships[i].dataValues.status === "host")||(groupAssociated.Memberships[i].dataValues.status === "co-host")){
+                    res.status = 400;
+                    return res.json( {
+                        "message": "User is already a member of the group",
+                        "statusCode": 400
+                      })
                 }
                }
             }
@@ -572,7 +580,7 @@ router.put('/:groupId/membership',
 async (req, res) => {
     if(req.user){
         const { groupId} = req.params;
-        const { status } = req.body;
+        const { status, memberId } = req.body;
         if(status  === "pending"){
             res.status = 400;
             return res.json({
@@ -585,13 +593,13 @@ async (req, res) => {
             })
         const members = await Membership.findAll({where:{groupId}})
             if(group){
-
+                
                 
                 for(let i = 0; i < group.dataValues.Memberships.length; i++){
-                    
+                    console.log( members[i].memberId)
                    if(members[i].memberId) {
                     if(group.dataValues.organizerId === req.user.dataValues.id){
-                        
+                        if(memberId === members[i].memberId){
                         members[i].update({ status })
                         return res.json({
                             "id":members[i].id,
@@ -599,7 +607,8 @@ async (req, res) => {
                             "memberId":members[i].memberId,
                             "status":members[i].status
                         })
-                    }else if(req.user.dataValues.id === members[i].id){
+                     } 
+                    }else if(memberId === members[i].memberId){
                         if((members[i].status === "co-host") || (members[i].status === "host")){
                             if(status === "co-host"){
                                 res.status =  403
@@ -625,14 +634,7 @@ async (req, res) => {
                     }
                    }
                 }
-                
-                if(status === "co-host"){
-                    res.status =  403
-                    return res.json({
-                        "message":"must be organizer to change to co-host",
-                        "statusCode":res.status
-                    })
-                }
+
              
                 res.status = 404
                 return res.json(  {
@@ -653,6 +655,8 @@ async (req, res) => {
         return res.json({"message":"unauthorized"})
     }
 })
+
+
 
 router.put('/:groupId',
 async (req, res) => {
@@ -703,6 +707,7 @@ async (req, res) => {
     if(req.user){
        
         const { groupId } = req.params;
+        const { memberId } = req.body;
         const groupAssociated = await Group.findByPk(groupId,{
             include:{model:Membership}
         });
@@ -716,7 +721,8 @@ async (req, res) => {
         const membership =  await Membership.findAll({
             where:{ groupId }
         })
-        const member =  await Membership.findByPk(req.user.dataValues.id);
+        //may need to remove groupId
+        const member =  await Membership.findOne({where:{ memberId, groupId }});
         if(!member){
             res.status = 404
             return  res.json({
@@ -738,8 +744,8 @@ async (req, res) => {
             
             if(req.user.dataValues.id === membership[i].dataValues.id ){
                 
-                    if((membership[i].dataValues.status === "host")||membership[i].dataValues.status === "member"){
-                        await membership[i].destroy();
+                    if((membership[i].dataValues.status === "host")||membership[i].dataValues.status === "co-host"){
+                        // await membership[i].destroy();
                         return res.json({
                             "message": "Successfully deleted membership from group"
                           })
