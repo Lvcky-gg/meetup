@@ -93,7 +93,7 @@ async (req, res) => {
 if(currentGroup){
     for(let i = 0; i < members.length; i++){
         
-        if(((members[i].dataValues.status === 'co-host') || (members[i].dataValues.status === 'co-host'))|| (req.user.dataValues.id === currentGroup.organizerId)){
+        if(((members[i].dataValues.status === 'co-host') || (members[i].dataValues.status === 'host'))|| (req.user.dataValues.id === currentGroup.organizerId)){
            
                 
                  res.status = 200;
