@@ -581,7 +581,9 @@ async (req, res) => {
         
         res.json(group)
     }
-    res.json()
+    res.json({
+        "Message":"must be logged in to create a group"
+    })
 });
 //START HERE NEXT EDIT A MEMBERSHIP
 router.put('/:groupId/membership',
