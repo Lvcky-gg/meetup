@@ -1,5 +1,6 @@
 # `<Meet Up>`
-
+## Live Link
+https://meetup-dk5k.onrender.com/api
 ## Database Schema Design
 
 `<https://dbdiagram.io/d/636693dac9abfc6111708176>`
