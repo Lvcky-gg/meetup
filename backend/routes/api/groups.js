@@ -78,7 +78,7 @@ async (req, res) =>{
 }
 });
 
-
+//this one for presentation
 router.get('/:groupId/members',
 async (req, res) => {
     const { groupId } = req.params;
@@ -87,13 +87,13 @@ async (req, res) => {
     const members = await Membership.findAll({
         where:{ groupId }, include:{model:User}
     })
-    // console.log(members)
+  
 
     const currentGroup = await Group.findByPk(groupId)
 if(currentGroup){
     for(let i = 0; i < members.length; i++){
         
-        if((members[i].dataValues.status === 'co-host') || (req.user.dataValues.id === currentGroup.organizerId)){
+        if(((members[i].dataValues.status === 'co-host') || (members[i].dataValues.status === 'co-host'))|| (req.user.dataValues.id === currentGroup.organizerId)){
            
                 
                  res.status = 200;
@@ -554,7 +554,7 @@ async (req, res) => {
     }
     
 })
-
+//this one for presentation
 router.post('/',
 async (req, res) => {
     if(req.user){
@@ -585,7 +585,7 @@ async (req, res) => {
         "Message":"must be logged in to create a group"
     })
 });
-//START HERE NEXT EDIT A MEMBERSHIP
+
 router.put('/:groupId/membership',
 async (req, res) => {
     if(req.user){
