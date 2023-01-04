@@ -1,8 +1,8 @@
 'use strict';
 
 const { query } = require('express');
-const { options } = require('../../routes');
-// let options = {};
+// const { options } = require('../../routes');
+let options = {};
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
