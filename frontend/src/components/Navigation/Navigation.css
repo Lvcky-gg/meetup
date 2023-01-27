@@ -1,0 +1,57 @@
+li {
+    list-style-type: none;
+  
+}
+.navContainer{
+
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height:50px;
+}
+
+.dropButton{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  background-color: rgb(51, 62, 72);
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: solid rgba(59,130,246,.5);
+  cursor: pointer;  
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+.profile-dropdown { 
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:50px;
+    height: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+.profile-dropdown li {
+    position: relative;
+    background-color: #f9f9f9;
+   
+    z-index: 1; 
+    
+}
+ .innerText{
+    display: inline-block;
+    width: auto;
+    color: black;
+    text-decoration: none;
+    display: block;
+    
+}
+
+
+.hidden {
+    display:none
+}
