@@ -43,13 +43,13 @@ function ProfileButton({ user }) {
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
-        {/* <div className="dropdownContainer"> */}
+     
         <li><p className="innerText">{user.username}</p></li>
         <li><p className="innerText">{user.email}</p></li>
         <li>
           <button onClick={logout}>Log Out</button>
         </li>
-        {/* </div> */}
+       
       </ul>
       </div>
     </>

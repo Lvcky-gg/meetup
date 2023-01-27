@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
+import meetUpLogo from './meetup-logo-1.png'
 
 
 function Navigation({ isLoaded }){
@@ -27,7 +28,7 @@ function Navigation({ isLoaded }){
   return (
     <ul className="navContainer">
       <li>
-        <NavLink exact to="/"><img src='../../../images/meetup-logo-1.png' alt="Home"></img></NavLink>
+        <NavLink exact to="/"><img src={meetUpLogo} alt="Home"></img></NavLink>
       </li>
       {isLoaded && sessionLinks}
     </ul>

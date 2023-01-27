@@ -11,9 +11,10 @@ li {
     align-items: baseline;
     flex-direction: row;
     justify-content: space-between;
+    padding-top: 3px;
     height:50px;
     border-bottom: solid lightgray 1px;
-    padding-bottom: 3px;
+    padding-bottom: 7px;
 }
 
 .dropButton{
