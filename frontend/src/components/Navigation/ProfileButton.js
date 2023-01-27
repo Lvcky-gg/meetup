@@ -31,12 +31,13 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
   };
 
+  
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
-
+  
   return (
     <>
       <button onClick={openMenu}>
-        <i className="fa-solid fa-laptop-code" />
+        <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <li>{user.username}</li>
@@ -50,6 +51,3 @@ function ProfileButton({ user }) {
 }
 
 export default ProfileButton;
-
-
-
