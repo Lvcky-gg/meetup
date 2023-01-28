@@ -53,7 +53,7 @@ return (
         allGroups ? (
 
           allGroups.map(group=>(
-            <li key={group.id}>
+            <li >
                 <img>{group.previewImage}</img>
                 <p>{group.name}</p>
                 <p>Number of members:{group.numMembers}</p>
