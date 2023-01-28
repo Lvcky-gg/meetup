@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import { getGroups } from '../../store/groups';
-import { NavLink } from 'react-router-dom';
+
 import './landingPage.css'
 export const LandingPage = () => {
     const dispatch = useDispatch();
@@ -78,20 +78,20 @@ return (
             <div className="howItWorksImg">
                 <div>
                     <img src="https://secure.meetupstatic.com/next/images/shared/handsUp.svg?w=256" alt="img"></img>
-                    <a to='/'> Join a Group</a>
+                    <a href='/'> Join a Group</a>
 
                
                 </div>
                 <div>
                     <img src="https://secure.meetupstatic.com/next/images/shared/ticket.svg?w=256" alt="img"></img>
-                    <a to='/'> Find an Event</a>
+                    <a href='/'> Find an Event</a>
                    
                     
 
                 </div>
                 <div>
                     <img src="https://secure.meetupstatic.com/next/images/shared/joinGroup.svg?w=256" alt="img"></img>
-                    <a to='/'> Start a Group</a>
+                    <a href='/'> Start a Group</a>
 
 
                 </div>
