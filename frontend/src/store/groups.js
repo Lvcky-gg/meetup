@@ -18,6 +18,13 @@ export const getGroups = async dispatch=> {
     dispatch(grabGroups(data));
     return data;
 }
+
+export const getMyGroups = async dispatch=> {
+    const res = await fetch('api/groups/current')
+    const data= await res.json();
+    dispatch(grabGroups(data));
+    return data;
+}
 const initialState = {Groups:null}
 
 const groupReducer = (state = initialState, action) => {

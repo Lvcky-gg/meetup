@@ -6,7 +6,7 @@ import './landingPage.css'
 export const LandingPage = () => {
     const dispatch = useDispatch();
     const allGroups = useSelector(state=>state.groups).Groups;
-    console.log(allGroups)
+    
 
     useEffect(() => {
         
