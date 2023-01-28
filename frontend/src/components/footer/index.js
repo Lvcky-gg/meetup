@@ -10,18 +10,18 @@ export const Footer = () => {
 
             </div>
             <div className="mid">
-                <p>Your Account</p>
+                <p className="footerP">Your Account</p>
+                <ul ></ul>
+                <p className="footerP">Discover</p>
                 <ul></ul>
-                <p>Discover</p>
-                <ul></ul>
-                <p>Meetup</p>
+                <p className="footerP">Meetup</p>
                 <ul></ul>
                 
             </div>
             <div className="bot">
-                <div>
-                    <p>Follow Us</p>
-                    <ul>
+                <div className="botContainer">
+                    <p className="footerP">Follow Us</p>
+                    <ul className='socialFooter'>
                     <a href="https://github.com/Lvcky-gg"><i class="fa-brands fa-github"></i></a>
                     <a href="https://www.facebook.com/john.odonnell.96/"><i class="fa-brands fa-facebook"></i></a>
                     <a href="https://www.instagram.com/lvcky_gg/"><i class="fa-brands fa-instagram"></i></a>
@@ -35,7 +35,7 @@ export const Footer = () => {
                 
             </div>
             <div className="copyrights">
-                <p>copyright John R. O'Donnell</p>
+                <p className="footerP">copyright John R. O'Donnell</p>
 
             </div>
         </div>
