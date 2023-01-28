@@ -8,6 +8,7 @@ import meetUpLogo from './meetup-logo-1.png'
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
+  let hideBar = "navContainer"
 
   let sessionLinks;
   if (sessionUser) {
@@ -16,6 +17,7 @@ function Navigation({ isLoaded }){
         <ProfileButton  user={sessionUser} />
       </li>
     );
+    
   } else {
     sessionLinks = (
       <li>
@@ -23,10 +25,11 @@ function Navigation({ isLoaded }){
         <NavLink to="/signup">Sign Up</NavLink>
       </li>
     );
+    hideBar = "navContainerHidden"
   }
 
   return (
-    <ul className="navContainer">
+    <ul className={hideBar}>
       <li>
         <NavLink exact to="/"><img src={meetUpLogo} alt="Home"></img></NavLink>
       </li>
