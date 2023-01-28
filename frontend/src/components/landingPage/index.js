@@ -78,20 +78,20 @@ return (
             <div className="howItWorksImg">
                 <div>
                     <img src="https://secure.meetupstatic.com/next/images/shared/handsUp.svg?w=256" alt="img"></img>
-                    <NavLink to='/'> Join a Group</NavLink>
+                    <a to='/'> Join a Group</a>
 
                
                 </div>
                 <div>
                     <img src="https://secure.meetupstatic.com/next/images/shared/ticket.svg?w=256" alt="img"></img>
-                    <NavLink to='/'> Find an Event</NavLink>
+                    <a to='/'> Find an Event</a>
                    
                     
 
                 </div>
                 <div>
                     <img src="https://secure.meetupstatic.com/next/images/shared/joinGroup.svg?w=256" alt="img"></img>
-                    <NavLink to='/'> Start a Group</NavLink>
+                    <a to='/'> Start a Group</a>
 
 
                 </div>
