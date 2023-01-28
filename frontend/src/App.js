@@ -7,16 +7,24 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import { LandingPage } from "./components/landingPage";
 import { Footer } from "./components/footer";
+import { useSelector } from "react-redux";
+import { HomePage } from "./components/home/home";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  // const [loggedIn, setLoggedIn] = useState(false)
+  
+  const thisUser = useSelector(state => state.session.user);
+
+ 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+
   
-  }, [dispatch]);
-    // const { user } = window.store.getState().session;
+  }, [ dispatch]);
+   
+
+    
  
   return (
     <>
@@ -33,9 +41,17 @@ function App() {
         </Switch>
         
       )}
-     
+      {
+        thisUser ? (
+
+          <HomePage></HomePage>
+        ):(
+          <LandingPage></LandingPage>
+        )
+      }
       
       <Footer></Footer>
+     
     </>
   );
 }

@@ -11,7 +11,9 @@ function Navigation({ isLoaded }){
   let hideBar = "navContainer"
 
   let sessionLinks;
+ 
   if (sessionUser) {
+  
     sessionLinks = (
       <li >
         <ProfileButton  user={sessionUser} />

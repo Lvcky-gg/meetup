@@ -22,10 +22,10 @@ export const Footer = () => {
                 <div className="botContainer">
                     <p className="footerP">Follow Us</p>
                     <ul className='socialFooter'>
-                    <a href="https://github.com/Lvcky-gg"><i class="fa-brands fa-github"></i></a>
-                    <a href="https://www.facebook.com/john.odonnell.96/"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.instagram.com/lvcky_gg/"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://www.linkedin.com/in/john-o-donnell-36a38a161/"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/Lvcky-gg"><i className="fa-brands fa-github"></i></a>
+                    <a href="https://www.facebook.com/john.odonnell.96/"><i className="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/lvcky_gg/"><i className="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/in/john-o-donnell-36a38a161/"><i className="fa-brands fa-linkedin"></i></a>
                     </ul>
 
                 </div>
