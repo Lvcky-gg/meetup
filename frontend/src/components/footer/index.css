@@ -1,0 +1,14 @@
+.shell{
+    background-color:rgb(36, 36, 36);
+    margin-top:100px;
+    position:absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+p{ 
+    color:white;
+}
+h2{
+    color:white;
+}
