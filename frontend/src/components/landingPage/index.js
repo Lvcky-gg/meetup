@@ -32,7 +32,7 @@ return (
             </div>
                 
             <div>
-            <img src="https://secure.meetupstatic.com/next/images/shared/online_events.svg?w=1080" alt="img"></img>
+            <img src="https://secure.meetupstatic.com/next/images/shared/online_events.svg?w=1080" alt="img"/>
             </div>
         </div>
        
