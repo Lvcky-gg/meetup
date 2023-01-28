@@ -11,12 +11,12 @@ import { Footer } from "./components/footer";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false)
+  // const [loggedIn, setLoggedIn] = useState(false)
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   
   }, [dispatch]);
-    const { user } = window.store.getState().session;
+    // const { user } = window.store.getState().session;
  
   return (
     <>
