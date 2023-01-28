@@ -6,7 +6,7 @@ export const Footer = () => {
         <div className="shell">
             <div className="top">
                 <h2>Create Your Own Meetup Group.</h2>
-                <button>Get Started</button>
+                <button className="topButton">Get Started</button>
 
             </div>
             <div className="mid">
