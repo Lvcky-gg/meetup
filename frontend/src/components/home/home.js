@@ -38,7 +38,7 @@ export const HomePage = () => {
 
              allGroups.map(group=>(
                  <li key={group.id}>
-             <img>{group.previewImage}</img>
+             <img src={group.previewImage}/>
                 <p>{group.name}</p>
                 <p>Number of members:{group.numMembers}</p>
              </li>
