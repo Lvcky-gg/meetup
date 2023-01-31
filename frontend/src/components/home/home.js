@@ -23,7 +23,6 @@ export const HomePage = () => {
     
    
     
-    
 
     useEffect(() => {
         getMyGroups(dispatch)
@@ -34,6 +33,8 @@ export const HomePage = () => {
                 getMyEvents(groupId)(dispatch)
                 
             }
+        }else{
+            thisEvents = null
         }
 
         
