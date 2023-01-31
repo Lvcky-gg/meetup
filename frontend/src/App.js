@@ -11,8 +11,10 @@ import { useSelector } from "react-redux";
 import { HomePage } from "./components/home/home";
 import { GroupPage } from "./components/groups";
 import { EventPage } from "./components/events";
+import { GroupById } from "./components/GroupById";
 
 function App() {
+
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   
@@ -49,6 +51,10 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormModal />
+          </Route>
+          <Route path='/groups/:groupId'>
+            <GroupById></GroupById>
+
           </Route>
           <Route path='/groups'>
             <GroupPage></GroupPage>

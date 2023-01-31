@@ -25,6 +25,14 @@ export const getMyGroups = async dispatch=> {
     dispatch(grabGroups(data));
     return data;
 }
+
+export const getSpecificGroup = (groupId) => async dispatch => {
+    const res = await fetch(`../api/groups/${groupId}`)
+    console.log(groupId)
+    const data = await res.json()
+    dispatch(grabGroups(data));
+    return data;
+}
 const initialState = {Groups:null}
 
 const groupReducer = (state = initialState, action) => {

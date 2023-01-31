@@ -3,11 +3,13 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export const GroupPage = () => {
     const dispatch = useDispatch();
     const allGroups = useSelector(state=>state.groups).Groups;
     const history = useHistory()
+    
 
     const onBackClick = () => {
         history.push('/')
@@ -27,6 +29,7 @@ export const GroupPage = () => {
                 <div>
                     <div>
                         <h2>Your Groups</h2>
+                        <button>Create Group</button>
                         <p>Member</p>
                         <ul>
                         {
@@ -35,7 +38,7 @@ export const GroupPage = () => {
                                     allGroups.map(group=>(
                                      <li key={group.id} className="myListUl" >
                                      <img src={group.previewImage} alt="image"/>
-                                     <p>{group.name}</p>
+                                     <NavLink to={`/groups/${group.id}`}>{group.name}</NavLink>
                                      </li>
                                  ))
                                  ):(

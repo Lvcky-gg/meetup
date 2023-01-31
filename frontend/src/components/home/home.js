@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import './home.css'
 import { getMyEvents } from '../../store/events';
 
-
+//unknown bug in my group grabbing and event grabbing
 export const HomePage = () => {
     const dispatch = useDispatch();
     const allGroups = useSelector(state=>state.groups).Groups;
@@ -73,15 +73,14 @@ export const HomePage = () => {
             
         {
             allGroups ? (
-
-             allGroups.map(group=>(
-                 <li key={group.id} className="myListUl" onClick={onGroupClick}>
-             <img src={group.previewImage} alt="image"/>
-                <p>{group.name}</p>
-             </li>
-             ))
+                allGroups.map(group=>(
+                    <li key={group.id} className="myListUl" onClick={onGroupClick}>
+                <img src={group.previewImage} alt="image"/>
+                   <p>{group.name}</p>
+                </li>
+                ))
     ):(
-      <p>You have no groups </p>
+        <p>You have no groups </p>
      )
      }
         </ul>
