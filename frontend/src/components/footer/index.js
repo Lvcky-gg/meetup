@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
 import OpenModalButton from '../OpenModalButton';
 import './index.css'
 export const Footer = ({isLoaded}) => {
@@ -10,8 +10,6 @@ export const Footer = ({isLoaded}) => {
     const onClick = () => {
         if(sessionUser){
             history.push('/groups')
-        }else{
-            <LoginFormModal />
         }
     }
     
@@ -20,7 +18,13 @@ export const Footer = ({isLoaded}) => {
     return (
         <div className="shell">
             <div className="top">
-                <h2>Create Your Own TPG Group.</h2>
+               {
+                sessionUser ? (
+                 <h2>Create Your Own TPG Group.</h2>
+                ):(
+                    <h2>Create Account</h2>
+                )
+               } 
 
                 {
                     
@@ -31,7 +35,7 @@ export const Footer = ({isLoaded}) => {
                         <OpenModalButton
                         className="topButton"
                         buttonText="Get Started"
-                        modalComponent={<LoginFormModal />}
+                        modalComponent={<SignupFormModal />}
                         // onClick={onClick}
                       />
                 

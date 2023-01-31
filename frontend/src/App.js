@@ -10,6 +10,7 @@ import { Footer } from "./components/footer";
 import { useSelector } from "react-redux";
 import { HomePage } from "./components/home/home";
 import { GroupPage } from "./components/groups";
+import { EventPage } from "./components/events";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +54,7 @@ function App() {
             <GroupPage></GroupPage>
           </Route>
           <Route path='/events'>
+            <EventPage></EventPage>
 
           </Route>
         </Switch>

@@ -100,5 +100,6 @@ width:fit-content;
     color:rgb(53, 51, 51);
     font-size: larger;
     font-family: sans-serif;
+    cursor: pointer;
 
 }
