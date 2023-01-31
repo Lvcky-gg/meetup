@@ -5,7 +5,7 @@ export const Footer = () => {
     return (
         <div className="shell">
             <div className="top">
-                <h2>Create Your Own Meetup Group.</h2>
+                <h2>Create Your Own TPG Group.</h2>
                 <button className="topButton">Get Started</button>
 
             </div>
@@ -20,7 +20,7 @@ export const Footer = () => {
             </div>
             <div className="bot">
                 <div className="botContainer">
-                    <p className="footerP">Follow Us</p>
+                    <p className="footerP">Follow Me</p>
                     <ul className='socialFooter'>
                     <a href="https://github.com/Lvcky-gg"><i className="fa-brands fa-github"></i></a>
                     <a href="https://www.facebook.com/john.odonnell.96/"><i className="fa-brands fa-facebook"></i></a>

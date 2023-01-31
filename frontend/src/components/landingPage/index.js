@@ -1,8 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import { getGroups } from '../../store/groups';
-
 import './landingPage.css'
+import logo from './PACKAGE_Artboard_1_copy_6.png'
+import logoOne from './tpgbuttontest3.png'
+import logoTwo from './TPG_Discord_Icon.png'
+import logoThree from './TPGCore.png'
+
 export const LandingPage = () => {
     const dispatch = useDispatch();
     const allGroups = useSelector(state=>state.groups).Groups;
@@ -22,17 +26,17 @@ return (
     <div>
         <div className="landingPageUpper">
             <div>
-                <h1>The people platform
+                <h1>Total Punishment Gaming
                     <br></br>
-                    -Where interests become friendships.
+                    -Generic slogan
                 </h1>
                 <p>
-                Whatever your interest, from hiking and reading to networking and skill sharing, there are thousands of people who share it on Meetup. Events are happening every day—log in to join the fun.
+                Whatever your interest, from gaming and movies to networking and skill sharing, there are thousands of people who share it in TPG. Events are happening every day—log in to join the fun.
                 </p>
             </div>
                 
             <div>
-            <img src="https://secure.meetupstatic.com/next/images/shared/online_events.svg?w=1080" alt="img"/>
+            <img src={logo} alt="img"/>
             </div>
         </div>
        
@@ -72,25 +76,25 @@ return (
     <div>
         <div>
             <div className="howItWorksTxt">
-                <h3>How Meetup Works</h3>
+                <h3>How TPG Event Manager works</h3>
                 <p>Meet new people who share your interests through online and in-person events. It’s free to create an account.</p>
             </div>
             <div className="howItWorksImg">
                 <div>
-                    <img src="https://secure.meetupstatic.com/next/images/shared/handsUp.svg?w=256" alt="#"/>
+                    <img src={logoOne} alt="#"/>
                     <a href='/'> Join a Group</a>
 
                
                 </div>
                 <div>
-                    <img src="https://secure.meetupstatic.com/next/images/shared/ticket.svg?w=256" alt="#"/>
+                    <img src={logoThree} alt="#"/>
                      <a href='/'> Find an Event</a>
                     
                     
 
                 </div>
                 <div>
-                    <img src="https://secure.meetupstatic.com/next/images/shared/joinGroup.svg?w=256" alt="#"/>
+                    <img src={logoTwo} alt="#"/>
                     <a href='/'> Start a Group</a>
 
 

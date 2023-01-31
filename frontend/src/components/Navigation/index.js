@@ -5,7 +5,7 @@ import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
-import meetUpLogo from './meetup-logo-1.png'
+import meetUpLogo from './PACKAGE_Artboard_1_copy_4.png'
 
 
 function Navigation({ isLoaded }){
