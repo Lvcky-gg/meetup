@@ -82,20 +82,20 @@ return (
             <div className="howItWorksImg">
                 <div>
                     <img src={logoOne} alt="#"/>
-                    <a href='/'> Join a Group</a>
+                    <a href='https://www.communitymanagerapp.com/dashboard/'> Apply Today!</a>
 
                
                 </div>
                 <div>
                     <img src={logoThree} alt="#"/>
-                     <a href='/'> Find an Event</a>
+                     <a href='https://www.youtube.com/@totalpunishmentgaming1222'> Watch online</a>
                     
                     
 
                 </div>
                 <div>
                     <img src={logoTwo} alt="#"/>
-                    <a href='/'> Start a Group</a>
+                    <a href='https://iwannapvp.com/'> Our Website</a>
 
 
                 </div>
