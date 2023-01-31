@@ -11,6 +11,17 @@ const grabGroups = (data) => {
         payload:data,
       };
 }
+const deleteGroup = () => {
+    return {
+        type:DELETE_GROUP
+    }
+}
+// const changeGroup = (data) => {
+//     return {
+//         type: ADD_GROUP,
+//         payload:data,
+//       };
+// }
 
 export const getGroups = async dispatch=> {
     const res = await fetch('/api/groups')
@@ -33,6 +44,33 @@ export const getSpecificGroup = (groupId) => async dispatch => {
     dispatch(grabGroups(data));
     return data;
 }
+
+export const createGroup = (input) => async (dispatch) => {
+    const { name, about, type, bool, city, state } = input;
+    const response = await fetch("/api/groups", {
+      method: "POST",
+      body: JSON.stringify({
+        name,
+        about,
+        type,
+        "private":bool,
+        city, 
+        state
+      }),
+    });
+    const data = await response.json();
+    dispatch(getGroups(data));
+    return response;
+  };
+
+  export const deleteGroupById = (groupId) => async (dispatch) => {
+    const response = await fetch(`/api/groups/${groupId}`, {
+      method: 'DELETE',
+    });
+    dispatch(deleteGroup());
+    return response;
+  };
+
 const initialState = {Groups:null}
 
 const groupReducer = (state = initialState, action) => {
@@ -41,7 +79,12 @@ const groupReducer = (state = initialState, action) => {
         case GET_GROUP:
           newState = Object.assign({}, action.payload);
           return newState;
+          case DELETE_GROUP:
+            newState = Object.assign({}, state);
+            newState.Groups = null;
+            return newState;
         default:return state;
+        
     }
 }
 
