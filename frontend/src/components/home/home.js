@@ -10,8 +10,9 @@ export const HomePage = () => {
     const dispatch = useDispatch();
     const allGroups = useSelector(state=>state.groups).Groups;
     const thisUser = useSelector(state => state.session.user);
-    let thisEvents = useSelector(state=> state.session.events)
+    let thisEvents = useSelector(state=> state.events).Events;
     console.log(thisEvents)
+   
     
     
 
@@ -19,6 +20,7 @@ export const HomePage = () => {
         for(let i = 0; i < allGroups.length; i++){
             let groupId = allGroups[i].id
             getMyEvents(groupId)(dispatch)
+            getMyGroups(dispatch)
         }
         
         
@@ -32,15 +34,36 @@ export const HomePage = () => {
         </div>
         <div className="YourInfo">
             <div>
-            <ul className="myGroupsList">
+            <h4>Your Events</h4>
+            <ul className="myList">
+                
+        {
+            thisEvents ? (
+
+                thisEvents.map(event=>(
+                 <li key={event.id} className="myListUl">
+             <img src={event.previewImage} alt="image"/>
+                <p>{event.name}</p>
+               
+             </li>
+             ))
+    ):(
+      <p>You have no Events </p>
+     )
+     }
+        </ul>
+            </div>
+            <div>
+            <h4>Your Groups</h4>
+            <ul className="myList">
+            
         {
             allGroups ? (
 
              allGroups.map(group=>(
-                 <li key={group.id}>
-             <img src={group.previewImage}/>
+                 <li key={group.id} className="myListUl">
+             <img src={group.previewImage} alt="image"/>
                 <p>{group.name}</p>
-                <p>Number of members:{group.numMembers}</p>
              </li>
              ))
     ):(

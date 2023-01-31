@@ -1,3 +1,39 @@
 .YourInfo{
     display:flex;
+    flex-direction: column;
+    width:350px;
+    height:auto;
+    background-color: rgb(233, 231, 231);
+    border-radius: 2%;
+
+}
+.YourInfo h4{
+    width:50%;
+    margin: auto;
+    font-size: larger;
+    margin-top: 10px;
+}
+.myList {
+    display: flex;
+    flex-direction: column;
+    width:80%;
+    
+}
+
+.myListUl{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height:90px;
+    background-color: white;
+    border-radius: 5%;
+    border:gray solid 1px;
+}
+.myListUl:hover{
+    cursor: pointer;
+
+}
+.myListUl img {
+    width:100%;
+
 }

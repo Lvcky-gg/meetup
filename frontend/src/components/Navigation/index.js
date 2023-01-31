@@ -2,6 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
+import OpenModalButton from '../OpenModalButton';
+import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
 import meetUpLogo from './meetup-logo-1.png'
 
@@ -22,10 +24,14 @@ function Navigation({ isLoaded }){
     
   } else {
     sessionLinks = (
-      <li>
-        <NavLink to="/login">Log In</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
-      </li>
+      <li className="modalButtonsUse">
+      <OpenModalButton
+      
+        buttonText="Log In"
+        modalComponent={<LoginFormModal />}
+      />
+      <NavLink to="/signup">Sign Up</NavLink>
+    </li>
     );
     hideBar = "navContainerHidden"
   }
