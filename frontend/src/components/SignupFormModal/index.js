@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
 
 import './signup.css'
 
-function SignupFormPage() {
+function SignupFormModal() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -15,6 +16,7 @@ function SignupFormPage() {
   const [lastName, setLastName] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState([]);
+  const { closeModal } = useModal();
 
   if (sessionUser) return <Redirect to="/" />;
 
@@ -22,7 +24,8 @@ function SignupFormPage() {
     e.preventDefault();
     if (password === confirmPassword) {
       setErrors([]);
-      return dispatch(sessionActions.signup({ firstName, lastName, email, username, password }))
+      return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
+        .then(closeModal)
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
@@ -32,7 +35,7 @@ function SignupFormPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='signUpForm' onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
@@ -95,4 +98,4 @@ function SignupFormPage() {
   );
 }
 
-export default SignupFormPage;
+export default SignupFormModal;

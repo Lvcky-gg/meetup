@@ -31,10 +31,11 @@ function LoginFormModal() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form  className='loginForm' onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
+      
       <label>
         Username or Email
         <input

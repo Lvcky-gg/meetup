@@ -1,12 +1,43 @@
-
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import LoginFormModal from '../LoginFormModal';
+import OpenModalButton from '../OpenModalButton';
 import './index.css'
-export const Footer = () => {
+export const Footer = ({isLoaded}) => {
+    let sessionUser = useSelector(state => state.session.user);
+    const history = useHistory();
+
+    const onClick = () => {
+        if(sessionUser){
+            history.push('/groups')
+        }else{
+            <LoginFormModal />
+        }
+    }
+    
+    
 
     return (
         <div className="shell">
             <div className="top">
                 <h2>Create Your Own TPG Group.</h2>
-                <button className="topButton">Get Started</button>
+
+                {
+                    
+                    sessionUser ? (
+                        <button className="topButton" onClick={onClick}>Get Started</button>
+
+                    ): (
+                        <OpenModalButton
+                        className="topButton"
+                        buttonText="Get Started"
+                        modalComponent={<LoginFormModal />}
+                        // onClick={onClick}
+                      />
+                
+                    )
+                }
+                
 
             </div>
             <div className="mid">

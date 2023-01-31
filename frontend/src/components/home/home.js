@@ -17,11 +17,14 @@ export const HomePage = () => {
     
 
     useEffect(() => {
-        for(let i = 0; i < allGroups.length; i++){
-            let groupId = allGroups[i].id
-            getMyEvents(groupId)(dispatch)
-            getMyGroups(dispatch)
+        if(allGroups){
+            for(let i = 0; i < allGroups.length; i++){
+                let groupId = allGroups[i].id
+                getMyEvents(groupId)(dispatch)
+                getMyGroups(dispatch)
+            }
         }
+
         
         
       

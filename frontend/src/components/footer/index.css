@@ -16,6 +16,15 @@
     background-color: black;
     height:36px;
 }
+.top button{
+    margin-top:20px;
+    margin-left:15px;
+    border:solid 1px white;
+    border-radius:40%;
+    color:white;
+    background-color: black;
+    height:36px;
+}
 .footerP{ 
     color:lightgray;
 }

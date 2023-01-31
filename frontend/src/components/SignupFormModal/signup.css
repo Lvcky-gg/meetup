@@ -1,8 +1,12 @@
-.loginForm{
+.signUpForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 20px;
     height:100%;
+}
+.signUpForm button {
+    border-radius: 2%;
+    
 }
