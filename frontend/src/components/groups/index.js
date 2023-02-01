@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import OpenModalButton from '../OpenModalButton';
+import CreateGroupModal from '../createGroupModal';
 
 export const GroupPage = () => {
     const dispatch = useDispatch();
@@ -29,7 +31,12 @@ export const GroupPage = () => {
                 <div>
                     <div>
                         <h2>Your Groups</h2>
-                        <button>Create Group</button>
+                        <OpenModalButton
+      
+                         buttonText="Create Group"
+                         modalComponent={<CreateGroupModal></CreateGroupModal>}
+                        //  onClick={onClick}
+                         />
                         <p>Member</p>
                         <ul>
                         {
