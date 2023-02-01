@@ -113,7 +113,7 @@ function CreateGroupModal() {
          <option value={false}>Public</option>
 
     </select>
-      <button type="submit">Log In</button>
+      <button type="submit">Submit</button>
     </form>
   );
 }

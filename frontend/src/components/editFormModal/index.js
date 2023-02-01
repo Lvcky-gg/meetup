@@ -15,7 +15,7 @@ function EditGroupModal({Group, groupId}) {
 console.log(groupId)
   const history = useHistory()
   const dispatch = useDispatch();
-//   const sessionUser = useSelector(state => state.session.user);
+
   const [name, setName] = useState(Group.name);
   const [about, setAbout] = useState(Group.about);
   const [city, setCity] = useState(Group.city);
@@ -24,7 +24,7 @@ console.log(groupId)
   const [bool, setBool] = useState(Group.bool);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-  const sessionUser = useSelector(state => state.session.user);
+ 
 
 //   if (sessionUser) return (
 //     <Redirect to="/groups" />

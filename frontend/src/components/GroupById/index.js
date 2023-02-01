@@ -31,9 +31,12 @@ export const GroupById = ({isLoaded}) => {
      
      
       let groupImg = '';
-      if( Group.name && Group.GroupImages[0] && isLoaded){
-           groupImg =Group.GroupImages[0].url;
+      if(Group){
+        if( Group.name && Group.GroupImages[0] && isLoaded){
+            groupImg =Group.GroupImages[0].url;
+       }
       }
+     
     
     return (
        

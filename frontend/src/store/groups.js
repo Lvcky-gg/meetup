@@ -79,8 +79,7 @@ export const createGroup = (input) => async dispatch => {
       }),
     });
     const data = await response.json();
-    console.log(data)
-    console.log(name)
+  
     dispatch(changeGroup(data));
     return response;
   };
