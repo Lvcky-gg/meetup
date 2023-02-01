@@ -16,12 +16,12 @@ const deleteGroup = () => {
         type:DELETE_GROUP
     }
 }
-// const changeGroup = (data) => {
-//     return {
-//         type: ADD_GROUP,
-//         payload:data,
-//       };
-// }
+const changeGroup = (data) => {
+    return {
+        type: ADD_GROUP,
+        payload:data,
+      };
+}
 
 export const getGroups = async dispatch=> {
     const res = await fetch('/api/groups')
@@ -59,7 +59,7 @@ export const createGroup = (input) => async (dispatch) => {
       }),
     });
     const data = await response.json();
-    dispatch(getGroups(data));
+    dispatch(changeGroup(data));
     return response;
   };
 
@@ -79,6 +79,9 @@ const groupReducer = (state = initialState, action) => {
         case GET_GROUP:
           newState = Object.assign({}, action.payload);
           return newState;
+          case ADD_GROUP:
+            newState = Object.assign({}, action.payload);
+            return newState;
           case DELETE_GROUP:
             newState = Object.assign({}, state);
             newState.Groups = null;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import * as sessionActions from '../../store/session';
+import * as groupActions from '../../store/groups';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
@@ -12,6 +12,8 @@ function CreateGroupModal() {
   const [about, setAbout] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
+  const [type, setType] = useState('');
+  const [bool, setBool] = useState('');
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
 
@@ -22,14 +24,14 @@ function CreateGroupModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    // return dispatch(sessionActions.login({ credential, password }))
-    //   .then(closeModal)
-    //   .catch(
-    //     async (res) => {
-    //       const data = await res.json();
-    //       if (data && data.errors) setErrors(data.errors);
-    //     }
-    //   );
+    return dispatch(groupActions.createGroup({ name, about, city, state, type, bool}))
+      .then(closeModal)
+      .catch(
+        async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        }
+      );
   };
 
   return (
@@ -69,11 +71,29 @@ function CreateGroupModal() {
         state
         <input
           type="text"
-          value={about}
+          value={state}
           onChange={(e) => setState(e.target.value)}
           required
         />
       </label>
+    <select
+    name='type'
+    onChange={(e) => setType(e.target.value)}
+    value={type}>
+         <option value='' disabled>Select Event Type</option>
+         <option value='Online'>Online</option>
+         <option value='In Person'>In Person</option>
+
+    </select>
+    <select
+    name='bool'
+    onChange={(e) => setBool(e.target.value)}
+    value={bool}>
+         <option value='' disabled>Select Private or Public Event</option>
+         <option value='True'>Private</option>
+         <option value='False'>Public</option>
+
+    </select>
       <button type="submit">Log In</button>
     </form>
   );
