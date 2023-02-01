@@ -2,7 +2,12 @@ import {getSpecificGroup} from '../../store/groups'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react';
+
+
+import OpenModalButton from '../OpenModalButton';
+import EditGroupModal from '../editFormModal';
 import './groupById.css'
+
 
 export const GroupById = ({isLoaded}) => {
     const { groupId } = useParams();
@@ -48,7 +53,13 @@ export const GroupById = ({isLoaded}) => {
                 </div>
                 }
                 <div>
-                    <button>Edit Group</button>
+                <OpenModalButton
+      
+      buttonText="Edit Group"
+      modalComponent={<EditGroupModal Group={Group} groupId={groupId}></EditGroupModal>}
+      
+      
+      />
                     <button>Delete Group</button>
                 </div>
 

@@ -65,6 +65,25 @@ export const createGroup = (input) => async dispatch => {
     dispatch(changeGroup(data));
     return response;
   };
+  export const editGroup = (input, groupId) => async dispatch => {
+    const { name, about, type, bool, city, state} = input;
+    const response = await csrfFetch(`/api/groups/${groupId}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        name,
+        about,
+        type,
+        "private":bool,
+        city, 
+        state
+      }),
+    });
+    const data = await response.json();
+    console.log(data)
+    console.log(name)
+    dispatch(changeGroup(data));
+    return response;
+  };
 
   export const deleteGroupById = (groupId) => async (dispatch) => {
     const response = await fetch(`/api/groups/${groupId}`, {
