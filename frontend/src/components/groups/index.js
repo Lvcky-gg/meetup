@@ -46,7 +46,7 @@ export const GroupPage = () => {
                          />
                          <h2>Your Groups</h2>
                         <p>Member</p>
-                        <ul className="myListUl">
+                        <ul className="myListUli">
                         {
                                 allGroups ? (
 
