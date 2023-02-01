@@ -3,6 +3,7 @@ import * as groupActions from '../../store/groups';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
+import { createGroup } from '../../store/groups';
 
 
 function CreateGroupModal() {
@@ -16,15 +17,15 @@ function CreateGroupModal() {
   const [bool, setBool] = useState('');
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-
+//   const sessionUser = useSelector(state => state.session.user);
 //   if (sessionUser) return (
-//     <Redirect to="/" />
+//     <Redirect to="/groups" />
 //   );
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(groupActions.createGroup({ name, about, city, state, type, bool}))
+    return createGroup({ name, about, city, state, type, bool})(dispatch)
       .then(closeModal)
       .catch(
         async (res) => {

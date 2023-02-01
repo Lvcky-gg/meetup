@@ -17,6 +17,9 @@ export const GroupPage = () => {
         history.push('/')
 
     }
+    const onCreateClick = () => {
+        history.push('/groups')
+    }
 
     useEffect(()=> {
         getMyGroups(dispatch)
@@ -35,7 +38,7 @@ export const GroupPage = () => {
       
                          buttonText="Create Group"
                          modalComponent={<CreateGroupModal></CreateGroupModal>}
-                        //  onClick={onClick}
+                         
                          />
                         <p>Member</p>
                         <ul>
