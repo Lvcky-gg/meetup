@@ -11,6 +11,7 @@ const grabGroups = (data) => {
         payload:data,
       };
 }
+
 const deleteGroup = () => {
     return {
         type:DELETE_GROUP
@@ -38,8 +39,8 @@ export const getMyGroups = async dispatch=> {
 }
 
 export const getSpecificGroup = (groupId) => async dispatch => {
-    const res = await fetch(`../api/groups/${groupId}`)
-    console.log(groupId)
+    const res = await fetch(`/api/groups/${groupId}`)
+   
     const data = await res.json()
     dispatch(grabGroups(data));
     return data;

@@ -4,6 +4,7 @@ import { getGroups, getMyGroups } from '../../store/groups';
 import { NavLink } from 'react-router-dom';
 import './home.css'
 import { getMyEvents } from '../../store/events';
+import { useHistory } from 'react-router-dom';
 
 //unknown bug in my group grabbing and event grabbing
 export const HomePage = () => {
@@ -11,6 +12,14 @@ export const HomePage = () => {
     const allGroups = useSelector(state=>state.groups).Groups;
     const thisUser = useSelector(state => state.session.user);
     let thisEvents = useSelector(state=> state.events).Events;
+    let sessionUser = useSelector(state => state.session.user);
+    const history = useHistory();
+
+    const onClick = () => {
+        if(sessionUser){
+            history.push('/groups')
+        }
+    }
 
     const onGroupClick=()=> {
         
@@ -69,7 +78,10 @@ export const HomePage = () => {
         </ul>
             </div>
             <div>
-            <h4>Your Groups</h4>
+            <h4
+            className="routerForGroups"
+            onClick={onClick}
+            >Your Groups</h4>
             <ul className="myList">
             
         {

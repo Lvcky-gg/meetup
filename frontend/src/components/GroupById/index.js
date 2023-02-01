@@ -1,22 +1,58 @@
 import {getSpecificGroup} from '../../store/groups'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect } from 'react';
+import './groupById.css'
 
-export const GroupById = () => {
+export const GroupById = ({isLoaded}) => {
     const { groupId } = useParams();
-    const dispatch = useDispatch()
-    const Group = useSelector(state=>state.groups).Groups
+    const dispatch = useDispatch();
+    
+    let Group = useSelector(state=>state.groups)
+
+
+    console.log(Group)
+   
+     
+
+    
     
 
     useEffect(() => {
      getSpecificGroup(+groupId)(dispatch)
-        
-        
-      
+     
+     console.log(Group)
       }, [ dispatch]);
-    // console.log(+groupId)
+     
+     
+      let groupImg = '';
+      if( Group.name && Group.GroupImages[0] && isLoaded){
+           groupImg =Group.GroupImages[0].url;
+      }
+    
     return (
-        <h1>Hi</h1>
+       
+   
+            <div className='groupByIdContainerOne'>
+                {Group.name &&
+                <div className='groupByIdContainerImgOne'>
+                   
+                        <img src={groupImg} alt="GroupImg"></img>
+                    <div>
+                        <h2>{Group.name}</h2>
+                        <p>{`${Group.city}, ${Group.state}`}</p>
+                        <p>{Group.numMembers}</p>
+                        <p>{`Organized by ${Group.Organizer.firstName} ${Group.Organizer.lastName}`}</p>
+                        
+                    </div>
+                </div>
+                }
+                <div>
+                    <button>Edit Group</button>
+                    <button>Delete Group</button>
+                </div>
+
+            </div>
+
     )
 }

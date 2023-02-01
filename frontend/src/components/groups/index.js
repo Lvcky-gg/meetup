@@ -35,21 +35,23 @@ export const GroupPage = () => {
                     <p onClick={onBackClick} className='homePageFromGroup'>Back to Home Page</p>
                 </div>
                 <div>
-                    <div>
-                        <h2>Your Groups</h2>
+                    <div className="groupsDivWithContent">
+                        
                         <OpenModalButton
       
                          buttonText="Create Group"
                          modalComponent={<CreateGroupModal></CreateGroupModal>}
                          
+                         
                          />
+                         <h2>Your Groups</h2>
                         <p>Member</p>
-                        <ul>
+                        <ul className="myListUl">
                         {
                                 allGroups ? (
 
                                     allGroups.map(group=>(
-                                     <li key={group.id} className="myListUl" >
+                                     <li key={group.id} >
                                      <img src={group.previewImage} alt="image"/>
                                      <NavLink to={`/groups/${group.id}`}>{group.name}</NavLink>
                                      </li>

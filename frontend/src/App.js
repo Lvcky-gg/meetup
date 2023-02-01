@@ -53,7 +53,7 @@ function App() {
             <SignupFormModal />
           </Route>
           <Route path='/groups/:groupId'>
-            <GroupById></GroupById>
+            <GroupById isLoaded={isLoaded}></GroupById>
 
           </Route>
           <Route path='/groups'>
