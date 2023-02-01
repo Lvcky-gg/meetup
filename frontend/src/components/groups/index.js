@@ -6,11 +6,14 @@ import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import OpenModalButton from '../OpenModalButton';
 import CreateGroupModal from '../createGroupModal';
+import './groups.css'
 
 export const GroupPage = () => {
     const dispatch = useDispatch();
     const allGroups = useSelector(state=>state.groups).Groups;
     const history = useHistory()
+    const thisUser = useSelector(state => state.session.user);
+  console.log(allGroups)
     
 
     const onBackClick = () => {
@@ -29,7 +32,7 @@ export const GroupPage = () => {
         <div>
             <div>
                 <div>
-                    <p onClick={onBackClick}>Back to Home Page</p>
+                    <p onClick={onBackClick} className='homePageFromGroup'>Back to Home Page</p>
                 </div>
                 <div>
                     <div>

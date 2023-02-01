@@ -1,4 +1,4 @@
-
+import { csrfFetch } from './csrf';
 
 const ADD_GROUP = 'ADD_GROUP'
 const EDIT_GROUP='EDIT_GROUP'
@@ -45,9 +45,9 @@ export const getSpecificGroup = (groupId) => async dispatch => {
     return data;
 }
 
-export const createGroup = (input) => async (dispatch) => {
-    const { name, about, type, bool, city, state } = input;
-    const response = await fetch("/api/groups", {
+export const createGroup = (input) => async dispatch => {
+    const { name, about, type, bool, city, state, organizerId } = input;
+    const response = await csrfFetch("/api/groups", {
       method: "POST",
       body: JSON.stringify({
         name,
@@ -55,10 +55,12 @@ export const createGroup = (input) => async (dispatch) => {
         type,
         "private":bool,
         city, 
-        state
+        state,
+        organizerId
       }),
     });
     const data = await response.json();
+    console.log(name)
     dispatch(changeGroup(data));
     return response;
   };

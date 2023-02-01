@@ -4,9 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import { createGroup } from '../../store/groups';
+import { useHistory } from 'react-router-dom';
+import { getMyGroups } from '../../store/groups';
+import { useEffect } from 'react';
 
 
 function CreateGroupModal() {
+  const history = useHistory()
   const dispatch = useDispatch();
 //   const sessionUser = useSelector(state => state.session.user);
   const [name, setName] = useState('');
@@ -14,10 +18,12 @@ function CreateGroupModal() {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [type, setType] = useState('');
-  const [bool, setBool] = useState('');
+  const [bool, setBool] = useState(true);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
-//   const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector(state => state.session.user);
+  const organizerId =sessionUser.id
+
 //   if (sessionUser) return (
 //     <Redirect to="/groups" />
 //   );
@@ -25,14 +31,26 @@ function CreateGroupModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    return createGroup({ name, about, city, state, type, bool})(dispatch)
+    
+    return createGroup({
+      name,
+      about,
+      type,
+      bool,
+      city, 
+      state,
+      organizerId
+    })(dispatch)
+    // return dispatch(createGroup({ name, about, city, state, type, bool}))
       .then(closeModal)
+      .then(getMyGroups(dispatch))
       .catch(
         async (res) => {
           const data = await res.json();
           if (data && data.errors) setErrors(data.errors);
         }
       );
+      
   };
 
   return (
@@ -91,8 +109,8 @@ function CreateGroupModal() {
     onChange={(e) => setBool(e.target.value)}
     value={bool}>
          <option value='' disabled>Select Private or Public Event</option>
-         <option value='True'>Private</option>
-         <option value='False'>Public</option>
+         <option value={true}>Private</option>
+         <option value={false}>Public</option>
 
     </select>
       <button type="submit">Log In</button>
