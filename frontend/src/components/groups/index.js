@@ -13,7 +13,7 @@ export const GroupPage = () => {
     const allGroups = useSelector(state=>state.groups).Groups;
     const history = useHistory()
     const thisUser = useSelector(state => state.session.user);
-  console.log(allGroups)
+
     
 
     const onBackClick = () => {

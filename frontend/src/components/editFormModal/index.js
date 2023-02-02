@@ -8,13 +8,14 @@ import { useHistory } from 'react-router-dom';
 import { getMyGroups } from '../../store/groups';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { getSpecificGroup } from '../../store/groups';
 
 
 function EditGroupModal({Group, groupId}) {
-
-console.log(groupId)
+    const USstates = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
   const history = useHistory()
   const dispatch = useDispatch();
+ 
 
   const [name, setName] = useState(Group.name);
   const [about, setAbout] = useState(Group.about);
@@ -25,10 +26,10 @@ console.log(groupId)
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
  
+// useEffect(()=> {
+//     getSpecificGroup(+groupId)(dispatch)
 
-//   if (sessionUser) return (
-//     <Redirect to="/groups" />
-//   );
+// }, [dispatch])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +45,6 @@ console.log(groupId)
     }, +groupId)(dispatch)
     // return dispatch(createGroup({ name, about, city, state, type, bool}))
       .then(closeModal)
-      .then(getMyGroups(dispatch))
       .catch(
         async (res) => {
           const data = await res.json();
@@ -56,6 +56,7 @@ console.log(groupId)
 
   return (
     <form  className='loginForm' onSubmit={handleSubmit}>
+        
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
@@ -87,15 +88,18 @@ console.log(groupId)
           required
         />
       </label>
-      <label>
-        state
-        <input
-          type="text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          required
-        />
-      </label>
+      <label>state</label>
+      <select
+      name="state"
+      onChange={(e) => setState(e.target.value)}
+       >
+        <option value='' disabled>Select a State</option>
+        {
+       USstates.map(state=>(
+          <option key={state} value={state}>{state}</option>
+        ))
+      }
+      </select>
     <select
     name='type'
     onChange={(e) => setType(e.target.value)}

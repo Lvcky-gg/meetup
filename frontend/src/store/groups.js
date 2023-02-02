@@ -12,9 +12,10 @@ const grabGroups = (data) => {
       };
 }
 
-const deleteGroup = () => {
+const deleteGroup = (groupId) => {
     return {
-        type:DELETE_GROUP
+        type:DELETE_GROUP,
+        payload:groupId,
     }
 }
 const changeGroup = (data) => {
@@ -32,12 +33,13 @@ export const getGroups = async dispatch=> {
 }
 
 export const getMyGroups = async dispatch=> {
-    const res = await fetch('api/groups/current')
+    const res = await fetch('/api/groups/current')
     const data= await res.json();
+    console.log(data)
     dispatch(grabGroups(data));
     return data;
 }
-
+//need to get this and add a state to the thing as well
 export const getSpecificGroup = (groupId) => async dispatch => {
     const res = await fetch(`/api/groups/${groupId}`)
    
@@ -85,10 +87,11 @@ export const createGroup = (input) => async dispatch => {
   };
 
   export const deleteGroupById = (groupId) => async (dispatch) => {
-    const response = await fetch(`/api/groups/${groupId}`, {
-      method: 'DELETE',
+   
+    const response = await csrfFetch(`/api/groups/${groupId}`, {
+      method: 'DELETE'
     });
-    dispatch(deleteGroup());
+    dispatch(deleteGroup(groupId))
     return response;
   };
 
@@ -101,11 +104,23 @@ const groupReducer = (state = initialState, action) => {
           newState = Object.assign({}, action.payload);
           return newState;
           case ADD_GROUP:
-            newState = Object.assign({}, action.payload);
+            newState = {...state};
+            for(let i = 0; i < newState.Groups.length; i++){
+                if(newState.Groups[i].id === action.payload.id){
+                    newState.Groups[i] = action.payload;
+                }
+            }
             return newState;
           case DELETE_GROUP:
             newState = Object.assign({}, state);
-            newState.Groups = null;
+            console.log('action', action.payload)
+           
+
+            for(let i = 0; i < newState.Groups.length; i++){
+                if(newState.Groups[i].id === action.payload){
+                    newState.Groups.splice([i],1)
+                }
+            }
             return newState;
         default:return state;
         

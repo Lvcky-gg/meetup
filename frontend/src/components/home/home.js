@@ -91,8 +91,8 @@ export const HomePage = () => {
         {
             allGroups ? (
                 allGroups.map(group=>(
-                    <NavLink to={`/groups/${group.id}`}>
-                    <li key={group.id} className="myListUl" >
+                    <NavLink to={`/groups/${group.id}`} key={group.id}>
+                    <li  className="myListUl" >
                 <img src={group.previewImage} alt="image"/>
                    <p>{group.name}</p>
                 </li>

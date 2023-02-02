@@ -12,8 +12,10 @@ import { HomePage } from "./components/home/home";
 import { GroupPage } from "./components/groups";
 import { EventPage } from "./components/events";
 import { GroupById } from "./components/GroupById";
+import { getMyGroups } from "./store/groups";
 
 function App() {
+  const allGroups = useSelector(state=>state.groups).Groups;
 
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -24,6 +26,7 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
 
+    getMyGroups(dispatch)
   
   }, [ dispatch]);
    
@@ -52,7 +55,7 @@ function App() {
           <Route path="/signup">
             <SignupFormModal />
           </Route>
-          <Route path='/groups/:groupId'>
+          <Route path='/groups/:groupId' >
             <GroupById isLoaded={isLoaded}></GroupById>
 
           </Route>
