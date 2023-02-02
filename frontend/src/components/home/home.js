@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import { getGroups, getMyGroups } from '../../store/groups';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import './home.css'
 import { getMyEvents } from '../../store/events';
 import { useHistory } from 'react-router-dom';
@@ -21,8 +21,12 @@ export const HomePage = () => {
         }
     }
 
-    const onGroupClick=()=> {
-        
+    const onGroupClick=(groupId)=> {
+        // return (
+        //     <Redirect to={`/groups/${groupId}`}></Redirect>
+        // )
+        // return history.push(`/groups/${groupId}`)
+    //    window.location.href= `/groups/${groupId}`
 
     }
     const onEventClick=()=> {
@@ -87,10 +91,12 @@ export const HomePage = () => {
         {
             allGroups ? (
                 allGroups.map(group=>(
-                    <li key={group.id} className="myListUl" onClick={onGroupClick}>
+                    <NavLink to={`/groups/${group.id}`}>
+                    <li key={group.id} className="myListUl" >
                 <img src={group.previewImage} alt="image"/>
                    <p>{group.name}</p>
                 </li>
+                </NavLink>
                 ))
     ):(
         <p>You have no groups </p>
