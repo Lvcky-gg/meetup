@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
+import { NavLink } from "react-router-dom";
 
 import './Navigation.css'
 
@@ -49,7 +50,8 @@ function ProfileButton({ user }) {
         
       </button>
       <ul className={ulClassName} ref={ulRef}>
-     
+      <NavLink to='/groups'>Groups</NavLink>
+      <NavLink to='/events'>Events</NavLink>
         <li><p className="innerText">{user.username}</p></li>
         <li><p className="innerText">{user.email}</p></li>
         <li>

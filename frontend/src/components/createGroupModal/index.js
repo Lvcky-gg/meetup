@@ -29,6 +29,9 @@ function CreateGroupModal() {
 //   if (sessionUser) return (
 //     <Redirect to="/groups" />
 //   );
+useEffect(()=> {
+  getMyGroups(dispatch)
+}, [dispatch])
 
   const handleSubmit = (e) => {
     e.preventDefault();

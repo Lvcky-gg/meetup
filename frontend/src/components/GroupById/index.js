@@ -40,6 +40,7 @@ getSpecificGroup(+groupId)(dispatch)
 getMyGroups(dispatch)
 
 },[dispatch])
+console.log(SpecificGroup.GroupImages)
 
 
   const onClick = (e) => {
@@ -64,7 +65,7 @@ getMyGroups(dispatch)
     
     return (
        
-   
+        <div>
             <div className='groupByIdContainerOne'>
                 {Group.name &&
                 <div className='groupByIdContainerImgOne'>
@@ -75,7 +76,7 @@ getMyGroups(dispatch)
                     <div>
                         <h2>{Group.name}</h2>
                         <p>{`${Group.city}, ${Group.state}`}</p>
-                        <p>{Group.numMembers}</p>
+                        <p>{`Number of members: ${Group.numMembers}`}</p>
                         {SpecificGroup.Organizer &&
                    <p>{`Organized by ${SpecificGroup.Organizer.firstName} ${SpecificGroup.Organizer.lastName}`}</p>
                    }
@@ -84,7 +85,7 @@ getMyGroups(dispatch)
                     </div>
                 </div>
                 }
-                <div>
+                <div className="groupByIdButtons">
                 <OpenModalButton
       
       buttonText="Edit Group"
@@ -93,8 +94,35 @@ getMyGroups(dispatch)
       
       />
                     <button onClick={onClick}>Delete Group</button>
+                    <button>Add Image</button>
+                    
                 </div>
+                
 
+            </div>
+            <hr></hr>
+            <div className='groupImageBoxContainer'>
+                <div className="groupImageBoxInner">
+                    <h4>Group Images</h4>
+                <ul className="groupImageBox">
+                        {
+                                SpecificGroup.GroupImages ? (
+
+                                   SpecificGroup.GroupImages.map(group=>(
+                                    <li>
+                                     <img src={group.previewImage} alt="image"/>
+                                     </li>
+                                 ))
+                                 ):(
+                                     <p>You have no images </p>
+                                 )
+                          }
+
+
+                        </ul>
+                </div>
+                <div></div>
+            </div>
             </div>
 
     )

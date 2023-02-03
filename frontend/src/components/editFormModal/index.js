@@ -26,10 +26,10 @@ function EditGroupModal({Group, groupId}) {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
  
-// useEffect(()=> {
-//     getSpecificGroup(+groupId)(dispatch)
 
-// }, [dispatch])
+useEffect(()=> {
+    getMyGroups(dispatch)
+  }, [dispatch])
 
   const handleSubmit = (e) => {
     e.preventDefault();
