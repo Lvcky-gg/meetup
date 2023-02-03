@@ -26,14 +26,14 @@ const changeGroup = (data) => {
 }
 
 export const getGroups = async dispatch=> {
-    const res = await fetch('/api/groups')
+    const res = await csrfFetch('/api/groups')
     const data= await res.json();
     dispatch(grabGroups(data));
     return data;
 }
 
 export const getMyGroups = async dispatch=> {
-    const res = await fetch('/api/groups/current')
+    const res = await csrfFetch('/api/groups/current')
     const data= await res.json();
     console.log(data)
     dispatch(grabGroups(data));

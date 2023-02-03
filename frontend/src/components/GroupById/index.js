@@ -4,7 +4,10 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { getSpecificGroup } from '../../store/specificGroup';
+import { getMembers } from '../../store/members';
 //create feauture to grab members from the memberships endpoints
+//state variable for memberships
+//make feature for adding image to specific group reducer as well
 
 
 import OpenModalButton from '../OpenModalButton';
@@ -21,6 +24,7 @@ export const GroupById = () => {
     
     let Groups = useSelector(state=>state.groups.Groups)
     let SpecificGroup = useSelector(state=>state.specificGroup)
+    const memberships = useSelector(state=>state.members.Members)
 
     let Group ={};
      
@@ -38,9 +42,10 @@ if(Groups){
 useEffect(()=> {
 getSpecificGroup(+groupId)(dispatch)
 getMyGroups(dispatch)
+getMembers(+groupId)(dispatch)
 
 },[dispatch])
-console.log('hello',SpecificGroup)
+
 
 
   const onClick = (e) => {
@@ -126,11 +131,11 @@ console.log('hello',SpecificGroup)
                         <h4>Member List</h4>
                         <ul className="memberListeBox">
                         {
-                                SpecificGroup.Memberships ? (
+                                memberships ? (
 
-                                   SpecificGroup.Memberships.map(member=>(
+                                    memberships.map(member=>(
                                     <li>
-                                     <p>{member.name}</p>
+                                     <p>{member.firstName}</p>
                                      </li>
                                  ))
                                  ):(
