@@ -88,9 +88,10 @@ function EditGroupModal({Group, groupId}) {
           required
         />
       </label>
+      <div>
       <label>state</label>
       <select
-      name="state"
+      name="state "
       onChange={(e) => setState(e.target.value)}
        >
         <option value='' disabled>Select a State</option>
@@ -100,6 +101,7 @@ function EditGroupModal({Group, groupId}) {
         ))
       }
       </select>
+      </div>
     <select
     name='type'
     onChange={(e) => setType(e.target.value)}

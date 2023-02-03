@@ -39,14 +39,6 @@ export const getMyGroups = async dispatch=> {
     dispatch(grabGroups(data));
     return data;
 }
-//need to get this and add a state to the thing as well
-export const getSpecificGroup = (groupId) => async dispatch => {
-    const res = await fetch(`/api/groups/${groupId}`)
-   
-    const data = await res.json()
-    dispatch(grabGroups(data));
-    return data;
-}
 
 export const createGroup = (input) => async dispatch => {
     const { name, about, type, bool, city, state, organizerId } = input;

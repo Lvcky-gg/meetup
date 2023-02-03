@@ -3,7 +3,8 @@ import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import groupReducer from './groups';
 import eventReducer from './events';
-import { specificGroupReducer } from './specificGroup';
+import specificGroupReducer  from './specificGroup';
+// console.log(specificGroupReducer)
 
 const rootReducer = combineReducers({
   session: sessionReducer,

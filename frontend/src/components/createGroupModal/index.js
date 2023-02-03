@@ -88,9 +88,10 @@ function CreateGroupModal() {
           required
         />
       </label>
+      <div>
       <label>state</label>
       <select
-      name="state"
+      name="state "
       onChange={(e) => setState(e.target.value)}
        >
         <option value='' disabled>Select a State</option>
@@ -100,15 +101,8 @@ function CreateGroupModal() {
         ))
       }
       </select>
-      {/* <label>
-        state
-        <input
-          type="text"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          required
-        />
-      </label> */}
+      </div>
+     
     <select
     name='type'
     onChange={(e) => setType(e.target.value)}

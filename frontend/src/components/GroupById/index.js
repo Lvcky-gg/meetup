@@ -1,8 +1,9 @@
-import {getMyGroups, getSpecificGroup, deleteGroupById} from '../../store/groups'
+import {getMyGroups,  deleteGroupById} from '../../store/groups'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { getSpecificGroup } from '../../store/specificGroup';
 
 
 
@@ -19,7 +20,7 @@ export const GroupById = () => {
     
     
     let Groups = useSelector(state=>state.groups.Groups)
-    // let SpecificGroup = useSelector(state=>state.SpecificGroup)
+    let SpecificGroup = useSelector(state=>state.specificGroup)
 
     let Group ={};
      
@@ -35,10 +36,11 @@ if(Groups){
 }
 
 useEffect(()=> {
+getSpecificGroup(+groupId)(dispatch)
 getMyGroups(dispatch)
-// getSpecificGroup(+groupId)(dispatch)
+
 },[dispatch])
-// console.log(SpecificGroup) 
+
 
   const onClick = (e) => {
     e.preventDefault()
@@ -51,12 +53,13 @@ getMyGroups(dispatch)
   }
      
      
-    //   let groupImg = '';
-    //   if(Group){
-    //     if( Group?.name && Group?.GroupImages[0] && isLoaded){
-    //         groupImg =Group.GroupImages[0].url;
-    //    }
-    //   }
+      let groupImg = '';
+      if(SpecificGroup){
+        if( SpecificGroup?.name && SpecificGroup?.GroupImages[0]){
+            groupImg =SpecificGroup.GroupImages[0].url;
+            
+       }
+      }
      
     
     return (
@@ -65,13 +68,18 @@ getMyGroups(dispatch)
             <div className='groupByIdContainerOne'>
                 {Group.name &&
                 <div className='groupByIdContainerImgOne'>
-                   
-                        <img src='#' alt="GroupImg"></img>
+                   {SpecificGroup.Organizer &&
+                   <img src={groupImg} alt="GroupImg"></img>
+                   }
+                        
                     <div>
                         <h2>{Group.name}</h2>
                         <p>{`${Group.city}, ${Group.state}`}</p>
                         <p>{Group.numMembers}</p>
-                        <p>{`Organized by ${Group} ${Group}`}</p>
+                        {SpecificGroup.Organizer &&
+                   <p>{`Organized by ${SpecificGroup.Organizer.firstName} ${SpecificGroup.Organizer.lastName}`}</p>
+                   }
+                        
                         
                     </div>
                 </div>
