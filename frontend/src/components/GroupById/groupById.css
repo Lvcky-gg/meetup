@@ -17,13 +17,15 @@
 
 .groupImageBoxContainer{
     display: flex;
-    width:50%;
+    width:100%;
     height:1000px;
+    background-color: lightgray;
 }
 .groupImageBoxInner{
     display: flex;
     flex-direction: column;
-    margin:auto;
+    width:50%;
+    height:1000px;
 }
 .groupByIdButtons{
     display: flex;
@@ -43,4 +45,7 @@
     font-family: sans-serif;
     cursor: pointer;
     width:20%;
+}
+.memberListGroupById{
+    height:30%;
 }

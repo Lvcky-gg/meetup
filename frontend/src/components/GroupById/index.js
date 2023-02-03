@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { getSpecificGroup } from '../../store/specificGroup';
-
+//create feauture to grab members from the memberships endpoints
 
 
 import OpenModalButton from '../OpenModalButton';
@@ -40,7 +40,7 @@ getSpecificGroup(+groupId)(dispatch)
 getMyGroups(dispatch)
 
 },[dispatch])
-console.log(SpecificGroup.GroupImages)
+console.log('hello',SpecificGroup)
 
 
   const onClick = (e) => {
@@ -110,7 +110,7 @@ console.log(SpecificGroup.GroupImages)
 
                                    SpecificGroup.GroupImages.map(group=>(
                                     <li>
-                                     <img src={group.previewImage} alt="image"/>
+                                     <img src={group.url} alt="image"/>
                                      </li>
                                  ))
                                  ):(
@@ -121,8 +121,35 @@ console.log(SpecificGroup.GroupImages)
 
                         </ul>
                 </div>
-                <div></div>
+                 <div>
+                    <div className="memberListGroupById">
+                        <h4>Member List</h4>
+                        <ul className="memberListeBox">
+                        {
+                                SpecificGroup.Memberships ? (
+
+                                   SpecificGroup.Memberships.map(member=>(
+                                    <li>
+                                     <p>{member.name}</p>
+                                     </li>
+                                 ))
+                                 ):(
+                                     <p>You have no Members </p>
+                                 )
+                          }
+
+
+                        </ul>
+
+                    </div>
+                    <div>
+                        <h4>Events</h4>
+
+                    </div>
+
+                </div>
             </div>
+
             </div>
 
     )
