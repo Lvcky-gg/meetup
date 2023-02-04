@@ -74,7 +74,7 @@ export const HomePage = () => {
             
         {
             allGroups ? (
-                allGroups.map(group=>(
+                allGroups.filter((group,idx)=>idx<5).map(group=>(
                     <NavLink to={`/groups/${group.id}`} key={group.id}>
                     <li  className="myListUl" >
                 <img src={group.previewImage} alt="image"/>
