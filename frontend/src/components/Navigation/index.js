@@ -17,10 +17,6 @@ function Navigation({ isLoaded }){
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const onDemoClick=()=>{
-    demoLogin(dispatch)
-    // dispatch(demoLogin)
-  }
 
   const onClick = () => {
     history.push('/')
@@ -42,7 +38,10 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <li className="modalButtonsUse">
         <button
-        onClick={onDemoClick}
+        onClick={e=> {
+          e.preventDefault()
+          dispatch(demoLogin())
+        }}
 
         >
           Demo User

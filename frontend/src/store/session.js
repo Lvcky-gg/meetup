@@ -18,7 +18,7 @@ const removeUser = () => {
 };
 
 export const demoLogin = () => async (dispatch) => {
-  const credential = 'Demo-litio'
+  const credential = 'Demo-lition'
   const password = 'password'
     const response = await csrfFetch('/api/session', {
       method: 'POST',
