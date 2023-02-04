@@ -1,13 +1,30 @@
 import { csrfFetch } from './csrf';
 const GET_BYID='GET_BYID';
 const ADD_IMG='ADD_IMG';
+const REMOVE_IMG = "REMOVE_IMG"
 
+const deleteImg = (imgId) => {
+    return {
+        type:REMOVE_IMG,
+        payload:imgId
+    }
+
+}
 const addImage = (data) => {
     return {
         type: ADD_IMG,
         payload:data,
       };
 };
+
+export const deleteImgById = (imgId) => async (dispatch) => {
+   
+    const response = await csrfFetch(`/api/group-images/${imgId}`, {
+      method: 'DELETE'
+    });
+    dispatch(deleteImg(imgId))
+    return response;
+  };
 
 const grabSpecificGroup = (data) => {
     return {
@@ -51,6 +68,15 @@ const initialState = {SpecificGroup:null};
             console.log('payload',newState)
             newState.GroupImages.push(action.payload)
             return newState;
+        case REMOVE_IMG:
+        
+            for(let i = 0; i <newState.GroupImages.length; i++){
+                if(newState.GroupImages[i].id === action.payload){
+                    newState.GroupImages.splice([i],1)
+                }
+            }
+            return newState;
+
         default:return state;
     }
 }

@@ -7,7 +7,7 @@ import { getSpecificGroup } from '../../store/specificGroup';
 import { getMembers } from '../../store/members';
 import { addImg } from '../../store/specificGroup';
 import { AddImage } from '../addImage';
-
+import { deleteImgById } from '../../store/specificGroup';
 //create feauture to grab members from the memberships endpoints
 //state variable for memberships
 //make feature for adding image to specific group reducer as well
@@ -30,7 +30,7 @@ export const GroupById = () => {
     let SpecificGroup = useSelector(state=>state.specificGroup)
     const memberships = useSelector(state=>state.members.Members)
     const images = SpecificGroup.GroupImages
-console.log(images)
+
     let Group ={};
      
 if(Groups){
@@ -67,6 +67,7 @@ getMembers(+groupId)(dispatch)
   setImgVal(!imgVal)
   
   }
+
      
      
       let groupImg = '';
@@ -134,8 +135,14 @@ getMembers(+groupId)(dispatch)
                                 SpecificGroup.GroupImages ? (
 
                                    SpecificGroup.GroupImages.map(group=>(
-                                    <li key={group.url} className="groupImagePreviewHolder">
+                                    <li key={group.id} className="groupImagePreviewHolder">
                                      <img  src={group.url} alt="image"/>
+                                     <form onSubmit={(e)=>{
+                                        e.preventDefault()
+                                        deleteImgById(group.id)(dispatch)
+                                     }}>
+                                     <button className="deleteImgFromGroupById">Delete Image</button>
+                                     </form>
                                      </li>
                                  ))
                                  ):(
