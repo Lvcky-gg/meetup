@@ -50,7 +50,7 @@ export const GroupPage = () => {
                          <p onClick={onBackClick} className='homePageFromGroup'> ⬅ Back to Home Page</p>
                          <h2>Your Groups</h2>
                          </div>
-                        <p>Member</p>
+                        <p className="mildLittlePTag">{`${thisUser.firstName} ${thisUser.lastName}`}</p>
                         <ul className="myListUli">
                         {
                                 allGroups ? (
