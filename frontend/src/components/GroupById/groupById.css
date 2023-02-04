@@ -85,6 +85,14 @@
     font-family: sans-serif;
     cursor: pointer;
 }
+.backToGroupsMainFromGroupById{
+    color:rgb(53, 51, 51);
+    font-size: larger;
+    font-family: sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    
+}
 
 /* .memberListeBox{
     background-color: white;

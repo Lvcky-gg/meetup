@@ -1,6 +1,6 @@
 import {getMyGroups,  deleteGroupById} from '../../store/groups'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory, useParams } from 'react-router-dom'
+import { NavLink, useHistory, useParams } from 'react-router-dom'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { getSpecificGroup } from '../../store/specificGroup';
@@ -83,6 +83,7 @@ getMembers(+groupId)(dispatch)
     return (
        
         <div>
+            <NavLink to="/Groups" className="backToGroupsMainFromGroupById">Back to Groups</NavLink>
             <div className='groupByIdContainerOne'>
                 {Group.name &&
                 <div className='groupByIdContainerImgOne'>

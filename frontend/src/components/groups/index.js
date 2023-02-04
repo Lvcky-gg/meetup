@@ -47,7 +47,7 @@ export const GroupPage = () => {
                          
                          </div>
                          <div className="topOfHeaderForGroup">
-                         <p onClick={onBackClick} className='homePageFromGroup'>Back to Home Page</p>
+                         <p onClick={onBackClick} className='homePageFromGroup'> ⬅ Back to Home Page</p>
                          <h2>Your Groups</h2>
                          </div>
                         <p>Member</p>
