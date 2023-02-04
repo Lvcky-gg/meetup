@@ -173,9 +173,12 @@ async (req, res) =>{
                  let numMembers = await Membership.count({
                 where:{groupId}
              });
-              if(images[i].dataValues.GroupImages[0]){
-                  previewImage = images[i].dataValues.GroupImages[0].dataValues.url;
-                 }
+             if(images[i]){
+                if(images[i].dataValues.GroupImages[0]){
+                    previewImage = images[i].dataValues.GroupImages[0].dataValues.url;
+                   }
+             }
+              
         
         result.push({
             id,

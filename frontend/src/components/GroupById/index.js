@@ -58,6 +58,7 @@ getMembers(+groupId)(dispatch)
 
 
  deleteGroupById(+groupId)(dispatch)
+ getMyGroups(dispatch)
 
     
     history.push('/groups')
