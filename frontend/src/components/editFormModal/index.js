@@ -9,7 +9,7 @@ import { getMyGroups } from '../../store/groups';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getSpecificGroup } from '../../store/groups';
-
+import Logo from '../LoginFormModal/PACKAGE_Artboard_1_copy_3.png'
 
 function EditGroupModal({Group, groupId}) {
     const USstates = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
@@ -55,39 +55,47 @@ useEffect(()=> {
   };
 
   return (
-    <form  className='loginForm' onSubmit={handleSubmit}>
+    <div className="createGroupModalContainer">
+      <img src={Logo} alt="photo"></img>
+    <form  className='createFormModal' onSubmit={handleSubmit}>
         
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      
+      <div>
       <label>
         name
-        <input
+       
+      </label>
+      <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
-      </label>
+        </div>
+        <div>
       <label>
         about
-        <input
+      </label>
+      <input
           type="text"
           value={about}
           onChange={(e) => setAbout(e.target.value)}
           required
         />
-      </label>
+      </div>
+      <div>
       <label>
         city
-        <input
+      </label>
+      <input
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           required
         />
-      </label>
+      </div>
       <div>
       <label>state</label>
       <select
@@ -102,6 +110,7 @@ useEffect(()=> {
       }
       </select>
       </div>
+     <div>
     <select
     name='type'
     onChange={(e) => setType(e.target.value)}
@@ -111,6 +120,8 @@ useEffect(()=> {
          <option value='In Person'>In Person</option>
 
     </select>
+    </div>
+    <div>
     <select
     name='bool'
     onChange={(e) => setBool(e.target.value)}
@@ -120,8 +131,12 @@ useEffect(()=> {
          <option value={false}>Public</option>
 
     </select>
+    </div>
+    <div>
       <button type="submit">Submit</button>
+      </div>
     </form>
+    </div>
   );
 }
 

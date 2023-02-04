@@ -56,9 +56,9 @@ return (
             {
         allGroups ? (
 
-          allGroups.map(group=>(
-            <li key={group.id}>
-                <img src={group.previewImag} alt="#"/>
+          allGroups.filter((group,idx)=>idx<5).map((group)=>(
+            <li key={group.id} className="LandingPreviewIMGOne">
+                <img src={group.previewImage} alt="#" className="LandingPreviewIMG"/>
                 <p>{group.name}</p>
                 <p>Number of members:{group.numMembers}</p>
             </li>

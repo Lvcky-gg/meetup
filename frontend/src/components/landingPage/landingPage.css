@@ -62,3 +62,11 @@
     justify-content: center;
     
 }
+.LandingPreviewIMG{
+    width:50%;
+    margin:auto;
+    border-radius:5%;
+}
+.LandingPreviewIMGOne{
+    width:20%;
+}
