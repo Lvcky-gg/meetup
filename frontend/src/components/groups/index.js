@@ -31,12 +31,12 @@ export const GroupPage = () => {
     return (
         <div>
             <div>
-                <div>
-                    <p onClick={onBackClick} className='homePageFromGroup'>Back to Home Page</p>
+                <div className="groupsDivRoot">
+                    
                 </div>
                 <div>
                     <div className="groupsDivWithContent">
-                        
+                        <div className='groupsDivRootOne'>
                         <OpenModalButton
       
                          buttonText="Create Group"
@@ -44,6 +44,8 @@ export const GroupPage = () => {
                          
                          
                          />
+                         <p onClick={onBackClick} className='homePageFromGroup'>Back to Home Page</p>
+                         </div>
                          <h2>Your Groups</h2>
                         <p>Member</p>
                         <ul className="myListUli">

@@ -33,7 +33,9 @@
 
 }
 .myListUl img {
-    width:100%;
+    width:50%;
+    padding-right:2%;
+    border-radius:2%;
 
 }
 
