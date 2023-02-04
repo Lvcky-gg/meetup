@@ -19,6 +19,7 @@ function Navigation({ isLoaded }){
 
   const onDemoClick=()=>{
     demoLogin(dispatch)
+    // dispatch(demoLogin)
   }
 
   const onClick = () => {

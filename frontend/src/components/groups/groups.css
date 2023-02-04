@@ -75,5 +75,18 @@
     font-size: larger;
     font-family: sans-serif;
     cursor: pointer;
-    width:20px;
+}
+.topOfHeaderForGroup{
+    display:flex;
+    justify-content: flex-start;
+
+}
+.topOfHeaderForGroup p{
+    position:relative;
+    right:15%;
+    cursor: pointer;
+}
+.topOfHeaderForGroup h2 {
+    position:relative;
+    right:40%;
 }
