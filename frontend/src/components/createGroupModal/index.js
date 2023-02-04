@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { getMyGroups } from '../../store/groups';
 import { useEffect } from 'react';
 import './createGroup.css'
+import Logo from '../LoginFormModal/PACKAGE_Artboard_1_copy_3.png'
 
 
 function CreateGroupModal() {
@@ -60,39 +61,50 @@ useEffect(()=> {
   };
 
   return (
-    <form  className='loginForm' onSubmit={handleSubmit}>
+    <div className="createGroupModalContainer">
+      <img src={Logo} alt="photo"></img>
+    <form  className='createFormModal' onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      
+      <div>
       <label>
         name
-        <input
+        
+      </label>
+      <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
-      </label>
+        </div>
+        <div>
       <label>
         about
-        <input
+       
+      </label>
+      <input
           type="text"
           value={about}
           onChange={(e) => setAbout(e.target.value)}
           required
         />
-      </label>
+        </div>
+        <div>
       <label>
         city
-        <input
+      
+      </label>
+      <input
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
           required
         />
-      </label>
-      <div>
+        </div>
+      
+        <div>
       <label>state</label>
       <select
       name="state "
@@ -106,7 +118,7 @@ useEffect(()=> {
       }
       </select>
       </div>
-     
+     <div>
     <select
     name='type'
     onChange={(e) => setType(e.target.value)}
@@ -116,6 +128,8 @@ useEffect(()=> {
          <option value='In Person'>In Person</option>
 
     </select>
+    </div>
+    <div>
     <select
     name='bool'
     onChange={(e) => setBool(e.target.value)}
@@ -125,8 +139,12 @@ useEffect(()=> {
          <option value={false}>Public</option>
 
     </select>
+    </div>
+    <div>
       <button type="submit">Submit</button>
+      </div>
     </form>
+    </div>
   );
 }
 
