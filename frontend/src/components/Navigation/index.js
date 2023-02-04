@@ -65,7 +65,7 @@ function Navigation({ isLoaded }){
   return (
     <ul className={hideBar}>
       <li>
-        <NavLink exact to="/"><img src={meetUpLogo} alt="Home"></img></NavLink>
+        <NavLink exact to="/"><img src={meetUpLogo} alt="Home" className="navBarImg"></img></NavLink>
       </li>
       {isLoaded && sessionLinks}
     </ul>

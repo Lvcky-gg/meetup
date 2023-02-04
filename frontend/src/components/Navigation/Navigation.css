@@ -103,3 +103,7 @@ width:fit-content;
     cursor: pointer;
 
 }
+.navBarImg{
+    position:relative;
+    bottom:5px;
+}
