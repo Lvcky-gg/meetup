@@ -33,8 +33,9 @@ function LoginFormModal() {
   };
 
   return (
-    <>
-    <img src={Logo} alt='img'></img>
+   
+    <div className="loginFomrHolder">
+    <img src={Logo} alt='img' className="loginFomr"></img>
     <form  className='loginForm' onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
@@ -65,7 +66,7 @@ function LoginFormModal() {
       </div>
       <button type="submit">Log In</button>
     </form>
-    </>
+    </div>
   );
 }
 
