@@ -1,3 +1,29 @@
+.home{
+    display:flex;
+    margin-left:4%;
+    margin-top:2%;
+    padding-bottom:100%;
+    padding-top:10%;
+}
+.HomeTop{
+    padding-top:5%;
+    background-color: white;
+    padding-left:7%;
+   
+}
+.HomeTop h1 {
+    font-family:Graphik Meetup,-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    font-size: 40px;
+}
+.HomeTop h4 {
+    font-family:Graphik Meetup,-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    font-size: 20px;
+}
+.HomeEvents {
+    margin-left:5%;
+    width:40%;
+}
+
 .YourInfo{
     display:flex;
     flex-direction: column;
@@ -5,6 +31,8 @@
     height:auto;
     background-color: rgb(233, 231, 231);
     border-radius: 2%;
+    width:30%;
+
 
 }
 .YourInfo h4{
@@ -19,7 +47,11 @@
     width:80%;
     
 }
+.myList a {
+    padding-top:6%;
+    
 
+}
 .myListUl{
     display: flex;
     flex-direction: row;
@@ -27,15 +59,17 @@
     background-color: white;
     border-radius: 5%;
     border:gray solid 1px;
+    
+   
 }
 .myListUl:hover{
     cursor: pointer;
 
 }
 .myListUl img {
-    width:50%;
+    width:30%;
     padding-right:2%;
-    border-radius:2%;
+    border-radius:20%;
 
 }
 

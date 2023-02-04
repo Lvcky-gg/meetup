@@ -29,7 +29,7 @@ export const GroupPage = () => {
     }, [dispatch])
 
     return (
-        <div>
+        <div className='topOfGroupHome'>
             <div>
                 <div className="groupsDivRoot">
                     

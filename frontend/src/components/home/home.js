@@ -57,31 +57,15 @@ export const HomePage = () => {
 
     return (
         <>
-        <div>
-            <h1>Welcome, {thisUser.firstName}</h1>
+        <div className="HomeTop">
+             <h1>Welcome, {thisUser.firstName} 👋</h1>
+            <h4>Events from Your Groups</h4>
         </div>
-        <div className="YourInfo">
-            <div>
-            <h4>Your Events</h4>
-            <ul className="myList">
-                
-        {
-            thisEvents ? (
+        <div className="home">
 
-                thisEvents.map(event=>(
-                 <li key={event.id} className="myListUl" onClick={onEventClick}>
-             <img src={event.previewImage} alt="image"/>
-                <p>{event.name}</p>
-               
-             </li>
-             ))
-    ):(
-      <p>You have no Events </p>
-     )
-     }
-        </ul>
-            </div>
-            <div>
+        <div className="YourInfo">
+
+            <div className='groupCardsFromHome'>
             <h4
             className="routerForGroups"
             onClick={onClick}
@@ -104,9 +88,34 @@ export const HomePage = () => {
      }
         </ul>
             </div>
-            <div></div>
+            <div>
+                
+            </div>
+            
+        </div>
+        <div className="HomeEvents">
+        <div >
+            <ul className="myList">
+                
+        {
+            thisEvents ? (
+
+                thisEvents.map(event=>(
+                 <li key={event.id} className="myListUl" onClick={onEventClick}>
+             <img src={event.previewImage} alt="image"/>
+                <p>{event.name}</p>
+               
+             </li>
+             ))
+    ):(
+      <p>You have no Events </p>
+     )
+     }
+        </ul>
+            </div>
         </div>
 
+        </div>
         </>
     )
     }
