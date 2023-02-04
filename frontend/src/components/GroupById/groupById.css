@@ -1,3 +1,7 @@
+.groupImgMainImg{
+    border-radius: 10%;
+    padding:2%;
+}
 .groupByIdContainerOne{
     margin:auto;
 }
@@ -7,8 +11,9 @@
     display:flex;
     flex-direction: row;
     justify-content: center;
-    height:500px;
-    margin:auto;
+    height:100%;
+    padding-left:20px;
+    width:80%;
 }
 .groupByIdContainerImgOne img{
     width:80%
@@ -49,4 +54,26 @@
 }
 .memberListGroupById{
     height:30%;
+
 }
+.groupImageBox{
+    display: flex; 
+    flex-wrap: wrap;
+    margin:auto;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.groupImagePreviewHolder{
+    width:30%;
+    padding: 5%;
+}
+.groupImagePreviewHolder img{
+    width:100%;
+    border-radius: 10%;
+
+}
+
+/* .memberListeBox{
+    background-color: white;
+} */

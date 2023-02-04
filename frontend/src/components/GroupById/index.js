@@ -5,6 +5,9 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { getSpecificGroup } from '../../store/specificGroup';
 import { getMembers } from '../../store/members';
+import { addImg } from '../../store/specificGroup';
+import { AddImage } from '../addImage';
+
 //create feauture to grab members from the memberships endpoints
 //state variable for memberships
 //make feature for adding image to specific group reducer as well
@@ -16,6 +19,7 @@ import './groupById.css'
 
 
 export const GroupById = () => {
+    const [imgVal, setImgVal] = useState(false)
 
     const { groupId } = useParams();
     const dispatch = useDispatch();
@@ -25,7 +29,8 @@ export const GroupById = () => {
     let Groups = useSelector(state=>state.groups.Groups)
     let SpecificGroup = useSelector(state=>state.specificGroup)
     const memberships = useSelector(state=>state.members.Members)
-
+    const images = SpecificGroup.GroupImages
+console.log(images)
     let Group ={};
      
 if(Groups){
@@ -57,6 +62,11 @@ getMembers(+groupId)(dispatch)
     
     history.push('/groups')
   }
+  //make component to add an image
+  const onAddImgClick = () => {
+  setImgVal(!imgVal)
+  
+  }
      
      
       let groupImg = '';
@@ -75,7 +85,7 @@ getMembers(+groupId)(dispatch)
                 {Group.name &&
                 <div className='groupByIdContainerImgOne'>
                    {SpecificGroup.Organizer &&
-                   <img src={groupImg} alt="GroupImg"></img>
+                   <img src={groupImg} alt="GroupImg" className="groupImgMainImg"></img>
                    }
                         
                     <div>
@@ -99,9 +109,19 @@ getMembers(+groupId)(dispatch)
       
       />
                     <button onClick={onClick}>Delete Group</button>
-                    <button>Add Image</button>
+                    <button onClick={onAddImgClick}>Add Image</button>
+
                     
                 </div>
+               {
+                imgVal ? (
+
+                   <AddImage></AddImage>
+                ):(
+
+                    <></>
+                )
+               }
                 
 
             </div>
@@ -114,8 +134,8 @@ getMembers(+groupId)(dispatch)
                                 SpecificGroup.GroupImages ? (
 
                                    SpecificGroup.GroupImages.map(group=>(
-                                    <li>
-                                     <img src={group.url} alt="image"/>
+                                    <li key={group.url} className="groupImagePreviewHolder">
+                                     <img  src={group.url} alt="image"/>
                                      </li>
                                  ))
                                  ):(
@@ -134,7 +154,7 @@ getMembers(+groupId)(dispatch)
                                 memberships ? (
 
                                     memberships.map(member=>(
-                                    <li>
+                                    <li key={member.id}>
                                      <p>{member.firstName}</p>
                                      </li>
                                  ))

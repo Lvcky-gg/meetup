@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useDebugValue } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import OpenModalButton from '../OpenModalButton';
 import LoginFormModal from '../LoginFormModal';
@@ -8,16 +8,18 @@ import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
 import meetUpLogo from './PACKAGE_Artboard_1_copy_4.png';
 import { useHistory } from 'react-router-dom';
+import { demoLogin } from '../../store/session';
 
 
 function Navigation({ isLoaded }){
   let sessionUser = useSelector(state => state.session.user);
   let hideBar = "navContainer";
+  const dispatch = useDispatch()
   const history = useHistory()
 
-  // const onDemoClick=()=>{
-  //   sessionUser= {}
-  // }
+  const onDemoClick=()=>{
+    demoLogin(dispatch)
+  }
 
   const onClick = () => {
     history.push('/')
@@ -39,6 +41,7 @@ function Navigation({ isLoaded }){
     sessionLinks = (
       <li className="modalButtonsUse">
         <button
+        onClick={onDemoClick}
 
         >
           Demo User

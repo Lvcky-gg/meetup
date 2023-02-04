@@ -579,7 +579,7 @@ async (req, res) => {
             memberId:req.user.dataValues.id
         })
         
-        res.json(group)
+       return res.json(group)
     }
     res.json({
         "Message":"must be logged in to create a group"
