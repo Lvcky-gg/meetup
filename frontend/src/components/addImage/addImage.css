@@ -1,0 +1,46 @@
+.addImageFrom {
+    
+        padding-top: 2%;
+        width: 100vw;
+
+        display: flex;
+        align-items: center;
+        text-align: space-between;
+        justify-content: center;
+        place-items: center;
+        overflow: hidden;
+
+}
+
+.addImageFrom label {
+    font-family: sans-serif;
+    font-weight: 200;
+
+}
+
+.addImageFrom input {
+    background: #ecf0f3;
+    padding-left: 20px;
+    border-radius: 5%;
+    height:50%;
+}
+
+.addImageFrom select {
+    background: #ecf0f3;
+    padding-left: 20px;
+    border-radius: 5%;
+    height:50%;
+}
+
+.addImageFrom button{
+    background:none;
+    border:none;
+    margin:0;
+    padding:0;
+    text-decoration: none;
+    padding-right:20px;
+    color:rgb(53, 51, 51);
+    font-size: larger;
+    font-family: sans-serif;
+    cursor: pointer;
+}

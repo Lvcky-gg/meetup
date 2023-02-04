@@ -7,6 +7,7 @@ import { createGroup } from '../../store/groups';
 import { useHistory } from 'react-router-dom';
 import { getMyGroups } from '../../store/groups';
 import { useEffect } from 'react';
+import './createGroup.css'
 
 
 function CreateGroupModal() {

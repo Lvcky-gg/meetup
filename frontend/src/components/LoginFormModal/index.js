@@ -3,7 +3,9 @@ import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
+import Logo from './PACKAGE_Artboard_1_copy_3.png';
 import './LoginForm.css';
+
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -31,31 +33,39 @@ function LoginFormModal() {
   };
 
   return (
+    <>
+    <img src={Logo} alt='img'></img>
     <form  className='loginForm' onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
-      
+      <div>
       <label>
         Username or Email
-        <input
+
+      </label>
+      <input
           type="text"
           value={credential}
           onChange={(e) => setCredential(e.target.value)}
           required
         />
-      </label>
+      </div>
+      <div>
       <label>
         Password
-        <input
+       
+      </label>
+      <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
+      </div>
       <button type="submit">Log In</button>
     </form>
+    </>
   );
 }
 
