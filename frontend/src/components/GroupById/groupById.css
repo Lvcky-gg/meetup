@@ -28,14 +28,15 @@
 }
 .groupImageBoxContainer div{
     width:50%;
+
     padding-left:4%;
     padding-top:2%;
 }
 .groupImageBoxInner{
     display: flex;
     flex-direction: column;
-    width:50%;
-    height:1000px;
+
+    height:60%;
 }
 .groupByIdButtons{
     display: flex;
@@ -70,6 +71,7 @@
     padding-left:5%;
 }
 .groupImageBox{
+
     display: flex; 
     flex-wrap: wrap;
     margin:auto;
@@ -107,6 +109,20 @@
     
 }
 
-/* .memberListeBox{
+.specificEventBox{
+    height: 35%;
+    width:100%;
     background-color: white;
-} */
+    display:flex;
+    flex-direction: column;
+    border-radius:3%;
+  
+}
+
+.specificEventBox div{
+    width:100%;
+}
+
+.memberListeBox{
+    width:60%;
+}

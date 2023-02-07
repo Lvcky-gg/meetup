@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { createSpecificEvent } from '../../store/specificEvent';
 import { useModal } from "../../context/Modal";
-import { useHistory } from 'react-router-dom';
-import { getSpecificGroup } from '../../store/specificGroup';
-import { getMyEvents } from '../../store/events';
 import { useEffect } from 'react';
 import Logo from '../LoginFormModal/PACKAGE_Artboard_1_copy_3.png'
 import { getEventsForGroup } from '../../store/specificEvent';
+import './createEvent.css'
 
 
 function CreateEventModal({groupId}) {
 
 
- const allEvents = useSelector(state=>state.events.Events);
-
-  const history = useHistory()
   const dispatch = useDispatch();
 //   const sessionUser = useSelector(state => state.session.user);
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [capacity, setCapacity] = useState(0);
-  const [venue, setVenue] = useState(0);
+  const [venueId, setVenueId] = useState(0);
   const [price, setPrice] = useState(0.00);
   const [description, setDescription] = useState('')
   const [startDate, setStartDate] = useState(new Date());
@@ -46,7 +40,7 @@ useEffect(()=> {
     setErrors([]);
     
     return createSpecificEvent(+groupId,{
-    venue,
+    venueId,
     name,
     type,
     capacity,
@@ -68,9 +62,9 @@ useEffect(()=> {
   };
 
   return (
-    <div className="createGroupModalContainer">
+    <div className="createEventModalContainer">
       <img src={Logo} alt="photo"></img>
-    <form  className='createFormModal' onSubmit={handleSubmit}>
+    <form  className='createEventModal' onSubmit={handleSubmit}>
       <ul>
         {errors.map((error, idx) => <li key={idx}>{error}</li>)}
       </ul>
@@ -125,8 +119,8 @@ useEffect(()=> {
         <label>Venue</label>
         <input
           type="number"
-          value={venue}
-          onChange={(e) => setVenue(e.target.value)}
+          value={venueId}
+          onChange={(e) => setVenueId(e.target.value)}
          
         /> 
             

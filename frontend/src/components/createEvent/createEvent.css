@@ -1,0 +1,45 @@
+.createEventModalContainer{
+    display:flex;
+    flex-direction:column;
+}
+.createEventModalContainer img {
+    height:20%;
+    width:20%;
+    margin:auto;
+}
+.createEventModal div{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    width:100%;
+
+}
+.createEventModal button {
+    margin:auto;
+}
+.createEventModal div label{
+    font-family:Graphik Meetup,-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+
+}
+.createEventModal div select {
+    font-family:Graphik Meetup,-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+
+    width:20%;
+}
+.createEventModal div input {
+    border-radius:2%;
+    width:40%;
+}
+.createEventModal div button{
+
+    width:20%;
+    margin:auto;
+    background:none;
+    border:none;
+    text-decoration: none;
+    padding-right:20px;
+    color:rgb(53, 51, 51);
+    font-size: larger;
+    font-family: sans-serif;
+    cursor: pointer;
+}

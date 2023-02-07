@@ -6,6 +6,7 @@ import './home.css'
 import { getEvents, getMyEvents } from '../../store/events';
 import { useHistory } from 'react-router-dom';
 
+
 //unknown bug in my group grabbing and event grabbing
 export const HomePage = () => {
     const dispatch = useDispatch();
@@ -24,11 +25,12 @@ export const HomePage = () => {
         };
     }
 
-    const filterMe = (event)=>{
+    const filterMe = (item)=>{
+        console.log(item)
         for(let i =0; i< arrayForGroupId.length; i++){
-            if(event.id === arrayForGroupId[i]){
-                console.log('hello')
-                return event
+            if(item.groupId === arrayForGroupId[i]){
+                
+                return item
             }
         }
     }
