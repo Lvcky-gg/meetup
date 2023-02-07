@@ -161,7 +161,7 @@ getMembers(+groupId)(dispatch)
             </div>
             <hr></hr>
             <div className='groupImageBoxContainer'>
-            <div>
+            <div className='groupImageBoxContainerDiv'>
                         <h4>Events</h4>
                         {
                             specificEvent ? (

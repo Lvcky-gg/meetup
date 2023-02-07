@@ -3,8 +3,8 @@
     flex-direction:column;
 }
 .createEventModalContainer img {
-    height:20%;
-    width:20%;
+    height:10%;
+    width:10%;
     margin:auto;
 }
 .createEventModal div{
@@ -12,23 +12,26 @@
     flex-direction:column;
     align-items: center;
     width:100%;
+    padding-top:2px;
 
 }
 .createEventModal button {
     margin:auto;
+    padding-top:2px;
 }
 .createEventModal div label{
     font-family:Graphik Meetup,-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
-
+    padding-top:2px;
 }
 .createEventModal div select {
     font-family:Graphik Meetup,-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
-
+    padding-top:2px;
     width:20%;
 }
 .createEventModal div input {
     border-radius:2%;
     width:40%;
+    padding-top:2px;
 }
 .createEventModal div button{
 
@@ -42,4 +45,5 @@
     font-size: larger;
     font-family: sans-serif;
     cursor: pointer;
+    padding-top:2px;
 }

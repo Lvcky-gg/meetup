@@ -16,7 +16,7 @@ function CreateEventModal({groupId}) {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [capacity, setCapacity] = useState(0);
-  const [venueId, setVenueId] = useState(0);
+  let [venueId, setVenueId] = useState(0);
   const [price, setPrice] = useState(0.00);
   const [description, setDescription] = useState('')
   const [startDate, setStartDate] = useState(new Date());
@@ -38,7 +38,7 @@ useEffect(()=> {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
-    
+    if(venueId ===0)venueId = null;
     return createSpecificEvent(+groupId,{
     venueId,
     name,
