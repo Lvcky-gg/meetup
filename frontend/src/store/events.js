@@ -33,24 +33,7 @@ export const getMyEvents = (groupId)  => async dispatch  => {
     return data;
 }
 
-export const createEvent = (eventId, input) => async dispatch => {
-    const { venueId, name, type, capacity, price, description, startDate, endDate} = input;
-    const response = await csrfFetch(`/api/groups/${eventId}/events`, {
-      method: "POST",
-      body: JSON.stringify({ venueId, 
-            name, 
-            type, 
-            capacity, 
-            price, 
-            description,
-            startDate, 
-            endDate}),
-    });
-    const data = await response.json();
-    console.log(name)
-    dispatch(addEvents(data));
-    return response;
-  };
+
 const initialState = {Events:null}
 
 const eventReducer = (state = initialState, action) => {

@@ -8,6 +8,7 @@ import { getMembers } from '../../store/members';
 import { addImg } from '../../store/specificGroup';
 import { AddImage } from '../addImage';
 import { deleteImgById } from '../../store/specificGroup';
+import CreateEventModal from '../createEvent';
 //create feauture to grab members from the memberships endpoints
 //state variable for memberships
 //make feature for adding image to specific group reducer as well
@@ -108,6 +109,13 @@ getMembers(+groupId)(dispatch)
       
       buttonText="Edit Group"
       modalComponent={<EditGroupModal Group={Group}  groupId={groupId}></EditGroupModal>}
+      
+      
+      />
+                      <OpenModalButton
+      
+      buttonText="Add Event"
+      modalComponent={<CreateEventModal groupId={groupId}></CreateEventModal>}
       
       
       />

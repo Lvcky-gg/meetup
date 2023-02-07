@@ -1,60 +1,69 @@
 import React, { useState } from 'react';
-import * as groupActions from '../../store/groups';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { createSpecificEvent } from '../../store/specificEvent';
 import { useModal } from "../../context/Modal";
 import { useHistory } from 'react-router-dom';
-
+import { getSpecificGroup } from '../../store/specificGroup';
+import { getMyEvents } from '../../store/events';
 import { useEffect } from 'react';
-import './createGroup.css'
 import Logo from '../LoginFormModal/PACKAGE_Artboard_1_copy_3.png'
+import { getEventsForGroup } from '../../store/specificEvent';
 
 
-function CreateEventpModal() {
- 
+function CreateEventModal({groupId}) {
+
+
+ const allEvents = useSelector(state=>state.events.Events);
+
   const history = useHistory()
   const dispatch = useDispatch();
 //   const sessionUser = useSelector(state => state.session.user);
   const [name, setName] = useState('');
-  const [about, setAbout] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
   const [type, setType] = useState('');
-  const [bool, setBool] = useState(true);
+  const [capacity, setCapacity] = useState(0);
+  const [venue, setVenue] = useState(0);
+  const [price, setPrice] = useState(0.00);
+  const [description, setDescription] = useState('')
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
   const sessionUser = useSelector(state => state.session.user);
-  const organizerId =sessionUser.id
+  const myEvents = useSelector(state=>state.eventsForGroup.Events)
 
-//   if (sessionUser) return (
-//     <Redirect to="/groups" />
-//   );
+
+
+
+
 useEffect(()=> {
-  getMyGroups(dispatch)
+    getEventsForGroup(+groupId)(dispatch)
+
 }, [dispatch])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors([]);
     
-    // return createGroup({
-    //   name,
-    //   about,
-    //   type,
-    //   bool,
-    //   city, 
-    //   state,
-    //   organizerId
-    // })(dispatch)
-    // // return dispatch(createGroup({ name, about, city, state, type, bool}))
-    //   .then(closeModal)
-    //   .then(getMyGroups(dispatch))
-    //   .catch(
-    //     async (res) => {
-    //       const data = await res.json();
-    //       if (data && data.errors) setErrors(data.errors);
-    //     }
-    //   );
+    return createSpecificEvent(+groupId,{
+    venue,
+    name,
+    type,
+    capacity,
+    price,
+    description,
+    startDate,
+    endDate,
+
+    })(dispatch)
+      .then(closeModal)
+      .then(getEventsForGroup(+groupId)(dispatch))
+      .catch(
+        async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors(data.errors);
+        }
+      );
       
   };
 
@@ -77,46 +86,72 @@ useEffect(()=> {
           required
         />
         </div>
-        <div>
-      <label>
-        about
-       
-      </label>
-      <input
+
+    <div>
+    <div>
+        <label>description</label>
+        <input
           type="text"
-          value={about}
-          onChange={(e) => setAbout(e.target.value)}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           required
         />
-        </div>
-        <div>
-      <label>
-        city
-      
-      </label>
-      <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
+            
+    </div>
+    <div>
+        <label>capacity</label>
+        <input
+          type="number"
+          value={capacity}
+          onChange={(e) => setCapacity(e.target.value)}
           required
-        />
-        </div>
-      
-        <div>
-      <label>state</label>
-      <select
-      name="state "
-      onChange={(e) => setState(e.target.value)}
-       >
-        <option value='' disabled>Select a State</option>
-        {
-       USstates.map(state=>(
-          <option key={state} value={state}>{state}</option>
-        ))
-      }
-      </select>
-      </div>
-     <div>
+        /> 
+            
+    </div>
+    <div>
+        <label>Price</label>
+        <input
+          type="number"
+          value={price}
+          min="0.00"
+          step="0.01"
+          presicion={2}  
+          onChange={(e) => setPrice(e.target.value)}
+          required
+        /> 
+            
+    </div>
+    <div>
+        <label>Venue</label>
+        <input
+          type="number"
+          value={venue}
+          onChange={(e) => setVenue(e.target.value)}
+         
+        /> 
+            
+    </div>
+    <div>
+        <label>Start Date</label>
+        <input
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+         
+        /> 
+            
+    </div>
+    <div>
+        <label>End Date</label>
+        <input
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+         
+        /> 
+            
+    </div>
+    <label>Type</label>
     <select
     name='type'
     onChange={(e) => setType(e.target.value)}
@@ -127,17 +162,7 @@ useEffect(()=> {
 
     </select>
     </div>
-    <div>
-    <select
-    name='bool'
-    onChange={(e) => setBool(e.target.value)}
-    value={bool}>
-         <option value='' disabled>Select Private or Public Event</option>
-         <option value={true}>Private</option>
-         <option value={false}>Public</option>
 
-    </select>
-    </div>
     <div>
       <button type="submit">Submit</button>
       </div>
