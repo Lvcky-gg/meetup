@@ -372,7 +372,9 @@ if(req.user){
 router.post('/:groupId/events',
 async (req, res) =>{
     if(req.user){
-        const { groupId } = req.params;
+        let { groupId } = req.params;
+        groupId =+groupId
+      
         const { venueId, name, type, capacity, price, description, startDate, endDate} = req.body;
         const currentGroup =await Group.findByPk(groupId, {include:{model:Membership}});
         if(currentGroup){

@@ -32,11 +32,7 @@ function CreateEventModal({groupId}) {
 
 
 
-useEffect(()=> {
-    getEvents(dispatch)
 
-
-}, [dispatch])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +50,6 @@ useEffect(()=> {
 
     })(dispatch)
       .then(closeModal)
-      .then(getEvents(dispatch))
       .catch(
         async (res) => {
           const data = await res.json();

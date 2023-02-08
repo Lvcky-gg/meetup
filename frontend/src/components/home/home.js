@@ -12,7 +12,7 @@ export const HomePage = () => {
     const dispatch = useDispatch();
     const allGroups = useSelector(state=>state.groups.Groups);
     const thisUser = useSelector(state => state.session.user);
-    let thisEvents = useSelector(state=> state.events).Events;
+    let thisEvents = useSelector(state=> state.events.Events);
     let sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
 

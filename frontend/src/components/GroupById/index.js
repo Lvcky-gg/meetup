@@ -52,16 +52,22 @@ export const GroupById = () => {
     let SpecificGroup = useSelector(state=>state.specificGroup);
     const memberships = useSelector(state=>state.members.Members);
     const Events = useSelector(state=>state.events.Events);
-    let specificEvent =[];
+    console.log(Events)
 
-    if(Events){
-        for (let i = 0; i < Events.length; i++){
-            if(Events[i].groupId === +groupId){
-                specificEvent.push(Events[i])
+
+    const eventIsEqual = () => {
+        
+        if(Events){
+            for (let i = 0; i < Events.length; i++){
+                console.log(Events[i])
+                if(Events[i].groupId === +groupId){
+                    return Events[i];
+                }
             }
         }
+       
     }
-   
+
 
     let Group ={};
      
@@ -128,11 +134,21 @@ getEvents(dispatch)
                         
                     <div>
                         <h2>{Group.name}</h2>
-                        <p>{`${Group.city}, ${Group.state}`}</p>
-                        <p>{`Number of members: ${Group.numMembers}`}</p>
+                        <div>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <p> {`${Group.city}, ${Group.state}`}</p>
+                            </div>
+                        <div>
+                        <i class="fa-solid fa-users"></i>
+                        <p>{` ${Group.numMembers} members`}</p>
+                        </div>
+                        <div>
+                        <i class="fa-solid fa-user"></i>
                         {SpecificGroup.Organizer &&
                    <p>{`Organized by ${SpecificGroup.Organizer.firstName} ${SpecificGroup.Organizer.lastName}`}</p>
+                   
                    }
+                   </div>
                         
                         
                     </div>
@@ -176,9 +192,9 @@ getEvents(dispatch)
                         <h4>Events</h4> 
                         {
                             
-                            specificEvent.length ? (
+                            Events ? (
                                 
-                                specificEvent.map(event=>(
+                                Events.filter(eventIsEqual).map(event=>(
 
                                     <li key={event.id} className="specificEventBox">
                                         <NavLink to={`/events/${event.id}`}>
@@ -195,8 +211,6 @@ getEvents(dispatch)
                                             <div>
                                                 <p>{event.numAttending}</p>
                                             </div>
-                                            
-
                                         </div>
                                         </NavLink>
                                     </li>
