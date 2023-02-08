@@ -71,11 +71,17 @@
     overflow-x: hidden; /* Hide horizontal scrollbar */
 
 }
-
+hr{
+    color:gray;
+}
 .groupByIdButtons{
     display: flex;
     justify-content: space-between;
     position:sticky;
+    width:40%;
+    margin:auto;
+    padding-bottom:1%;
+    padding-top:0.5%;
 }
 
 .groupByIdButtons button{
@@ -121,6 +127,13 @@
     width:100%;
     border-radius: 10%;
 
+
+}
+.groupByIdMainTop{
+    padding-top:2%;
+}
+.groupByIdMainTop a{
+    padding-left:2%;
 }
 .deleteImgFromGroupById{
     background:none;

@@ -14,6 +14,7 @@ import { EventPage } from "./components/events";
 import { GroupById } from "./components/GroupById";
 import { getMyGroups } from "./store/groups";
 import { EventById } from "./components/eventsById";
+import './index.css'
 
 function App() {
   const allGroups = useSelector(state=>state.groups).Groups;

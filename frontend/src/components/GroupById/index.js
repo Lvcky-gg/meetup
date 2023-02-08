@@ -123,7 +123,7 @@ getEvents(dispatch)
     
     return (
        
-        <div>
+        <div className="groupByIdMainTop">
             <NavLink to="/Groups" className="backToGroupsMainFromGroupById">Back to Groups</NavLink>
             <div className='groupByIdContainerOne'>
                 {Group.name &&
@@ -154,6 +154,7 @@ getEvents(dispatch)
                     </div>
                 </div>
                 }
+                <hr></hr>
                 <div className="groupByIdButtons">
                 <OpenModalButton
       
@@ -186,7 +187,7 @@ getEvents(dispatch)
                 
 
             </div>
-            <hr></hr>
+            
             <div className='groupImageBoxContainer'>
             <div className='groupImageBoxContainerDiv'>
                         <h4>Events</h4> 
