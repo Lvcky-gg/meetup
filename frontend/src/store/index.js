@@ -5,7 +5,7 @@ import groupReducer from './groups';
 import eventReducer from './events';
 import specificGroupReducer  from './specificGroup';
 import memberReducer from './members';
-import specificEventReducer from './specificEvent';
+// import specificEventReducer from './specificEvent';
 
 // console.log(specificGroupReducer)
 
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   events:eventReducer,
   specificGroup:specificGroupReducer,
   members:memberReducer,
-  eventsForGroup:specificEventReducer,
+  // eventsForGroup:specificEventReducer,
 });
 
 let enhancer;

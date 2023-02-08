@@ -13,6 +13,7 @@ import { GroupPage } from "./components/groups";
 import { EventPage } from "./components/events";
 import { GroupById } from "./components/GroupById";
 import { getMyGroups } from "./store/groups";
+import { EventById } from "./components/eventsById";
 
 function App() {
   const allGroups = useSelector(state=>state.groups).Groups;
@@ -61,6 +62,10 @@ function App() {
           </Route>
           <Route path='/groups'>
             <GroupPage></GroupPage>
+          </Route>
+          <Route path='/events/:eventId'>
+            <EventById></EventById>
+            
           </Route>
           <Route path='/events'>
             <EventPage></EventPage>

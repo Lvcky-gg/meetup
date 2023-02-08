@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSpecificEvent } from '../../store/specificEvent';
+import { createSpecificEvent } from '../../store/events';
 import { useModal } from "../../context/Modal";
 import { useEffect } from 'react';
 import Logo from '../LoginFormModal/PACKAGE_Artboard_1_copy_3.png'
-import { getEventsForGroup } from '../../store/specificEvent';
+
+import { getEvents } from '../../store/events';
 import './createEvent.css'
 
 
 function CreateEventModal({groupId}) {
+
 
 
   const dispatch = useDispatch();
@@ -24,16 +26,17 @@ function CreateEventModal({groupId}) {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
   const sessionUser = useSelector(state => state.session.user);
-  const myEvents = useSelector(state=>state.eventsForGroup.Events)
 
 
 
 
 
-// useEffect(()=> {
-//     getEventsForGroup(+groupId)(dispatch)
 
-// }, [dispatch])
+useEffect(()=> {
+    getEvents(dispatch)
+
+
+}, [dispatch])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +54,7 @@ function CreateEventModal({groupId}) {
 
     })(dispatch)
       .then(closeModal)
-      .then(getEventsForGroup(+groupId)(dispatch))
+      .then(getEvents(dispatch))
       .catch(
         async (res) => {
           const data = await res.json();

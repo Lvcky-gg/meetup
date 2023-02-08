@@ -9,7 +9,7 @@ import { addImg } from '../../store/specificGroup';
 import { AddImage } from '../addImage';
 import { deleteImgById } from '../../store/specificGroup';
 import CreateEventModal from '../createEvent';
-import { getEventsForGroup } from '../../store/specificEvent';
+
 //create feauture to grab members from the memberships endpoints
 //state variable for memberships
 //make feature for adding image to specific group reducer as well
@@ -18,6 +18,7 @@ import { getEventsForGroup } from '../../store/specificEvent';
 import OpenModalButton from '../OpenModalButton';
 import EditGroupModal from '../editFormModal';
 import './groupById.css'
+import { getEvents } from '../../store/events';
 
 
 export const GroupById = () => {
@@ -47,12 +48,20 @@ export const GroupById = () => {
        }
     
     
-    let Groups = useSelector(state=>state.groups.Groups)
-    let SpecificGroup = useSelector(state=>state.specificGroup)
-    const memberships = useSelector(state=>state.members.Members)
-    const specificEvent = useSelector(state=>state.eventsForGroup.Events)
-    console.log(specificEvent)
-    const images = SpecificGroup.GroupImages
+    let Groups = useSelector(state=>state.groups.Groups);
+    let SpecificGroup = useSelector(state=>state.specificGroup);
+    const memberships = useSelector(state=>state.members.Members);
+    const Events = useSelector(state=>state.events.Events);
+    let specificEvent =[];
+
+    if(Events){
+        for (let i = 0; i < Events.length; i++){
+            if(Events[i].groupId === +groupId){
+                specificEvent.push(Events[i])
+            }
+        }
+    }
+   
 
     let Group ={};
      
@@ -72,7 +81,8 @@ useEffect(()=> {
 getSpecificGroup(+groupId)(dispatch)
 getMyGroups(dispatch)
 getMembers(+groupId)(dispatch)
-getEventsForGroup(+groupId)(dispatch)
+getEvents(dispatch)
+
 
 },[dispatch])
 
@@ -163,12 +173,15 @@ getEventsForGroup(+groupId)(dispatch)
             <hr></hr>
             <div className='groupImageBoxContainer'>
             <div className='groupImageBoxContainerDiv'>
-                        <h4>Events</h4>
+                        <h4>Events</h4> 
                         {
-                            specificEvent ? (
+                            
+                            specificEvent.length ? (
+                                
                                 specificEvent.map(event=>(
 
                                     <li key={event.id} className="specificEventBox">
+                                        <NavLink to={`/events/${event.id}`}>
                                         <div>
                                             <div>
                                                 <div>
@@ -185,6 +198,7 @@ getEventsForGroup(+groupId)(dispatch)
                                             
 
                                         </div>
+                                        </NavLink>
                                     </li>
                                 ))
 
