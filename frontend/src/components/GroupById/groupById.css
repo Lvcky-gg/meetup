@@ -78,11 +78,16 @@ hr{
 .groupByIdButtons{
     display: flex;
     justify-content: space-between;
-    position:sticky;
+
     width:40%;
     margin:auto;
     padding-bottom:1%;
     padding-top:0.5%;
+}
+.sticksToTop{
+    position:sticky;
+    top:0;
+    background-color: white;
 }
 
 .groupByIdButtons button{

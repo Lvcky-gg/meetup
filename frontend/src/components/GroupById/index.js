@@ -154,7 +154,11 @@ getEvents(dispatch)
                     </div>
                 </div>
                 }
-                <hr></hr>
+
+
+            </div>
+            <hr></hr>
+            <div className="sticksToTop">
                 <div className="groupByIdButtons">
                 <OpenModalButton
       
@@ -184,9 +188,7 @@ getEvents(dispatch)
                     <></>
                 )
                }
-                
-
-            </div>
+  </div>              
             
             <div className='groupImageBoxContainer'>
             <div className='groupImageBoxContainerDiv'>
