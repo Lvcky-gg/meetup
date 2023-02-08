@@ -65,7 +65,6 @@ const initialState = {SpecificGroup:null};
             newState =  {...newState, ...action.payload};
             return newState;
         case ADD_IMG:
-            console.log('payload',newState)
             newState.GroupImages.push(action.payload)
             return newState;
         case REMOVE_IMG:

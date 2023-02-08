@@ -68,10 +68,11 @@ if(Groups){
 }
 
 useEffect(()=> {
-getEventsForGroup(+groupId)(dispatch)
+
 getSpecificGroup(+groupId)(dispatch)
 getMyGroups(dispatch)
 getMembers(+groupId)(dispatch)
+getEventsForGroup(+groupId)(dispatch)
 
 },[dispatch])
 

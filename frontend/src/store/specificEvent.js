@@ -23,18 +23,18 @@ const addEvents = (data) => {
 export const getEventsForGroup = (groupId) => async dispatch => {
     const res = await csrfFetch(`/api/groups/${groupId}/events`)
     const data = await res.json();
-
+console.log('dada', data)
     dispatch(getSpecificEvent(data));
     return data;
 }
 
 
 export const createSpecificEvent = (groupId, input) => async dispatch => {
-    const { venueId, name, type, capacity, price, description, startDate, endDate} = input;
+    const {  name, type, capacity, price, description, startDate, endDate} = input;
     const response = await csrfFetch(`/api/groups/${groupId}/events`, {
       method: "POST",
       body: JSON.stringify({ 
-        venueId, 
+        // venueId, 
         name, 
         type, 
         capacity, 
@@ -50,20 +50,18 @@ export const createSpecificEvent = (groupId, input) => async dispatch => {
   };
 
 
-  const initialState = {SpecificEvents:null};
+  const initialState = {Events:null};
   const specificEventReducer = (state = initialState, action) => {
     let newState ={...state};
     
     switch (action.type) {
         case GET_SPECIFIC_EVENT:
+            console.log('hello', newState)
             newState =  {...newState, ...action.payload};
             return newState;
         case ADD_EVENT:
-            if(action.payload.id){
-                newState.Events.push(action.payload)
-            }
-            
-            return newState
+             newState.Events.push(action.payload)
+            return newState;
  
         default:return state;
     }

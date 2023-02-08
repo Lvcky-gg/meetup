@@ -127,12 +127,13 @@
 }
 
 .specificEventBox{
-    height: 35%;
+    height: 150px;
+    margin-bottom: 30px;
     width:100%;
     background-color: white;
     display:flex;
     flex-direction: column;
-    border-radius:3%;
+    border-radius:2%;
     
   
 }
