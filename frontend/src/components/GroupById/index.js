@@ -189,7 +189,7 @@ getEvents(dispatch)
                 )
                }
   </div>              
-            
+            <div className="backGroundcolor">
             <div className='groupImageBoxContainer'>
             <div className='groupImageBoxContainerDiv'>
                         <h4>Events</h4> 
@@ -225,6 +225,7 @@ getEvents(dispatch)
                         }
 
                     </div>
+                    
 
                  <div className="memberListGroupByIdHolder">
                     <div className="memberListGroupById">
@@ -274,6 +275,7 @@ getEvents(dispatch)
                 </div>
 
 
+                </div>
                 </div>
             </div>
 

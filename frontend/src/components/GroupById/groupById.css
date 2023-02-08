@@ -40,10 +40,17 @@
 
 .groupImageBoxContainer{
     display: flex;
-    width:100%;
+
+    width:60%;
+    margin:auto;
     height:100%;
     background-color: #ecf0f3;
    
+}
+.backGroundcolor{
+    display: flex;
+    flex-direction: row;
+    background-color: #ecf0f3;
 }
 .groupImageBoxContainer div{
     width:50%;
