@@ -1,15 +1,17 @@
+
 .eventByIdPrimary h4{
     font-family: sans-serif;
 }
 .eventByIdPrimary{
     display:flex;
     flex-direction:column;
-    margin-left:2%;
+    margin-left:4%;
 }
 .eventByIdEventType{
     display:flex;
     align-items: center;
     justify-content: center;
+    margin-left:4%;
     padding:.5%;
     width:10%;
     height:3%;
@@ -41,4 +43,21 @@
     padding-top:6%;
     margin:auto;
     font-family: sans;
+}
+.eventByIdEventHolder{
+    margin-top:2%;
+    display: flex;
+    flex-direction: row;
+    
+    border-top: solid #d7d9da;
+    background-color:#ecf0f3;
+    height:1000px;
+}
+.eventByIdEventHolder div{
+    margin-top:3%;
+    margin-left:4%;
+}
+.eventByIdEventHolderChildOne{
+    width:60%;
+
 }

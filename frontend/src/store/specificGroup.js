@@ -58,11 +58,11 @@ export const addImg = (input, groupId) => async dispatch => {
 const initialState = {SpecificGroup:null};
 
  const specificGroupReducer = (state = initialState, action) => {
-    let newState ={...state};
+    let newState = {...state};
     
     switch (action.type) {
         case GET_BYID:
-            newState =  {...newState, ...action.payload};
+            newState =  { ...action.payload};
             return newState;
         case ADD_IMG:
             newState.GroupImages.push(action.payload)

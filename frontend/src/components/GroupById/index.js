@@ -52,7 +52,7 @@ export const GroupById = () => {
     let SpecificGroup = useSelector(state=>state.specificGroup);
     const memberships = useSelector(state=>state.members.Members);
     const Events = useSelector(state=>state.events.Events);
-    console.log(Events)
+
 
 
     const eventIsEqual = () => {
@@ -114,6 +114,7 @@ getEvents(dispatch)
      
       let groupImg = '';
       if(SpecificGroup){
+
         if( SpecificGroup?.name && SpecificGroup?.GroupImages[0]){
             groupImg =SpecificGroup.GroupImages[0].url;
             
