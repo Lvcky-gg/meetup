@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSpecificEvent } from '../../store/events';
 import { useModal } from "../../context/Modal";
 import { useEffect } from 'react';
+
 import Logo from '../LoginFormModal/PACKAGE_Artboard_1_copy_3.png'
 
 import { getEvents } from '../../store/events';
@@ -30,7 +31,9 @@ function CreateEventModal({groupId}) {
 
 
 
-
+useEffect(()=>{
+    getEvents(dispatch)
+},[dispatch])
 
 
 
@@ -50,6 +53,7 @@ function CreateEventModal({groupId}) {
 
     })(dispatch)
       .then(closeModal)
+      .then(getEvents(dispatch))
       .catch(
         async (res) => {
           const data = await res.json();
