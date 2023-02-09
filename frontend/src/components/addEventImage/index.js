@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getEventById } from "../../store/specificEvent";
 
+import './index.css'
+
 
 
 
@@ -34,7 +36,7 @@ export const AddEventImage = () => {
 
     }
     return (
-        <form className="addImageFrom" onSubmit={onSubmit}>
+        <form className="addEventImageFrom" onSubmit={onSubmit}>
             <label
             >Image URL</label>
             <input

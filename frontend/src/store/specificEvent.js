@@ -66,7 +66,16 @@ const singleEventReducer = (state=initialState, action) => {
             newState = {...newState, ...action.payload};
         return newState;
         case ADD_EVENT_IMG:
-            newState.EventImages.push(action.payload)
+            newState.EventImages.push(action.payload);
+        case REMOVE_EVENT_IMG:
+            
+            for(let i = 0; i <newState.EventImages.length; i++){
+                if(newState.EventImages[i].id === action.payload){
+                    newState.EventImages.splice([i],1)
+                }
+            }
+            return newState;
+
         default: return state;
     }
 };

@@ -62,16 +62,19 @@ export const EventById = () => {
                 </div>
                 <div className="eventByIdEventHolder">
                     <div className="eventByIdEventHolderChildOne">
-                        <img src={event.previewImg} alt="img"></img>
-                        <div>
+                        {event.EventImages &&
+                            <img src={event.EventImages[0].url} alt="img" className="eventByIdEventHolderChildOneImg"></img>
+                        }
+                        
+                        <div className="eventByIdEventHolderChildTwo">
                             <h3>Details</h3>
                             <p>{event.description}</p>
                         </div>
-                        <div>
+                        <div className="eventByIdEventHolderChildTwo">
                             <h3>{`Attendees(${event.numAttending})`}</h3>
                             <p>placeholder for attendees card</p>
                         </div>
-                        <div>
+                        <div className="eventByIdEventHolderChildTwo">
                             {
                                event.EventImages ?( <h3>{`Photos(${event.EventImages.length})`}</h3>):(<h3>{`Photos(0)`}</h3>)
                             }
@@ -85,9 +88,10 @@ export const EventById = () => {
                                       <></>
                                          )
                             }
-                            
+                            <ul className="specificImageForEventHolder">
                             {
                                 event.EventImages ? (
+                                    
 
                                    event.EventImages.map(item=>(
                                     <li key={item.id} className="">
@@ -99,11 +103,14 @@ export const EventById = () => {
                                      <button className="">Delete Image</button>
                                      </form>
                                      </li>
+                                     
                                  ))
                                  ):(
                                      <p>You have no images </p>
                                  )
+                                 
                           }
+                          </ul>
 
                         </div>
 
