@@ -62,7 +62,7 @@ export const EventById = () => {
                 </div>
                 <div className="eventByIdEventHolder">
                     <div className="eventByIdEventHolderChildOne">
-                        {event.EventImages[0] &&
+                        {event.EventImages && event.EventImages[0] &&
                             <img src={event.EventImages[0].url} alt="img" className="eventByIdEventHolderChildOneImg"></img>
                         }
                         
