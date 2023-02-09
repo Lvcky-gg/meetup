@@ -200,7 +200,7 @@ getEvents(dispatch)
                                 Events.filter(eventIsEqual).map(event=>(
 
                                     <li key={event.id} className="specificEventBox">
-                                        <NavLink to={`/events/${event.id}`}>
+                                        <NavLink to={`/events/${event.id}`} >
                                         <div>
                                             <div>
                                                 <div>

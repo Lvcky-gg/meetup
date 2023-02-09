@@ -65,7 +65,7 @@ function App() {
             <GroupPage></GroupPage>
           </Route>
           <Route path='/events/:eventId'>
-            <EventById></EventById>
+            <EventById ></EventById>
             
           </Route>
           <Route path='/events'>

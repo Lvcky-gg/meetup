@@ -1,0 +1,44 @@
+.eventByIdPrimary h4{
+    font-family: sans-serif;
+}
+.eventByIdPrimary{
+    display:flex;
+    flex-direction:column;
+    margin-left:2%;
+}
+.eventByIdEventType{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding:.5%;
+    width:10%;
+    height:3%;
+    border-radius: 8%;
+    background-color:#ecf0f3 ;
+}
+.eventByIdEventType p{
+    color:gray;
+    margin-left:5%;
+    font-family: sans;
+}
+.eventByIdEventType i{
+    margin-left:5%;
+    color:gray;
+
+
+}
+.eventByIdEventHost{
+    width:10%;
+    padding-top:1%;
+    font-family: sans;
+    margin-left:4%;
+}
+.eventByIdEventHost p{
+    margin:auto;
+    font-family: sans;
+}
+.eventByIdEventHost h4{
+    padding-top:6%;
+    margin:auto;
+    font-family: sans;
+}
