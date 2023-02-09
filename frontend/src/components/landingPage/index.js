@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react';
 import { getGroups } from '../../store/groups';
+import { getEvents } from '../../store/events';
 import './landingPage.css'
 import logo from './PACKAGE_Artboard_1_copy_6.png'
 import logoOne from './tpgbuttontest3.png'
@@ -9,11 +10,13 @@ import logoThree from './TPGCore.png'
 
 export const LandingPage = () => {
     const dispatch = useDispatch();
-    const allGroups = useSelector(state=>state.groups).Groups;
+    const allGroups = useSelector(state=>state.groups.Groups);
+    const allEvents = useSelector(state=>state.events.Events);
+    console.log(allEvents)
     
 
     useEffect(() => {
-        
+        getEvents(dispatch)
         getGroups(dispatch)
       
       }, [ dispatch]);
@@ -48,7 +51,7 @@ return (
 <div className="allGroupContainer">
 
     <div className="allGroupHeader">
-        <h3>Current Groups</h3>
+        <h3>Popular Groups</h3>
     </div>
 
         <div>
@@ -72,6 +75,35 @@ return (
            
         </div>
     </div>
+
+    <div className="allGroupContainer">
+
+    <div className="allGroupHeader">
+        <h3>Popular Events</h3>
+    </div>
+
+        <div>
+            <ul className="allGroupsList">
+            {
+        allEvents ? (
+
+            allEvents.filter((group,idx)=>idx<5).map((group)=>(
+            <li key={group.id} className="LandingPreviewIMGOne">
+                <img src={group.previewImage} alt="#" className="LandingPreviewIMG"/>
+                <p>{group.name}</p>
+                <p>Number of members:{group.numMembers}</p>
+            </li>
+          ))
+        ):(
+          <p>No Events </p>
+        )
+      }
+            </ul>
+            
+           
+        </div>
+    </div>
+
 
     <div>
         <div>

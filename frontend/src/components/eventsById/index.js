@@ -20,9 +20,9 @@ export const EventById = () => {
     const events = useSelector(state => state.events.Events);
     let SpecificGroup = useSelector(state=>state.specificGroup);
     let event = useSelector(state=>state.EventSpecific);
-    let groupId;
-    // const [groupId, setGroupId] = useState(0)
 
+    // const [groupId, setGroupId] = useState(0)
+ 
     const onAddImgClick = () => {
         setImgVal(!imgVal)
         
@@ -62,7 +62,7 @@ export const EventById = () => {
                 </div>
                 <div className="eventByIdEventHolder">
                     <div className="eventByIdEventHolderChildOne">
-                        {event.EventImages &&
+                        {event.EventImages[0] &&
                             <img src={event.EventImages[0].url} alt="img" className="eventByIdEventHolderChildOneImg"></img>
                         }
                         
