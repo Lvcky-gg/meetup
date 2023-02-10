@@ -60,7 +60,10 @@ export const GroupPage = () => {
 
                                     allGroups.map(group=>(
                                      <li key={group.id} >
-                                     <img src={group.previewImage} alt="image"/>
+                                        {
+                                           group.previewImage ? (<img src={group.previewImage} alt="image"/>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg" alt="image"/>)
+                                        }
+                                     
                                      <NavLink to={`/groups/${group.id}`}>{group.name}</NavLink>
                                      </li>
                                  ))

@@ -72,3 +72,7 @@
 .LandingPreviewIMGOne{
     width:20%;
 }
+.LandingPreviewIMGOne img{
+    width:50%;
+    border-radius:5%;
+}

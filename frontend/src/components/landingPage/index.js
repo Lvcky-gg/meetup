@@ -61,7 +61,9 @@ return (
 
           allGroups.filter((group,idx)=>idx<5).map((group)=>(
             <li key={group.id} className="LandingPreviewIMGOne">
-                <img src={group.previewImage} alt="#" className="LandingPreviewIMG"/>
+                {
+                                           group.previewImage ? (<img src={group.previewImage} alt="image"/>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg" alt="image"/>)
+                                        }
                 <p>{group.name}</p>
                 <p>Number of members:{group.numMembers}</p>
             </li>
@@ -89,7 +91,9 @@ return (
 
             allEvents.filter((group,idx)=>idx<5).map((group)=>(
             <li key={group.id} className="LandingPreviewIMGOne">
-                <img src={group.previewImage} alt="#" className="LandingPreviewIMG"/>
+                 {
+                                           group.previewImage ? (<img src={group.previewImage} alt="image"/>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg" alt="image"/>)
+                 }
                 <p>{group.name}</p>
             </li>
           ))

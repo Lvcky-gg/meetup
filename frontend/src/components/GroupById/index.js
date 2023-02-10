@@ -118,6 +118,8 @@ getEvents(dispatch)
                 {Group.name &&
                 <div className='groupByIdContainerImgOne'>
                    {SpecificGroup.Organizer &&
+                   //https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg
+
                    <img src={groupImg} alt="GroupImg" className="groupImgMainImg"></img>
                    }
                         
@@ -196,7 +198,10 @@ getEvents(dispatch)
                                                     <div className="handleMe">
                                                     <h4>{makeDate(event.startDate.split('T')[0])}</h4>
                                                     <h2>{event.name}</h2>
-                                                    <img src={event.previewImage}></img>
+                                                    {
+                                                        event.previewImage ?(<img src={event.previewImage}></img>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg"></img>)
+                                                    }
+                                                    
                                                     </div>
                                                     
                                                 </div>
