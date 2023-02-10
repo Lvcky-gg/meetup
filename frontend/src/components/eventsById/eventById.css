@@ -111,3 +111,7 @@ a, h2, h1, h3, h4, p{
     width:40%;
     border-radius: 10%;
 }
+.deleteEventByIdBtn{
+    position: relative;
+    right:25%;
+}

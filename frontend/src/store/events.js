@@ -19,6 +19,13 @@ const addEvents = (data) => {
     }
 }
 
+const deleteEvent = (eventId) =>{
+    return {
+        type:DELETE_EVENT,
+        payload:eventId
+    }
+}
+
 export const getEvents = async dispatch=> {
     const res = await fetch('/api/events')
     const data= await res.json();
@@ -55,6 +62,13 @@ export const createSpecificEvent = (groupId, input) => async dispatch => {
     return response;
   };
 
+  export const deleteEventById = (eventId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/events/${eventId}`,{
+        method:"DELETE"
+    })
+    dispatch(deleteEvent(eventId))
+  }
+
 
 const initialState = {Events:null}
 
@@ -67,7 +81,17 @@ const eventReducer = (state = initialState, action) => {
         case ADD_EVENT:
             console.log('fix me',newState.Events)
             newState.Events.push(action.payload)
-        return newState;
+            return newState;
+        case DELETE_EVENT:
+            newState = Object.assign({}, state)
+
+            for(let i=0; i<newState.Events.length; i++){
+                if(newState.Events[i].id === action.payload) {
+                    newState.Events.splice([i],1)
+                }
+            }
+            return newState;
+
 
         default:return state;
     }

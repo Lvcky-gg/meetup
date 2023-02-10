@@ -9,11 +9,14 @@ import { addImgEvent } from "../../store/specificEvent";
 import { deleteEventImgById } from "../../store/specificEvent";
 import { useState } from "react";
 import { AddEventImage } from "../addEventImage";
+import { deleteEventById } from "../../store/events";
+import { useHistory } from "react-router-dom";
 import "./eventById.css";
 
 
 
 export const EventById = () => {
+    const history = useHistory()
     const [imgVal, setImgVal] = useState(false)
     const { eventId }=  useParams();
     const dispatch = useDispatch();
@@ -27,6 +30,14 @@ export const EventById = () => {
         setImgVal(!imgVal)
         
         }
+
+    const onClick = (e) => {
+        e.preventDefault()
+        deleteEventById(+eventId)(dispatch);
+        getEvents(dispatch);
+        history.push(`/groups/${+event.groupId}`)
+
+    }
 
    useEffect(()=>{
 
@@ -111,10 +122,13 @@ export const EventById = () => {
                                  
                           }
                           </ul>
-
+                          <div>
+                          <button onClick={onClick} className="deleteEventByIdBtn">Delete Event</button>
+                          </div>
                         </div>
-
+                        
                     </div>
+                    
 
                     <div>
                     <div></div>
