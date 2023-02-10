@@ -209,18 +209,21 @@ hr{
 }
 .specificEventBox a p{
    position:relative;
-   bottom:20px;
+   
+   bottom:10px;
 }
 .specificEventBox a h4{
+    padding-top:2%;
     position:relative;
+    width:170px;
     bottom:30px;
     right:4%;
     color:rgba(59,130,246,0.5);;
  }
  .specificEventBox a h2{
     position:relative;
-    top:5px;
-    right:30%;
+    top:15px;
+    right:45%;
     
  }
 

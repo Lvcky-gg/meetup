@@ -48,9 +48,12 @@ export const GroupPage = () => {
                          </div>
                          <div className="topOfHeaderForGroup">
                          <p onClick={onBackClick} className='homePageFromGroup'> ⬅ Back to Home Page</p>
+                         <div>
                          <h2>Your Groups</h2>
+                         <p className="mildLittlePTag">{`${thisUser.firstName} ${thisUser.lastName}`}</p>
                          </div>
-                        <p className="mildLittlePTag">{`${thisUser.firstName} ${thisUser.lastName}`}</p>
+                         </div>
+                        
                         <ul className="myListUli">
                         {
                                 allGroups ? (

@@ -27,7 +27,19 @@
    margin:auto;
    justify-content: center;
    align-items: center;
+   overflow:hidden;
 }
+.myListUli:hover{
+    display: flex; 
+    flex-wrap: wrap;
+    height:auto;
+    width:80%;
+    margin:auto;
+    justify-content: center;
+    align-items: center;
+    overflow-y:scroll;
+    overflow-x:hidden;
+ }
 .myListUli li{
     width:40%;
     height:40%;
@@ -39,6 +51,7 @@
 }
 .myListUli li img{
     width:100%;
+    margin-bottom: 2%;
     border-radius: 4%;
    
 }
@@ -80,28 +93,48 @@
     display:flex;
     justify-content: flex-start;
     padding-bottom:5%;
+    top:15%;
 
 }
 .topOfHeaderForGroup p{
     position:relative;
-    right:9%;
+    right:18%;
+    bottom:10%;
     cursor: pointer;
     font-family: sans-serif;
     font-size: large;
     font-weight: bold;
     width:24%;
 }
-.topOfHeaderForGroup h2 {
+.topOfHeaderForGroup div {
     position:relative;
-    right:15%;
+    right:20%;
     width:40%;
     font-family: sans-serif;
     font-weight: bolder;
     font-size: 30px;
 }
+.topOfHeaderForGroup div h2{
+    position:relative;
+    right:25%;
+    width:40%;
+    font-family: sans-serif;
+    font-weight: bolder;
+    font-size: 30px;
+}
+.topOfHeaderForGroup div p{
+    position:relative;
+    
+    right:25%;
+    width:40%;
+    font-family: sans-serif;
+    font-weight: bolder;
+    
+}
 
 .topOfGroupHome{
-    padding-bottom: 70%;
+    padding-bottom: 20%;
+    
 }
 .mildLittlePTag{
     font-family: sans-serif;

@@ -1,0 +1,21 @@
+.eventsHomePage{
+    display:flex;
+    width:60%;
+    margin:auto;
+    height:1000px;
+    padding-top:5%;
+}
+.eventsHomePage div{
+    padding-left:10%;
+}
+.fillMe{
+    overflow-y: scroll;
+    overflow-x:hidden;
+    height:80%;
+}
+.homePageFromGroup{
+    cursor: pointer;
+    width:190px;
+
+    font-weight: bolder;
+}

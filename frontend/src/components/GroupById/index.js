@@ -203,7 +203,7 @@ getEvents(dispatch)
                                                 
 
                                             <div>
-                                                <p>{event.numAttending}</p>
+                                                <p>{`number of Attendees:${event.numAttending}`}</p>
                                             </div>
                                         </NavLink>
                                     </li>
