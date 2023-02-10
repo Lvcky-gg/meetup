@@ -51,10 +51,11 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         <NavLink to='/groups' className="innerText">Groups</NavLink>
+  
         <NavLink to='/events' className="innerText">Events</NavLink>
         <NavLink to='/' className="innerText">Home</NavLink>
-        <li><p className="innerText">{user.email}</p></li>
-
+        {/* <li><p className="innerText">{user.email}</p></li> */}
+        
         <li>
           <button className='logOut' onClick={logout}>Log Out</button>
         </li>

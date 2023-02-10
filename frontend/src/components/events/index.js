@@ -1,5 +1,16 @@
+
+import { getEventById } from "../../store/specificEvent";
+import { useSelector } from "react-redux";
+
+
+
 export const EventPage = () => {
     return (
-        <p>Hello World</p>
+        <div>
+            <div>
+                
+            </div>
+
+        </div>
     )
 }

@@ -11,6 +11,7 @@ import { useState } from "react";
 import { AddEventImage } from "../addEventImage";
 import { deleteEventById } from "../../store/events";
 import { useHistory } from "react-router-dom";
+import { getAttendees } from "../../store/attendees";
 import "./eventById.css";
 
 
@@ -23,6 +24,8 @@ export const EventById = () => {
     const events = useSelector(state => state.events.Events);
     let SpecificGroup = useSelector(state=>state.specificGroup);
     let event = useSelector(state=>state.EventSpecific);
+    const attendees = useSelector(state=>state.Attendee.Attendees)
+    
 
     // const [groupId, setGroupId] = useState(0)
  
@@ -44,6 +47,7 @@ export const EventById = () => {
     getEvents(dispatch)
     getEventById(+eventId)(dispatch)
     getSpecificGroup(+event.groupId)(dispatch)
+    getAttendees(+eventId)(dispatch)
     
    },[])
 
@@ -83,7 +87,13 @@ export const EventById = () => {
                         </div>
                         <div className="eventByIdEventHolderChildTwo">
                             <h3>{`Attendees(${event.numAttending})`}</h3>
-                            <p>placeholder for attendees card</p>
+                            <ul>
+                            {attendees && 
+                            attendees.map(attendee =>(
+                                <li key={attendee.id}>{attendee.firstName}</li>
+                            ))
+                            }
+                            </ul>
                         </div>
                         <div className="eventByIdEventHolderChildTwo">
                             {

@@ -14,7 +14,7 @@ li {
     padding-top: 3px;
     height:50px;
     border-bottom: solid lightgray 1px;
-    padding-bottom: 7px;
+    padding-bottom: 10px;
 }
 .navContainerHidden{
     display:flex;
@@ -64,17 +64,57 @@ li {
  position:absolute;
  right:2%;
  top:1%;
+ width:100px;
+
  
 
 } 
-.profile-dropdown li {
-width:fit-content; 
 
-}
+
+.profile-dropdown a {
+    width:60px;
+    padding:5%;
+    position:relative;
+    right:20%;
+
+    margin:auto;
+    
+    }
+    .profile-dropdown li {
+        width:60px;
+        padding:5%;
+        position:relative;
+        right:20%;
+
+    
+        margin:auto;
+        
+        }
+        .profile-dropdown li button {
+            width:60px;
+            padding:5%;
+            position:relative;
+            right:20%;
+    
+        
+            margin:auto;
+            
+            }
+    /* .profile-dropdown p {
+        width:100%;
+        padding:5%;
+        position:relative;
+        right:20%;
+    
+        margin:auto;
+        
+        } */
+  
  .innerText{
     font-size: .875rem;
     font-style: normal;
-    line-height: 20px;
+    line-height: 30px;
+
     
 }
 
@@ -92,6 +132,8 @@ width:fit-content;
 } */
 .modalButtonsUse button{
     background:none;
+    position:relative;
+    bottom:30px;
     border:none;
     margin:0;
     padding:0;
@@ -105,7 +147,7 @@ width:fit-content;
 }
 .navBarImg{
     position:relative;
-    bottom:15px;
+    bottom:10px;
 }
 .innerText{
     font-family: sans-serif;

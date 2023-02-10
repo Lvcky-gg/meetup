@@ -79,7 +79,6 @@ const eventReducer = (state = initialState, action) => {
           newState = {...newState, ...action.payload}
           return newState;
         case ADD_EVENT:
-            console.log('fix me',newState.Events)
             newState.Events.push(action.payload)
             return newState;
         case DELETE_EVENT:

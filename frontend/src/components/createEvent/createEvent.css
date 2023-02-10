@@ -1,11 +1,13 @@
 .createEventModalContainer{
     display:flex;
     flex-direction:column;
+
 }
 .createEventModalContainer img {
     height:10%;
     width:10%;
     margin:auto;
+    
 }
 .createEventModal div{
     display:flex;

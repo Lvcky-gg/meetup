@@ -123,7 +123,7 @@ useEffect(()=> {
     name='type'
     onChange={(e) => setType(e.target.value)}
     value={type}>
-         <option value='' disabled>Select Event Type</option>
+         <option value='' disabled>Select Group Type</option>
          <option value='Online'>Online</option>
          <option value='In Person'>In Person</option>
 
@@ -134,7 +134,7 @@ useEffect(()=> {
     name='bool'
     onChange={(e) => setBool(e.target.value)}
     value={bool}>
-         <option value='' disabled>Select Private or Public Event</option>
+         <option value='' disabled>Select Private or Public Group</option>
          <option value={true}>Private</option>
          <option value={false}>Public</option>
 

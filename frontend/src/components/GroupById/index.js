@@ -55,18 +55,6 @@ export const GroupById = () => {
 
 
 
-    const eventIsEqual = () => {
-        
-        if(Events){
-            for (let i = 0; i < Events.length; i++){
-                console.log(Events[i])
-                if(Events[i].groupId === +groupId){
-                    return Events[i];
-                }
-            }
-        }
-       
-    }
 
 
     let Group ={};
@@ -198,24 +186,25 @@ getEvents(dispatch)
                             
                             Events ? (
                                 
-                                Events.filter(eventIsEqual).map(event=>(
+                                Events.filter(item =>item.groupId === +groupId).map(event=>(
+                                    
 
                                     <li key={event.id} className="specificEventBox">
                                         <NavLink to={`/events/${event.id}`} >
-                                        <div>
-                                            <div>
+                                        
                                                 <div>
+                                                    <div className="handleMe">
                                                     <h4>{makeDate(event.startDate.split('T')[0])}</h4>
                                                     <h2>{event.name}</h2>
-                                                </div>
-                                                <div>
                                                     <img src={event.previewImage}></img>
+                                                    </div>
+                                                    
                                                 </div>
-                                            </div>
+                                                
+
                                             <div>
                                                 <p>{event.numAttending}</p>
                                             </div>
-                                        </div>
                                         </NavLink>
                                     </li>
                                 ))

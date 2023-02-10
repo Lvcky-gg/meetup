@@ -91,7 +91,6 @@ return (
             <li key={group.id} className="LandingPreviewIMGOne">
                 <img src={group.previewImage} alt="#" className="LandingPreviewIMG"/>
                 <p>{group.name}</p>
-                <p>Number of members:{group.numMembers}</p>
             </li>
           ))
         ):(

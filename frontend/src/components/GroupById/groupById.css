@@ -1,6 +1,7 @@
 .groupImgMainImg{
     border-radius: 10%;
     padding:2%;
+    
 }
 
 .groupByIdContainerImgOne{
@@ -13,6 +14,12 @@
     padding-left:20px;
     padding-bottom:5%;
     width:80%;
+    
+}
+.groupByIdContainerImgOne div {
+
+padding-bottom: 5%;
+   
 }
 .groupByIdContainerImgOne div div{
     padding-top:7%;
@@ -33,9 +40,10 @@
     font-family:sans-serif;
     color:gray;
     margin-left:2%;
+   
 }
 .groupByIdContainerImgOne img{
-    width:40%
+    width:50%
 
 }
 
@@ -52,9 +60,12 @@
     display: flex;
     flex-direction: row;
     background-color: #ecf0f3;
+    height:900px;
+    padding-bottom: 5%;
 }
 .groupImageBoxContainer div{
     width:50%;
+    
 
     padding-left:4%;
     padding-top:2%;
@@ -114,6 +125,7 @@ hr{
 }
 .memberListGroupById{
     height:30%;
+   
 
 }
 .memberListGroupById ul{
@@ -134,7 +146,7 @@ hr{
 
 }
 .groupImagePreviewHolder{
-    width:30%;
+    width:50%;
     padding: 5%;
 }
 .groupImagePreviewHolder img{
@@ -148,6 +160,7 @@ hr{
 }
 .groupByIdMainTop a{
     padding-left:2%;
+    
 }
 .deleteImgFromGroupById{
     background:none;
@@ -176,16 +189,52 @@ hr{
     width:100%;
     background-color: white;
     display:flex;
-    flex-direction: column;
+    flex-direction: row;
     border-radius:2%;
     
   
 }
 
+.handleMe{
+    display:flex;
+    width:50%;
+    flex-direction: row;
+}
+
+.specificEventBox a img{
+    width:30%;
+    border-radius: 5%;
+
+
+}
+.specificEventBox a p{
+   position:relative;
+   bottom:20px;
+}
+.specificEventBox a h4{
+    position:relative;
+    bottom:30px;
+    right:4%;
+    color:rgba(59,130,246,0.5);;
+ }
+ .specificEventBox a h2{
+    position:relative;
+    top:5px;
+    right:30%;
+    
+ }
+
+
 .specificEventBox div{
     width:100%;
+    
+}
+.specificEventBox img{
+    width:30%;
+    
 }
 
 .memberListeBox{
     width:60%;
+    
 }

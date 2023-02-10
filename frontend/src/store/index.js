@@ -6,6 +6,7 @@ import eventReducer from './events';
 import specificGroupReducer  from './specificGroup';
 import memberReducer from './members';
 import singleEventReducer from './specificEvent';
+import attendeeReducer from './attendees';
 
 // console.log(specificGroupReducer)
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   specificGroup:specificGroupReducer,
   members:memberReducer,
   EventSpecific:singleEventReducer,
+  Attendee:attendeeReducer,
   // eventsForGroup:specificEventReducer,
 });
 

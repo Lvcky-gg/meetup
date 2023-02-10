@@ -48,6 +48,31 @@
     width:80%;
     
 }
+.myList li{
+    display:flex;
+    flex-direction: row;
+    
+}
+.handleWidth a{
+    width:100%;
+}
+.handleWidth hr{
+    width:100%;
+}
+.handleImage{
+    display:flex;
+    flex-direction: row;
+
+}
+.handleImage div{
+padding-left:4%;
+
+}
+.myList li img{
+    width:50%;
+    border-radius:5%;
+}
+   
 .myList a {
     padding-top:6%;
     

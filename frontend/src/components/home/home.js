@@ -136,15 +136,18 @@ export const HomePage = () => {
             thisEvents ? (
 
                 thisEvents.filter(filterMe).map(event=>(
-                 <li key={event.id} className="#" onClick={onEventClick}>
+                 <li key={event.id} className="handleWidth" onClick={onEventClick}>
                     <NavLink to={`/events/${event.id}`}>
                     <h3>{
                        makeDate(event.startDate.split('T')[0])
                     }</h3>
                     <hr></hr>
-                    <div>
+                    <div className="handleImage">
                     <img src={event.previewImage} alt="image"/>
-                    <p>{event.name}</p>
+                    <div>
+                    <h3>{event.name}</h3>
+                    </div>
+                   
                     </div>
                     </NavLink>
                
