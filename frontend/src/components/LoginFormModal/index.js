@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import Logo from './PACKAGE_Artboard_1_copy_3.png';
+import { useEffect } from 'react';
 import './LoginForm.css';
 
 
@@ -13,15 +14,19 @@ function LoginFormModal() {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+  const [submit, setSubmit] = useState(false)
   const { closeModal } = useModal();
+
 
   if (sessionUser) return (
     <Redirect to="/" />
   );
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
+    setSubmit(!submit)
+   
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
       .catch(
@@ -30,6 +35,7 @@ function LoginFormModal() {
           if (data && data.errors) setErrors(data.errors);
         }
       );
+    
   };
 
   return (
@@ -37,9 +43,7 @@ function LoginFormModal() {
     <div className="loginFomrHolder">
     <img src={Logo} alt='img' className="loginFomr"></img>
     <form  className='loginForm' onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
+
       <div>
       <label>
         Username or Email
@@ -65,6 +69,11 @@ function LoginFormModal() {
         />
       </div>
       <button type="submit">Log In</button>
+      {
+        submit &&   <ul>
+        {errors.map((error, idx) => <li className="validation" key={idx}>{error}</li>)}
+      </ul>
+      }
     </form>
     </div>
   );

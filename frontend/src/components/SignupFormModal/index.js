@@ -19,12 +19,7 @@ function SignupFormModal() {
   const [submit, setSubmit] = useState(false)
   const { closeModal } = useModal();
 
-  useEffect(()=>{
-    const validationErrors = [];
-    if(email != /.+@.+\..+/)validationErrors.push("Invalid email")
-    setErrors(validationErrors, errors)
 
-  },[email])
 
 
   if (sessionUser) return <Redirect to="/" />;
@@ -33,7 +28,7 @@ function SignupFormModal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmit(!submit)
-    if (password === confirmPassword && !errors.length) {
+    if (password === confirmPassword) {
       setErrors([]);
       return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
         .then(closeModal)
