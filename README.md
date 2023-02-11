@@ -1,6 +1,6 @@
 #TPG EVENT MANAGER -- Meetup Clone
 
-![image](./project%20image%20one.png)
+![image][def]
 
 ##Live Link
 
@@ -76,3 +76,6 @@ run npm install
 run npm start
 
 
+
+
+[def]: ./project%20image%20one.png
