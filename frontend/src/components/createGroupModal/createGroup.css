@@ -43,3 +43,9 @@
     font-family: sans-serif;
     cursor: pointer;
 }
+.validation{
+    color:red;
+    margin:auto;
+    width:50%;
+    font-family:sans-serif;
+}

@@ -34,7 +34,9 @@ function CreateEventModal({groupId}) {
 
 
 useEffect(()=>{
+
     getEvents(dispatch)
+
 },[dispatch])
 
 
@@ -54,13 +56,12 @@ useEffect(()=>{
     endDate,
 
     })(dispatch)
+    // .then(async(val)=>{console.log('hello', await val.json())})
       .then(closeModal)
-    //   .then(getSpecificGroup(+groupId)(dispatch))
       .then(getEvents(dispatch))
       .catch(
         async (res) => {
           const data = await res.json();
-          console.log(data)
           if (data && data.errors) setErrors(data.errors);
         }
       );

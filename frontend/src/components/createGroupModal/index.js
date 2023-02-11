@@ -24,6 +24,7 @@ function CreateGroupModal() {
   const [type, setType] = useState('');
   const [bool, setBool] = useState(true);
   const [errors, setErrors] = useState([]);
+  const [submit, setSubmit] = useState(false)
   const { closeModal } = useModal();
   const sessionUser = useSelector(state => state.session.user);
   const organizerId =sessionUser.id
@@ -32,13 +33,17 @@ function CreateGroupModal() {
 //     <Redirect to="/groups" />
 //   );
 useEffect(()=> {
+  const validationErrors = [];
+  if(name.length > 60)validationErrors.push('Name must be 60 characters or less')
+  if(about.length < 50)validationErrors.push('About must be 50 characters or more')
+  setErrors(validationErrors)
   getMyGroups(dispatch)
-}, [dispatch])
+}, [dispatch, about, name])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
-    
+    setSubmit(!submit)
+   if(!errors.length) {
     return createGroup({
       name,
       about,
@@ -57,16 +62,14 @@ useEffect(()=> {
           if (data && data.errors) setErrors(data.errors);
         }
       );
-      
+      }  
   };
 
   return (
     <div className="createGroupModalContainer">
       <img src={Logo} alt="photo"></img>
     <form  className='createFormModal' onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
+
       <div>
       <label>
         name
@@ -122,6 +125,7 @@ useEffect(()=> {
     <select
     name='type'
     onChange={(e) => setType(e.target.value)}
+    required
     value={type}>
          <option value='' disabled>Select Group Type</option>
          <option value='Online'>Online</option>
@@ -133,6 +137,7 @@ useEffect(()=> {
     <select
     name='bool'
     onChange={(e) => setBool(e.target.value)}
+    required
     value={bool}>
          <option value='' disabled>Select Private or Public Group</option>
          <option value={true}>Private</option>
@@ -143,6 +148,13 @@ useEffect(()=> {
     <div>
       <button type="submit">Submit</button>
       </div>
+      <ul className="validation">
+        {
+          submit && 
+          errors.map((error, idx) => <li key={idx}>{`${error}`}</li>)
+        }
+        
+      </ul>
     </form>
     </div>
   );
