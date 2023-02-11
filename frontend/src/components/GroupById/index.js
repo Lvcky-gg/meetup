@@ -184,6 +184,10 @@ getEvents(dispatch)
             <div className="backGroundcolor">
             <div className='groupImageBoxContainer'>
             <div className='groupImageBoxContainerDiv'>
+                        <h4>About</h4>
+                        {
+                            SpecificGroup && <p>{SpecificGroup.about}</p>
+                        }
                         <h4>Events</h4> 
                         {
                             
@@ -230,7 +234,10 @@ getEvents(dispatch)
                                 memberships ? (
 
                                     memberships.map(member=>(
-                                    <li key={member.id}>
+                                    <li className='groupoByidCard' key={member.id}>
+                                        <div className="gruipByIdcircle">
+                                            <i className="fas fa-user-circle" /> 
+                                        </div>
                                      <p>{member.firstName}</p>
                                      </li>
                                  ))

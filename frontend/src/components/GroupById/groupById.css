@@ -3,6 +3,11 @@
     padding:2%;
     
 }
+.memberlistgroupbyidholder{
+
+    display:flex;
+    flex-direction: column;
+}
 
 .groupByIdContainerImgOne{
     margin:auto;
@@ -39,8 +44,7 @@ padding-bottom: 5%;
 .groupByIdContainerImgOne div p{
     font-family:sans-serif;
     color:gray;
-    margin-left:2%;
-   
+    
 }
 .groupByIdContainerImgOne img{
     width:50%
@@ -50,11 +54,22 @@ padding-bottom: 5%;
 .groupImageBoxContainer{
     display: flex;
 
-    width:60%;
+    width:70%;
     margin:auto;
     height:100%;
     background-color: #ecf0f3;
    
+}
+.groupoByidCard{
+  width:30%; 
+  height:30%; 
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border-radius:5%;
+  padding:3%;
+  font-family:sans-serif;
 }
 .backGroundcolor{
     display: flex;
@@ -82,7 +97,7 @@ padding-bottom: 5%;
     display: flex;
     flex-direction: column;
     overflow-y: hidden;
-
+    width:100%;
     overflow-x: hidden; /* Hide horizontal scrollbar */
     height:60%;
 }
@@ -109,6 +124,7 @@ hr{
     background-color: white;
 }
 
+
 .groupByIdButtons button{
     margin:auto;
     background:none;
@@ -123,10 +139,15 @@ hr{
     cursor: pointer;
     width:20%;
 }
+
 .memberListGroupById{
     height:30%;
-   
+    overflow:hidden;
 
+}
+.memberListGroupById ul {
+    display:flex;
+    flex-direction:row;
 }
 .memberListGroupById ul{
     padding-top: 5%;
@@ -138,15 +159,16 @@ hr{
 }
 .groupImageBox{
 
+
     display: flex; 
     flex-wrap: wrap;
     margin:auto;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
 
 }
 .groupImagePreviewHolder{
-    width:50%;
+    width:30%;
     padding: 5%;
 }
 .groupImagePreviewHolder img{
@@ -186,7 +208,7 @@ hr{
 .specificEventBox{
     height: 150px;
     margin-bottom: 30px;
-    width:100%;
+    width:90%;
     background-color: white;
     display:flex;
     flex-direction: row;

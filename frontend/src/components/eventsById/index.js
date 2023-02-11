@@ -65,7 +65,7 @@ export const EventById = () => {
                 <div className='eventByIdEventType'>
                     <i className="fa-solid fa-terminal"></i>
                     <p>{event.type}</p>
-                    <i className="fa-solid fa-circle-question"></i>
+        
                 </div>
                 <div>
                     {SpecificGroup.Organizer &&
@@ -77,6 +77,9 @@ export const EventById = () => {
                 </div>
                 <div className="eventByIdEventHolder">
                     <div className="eventByIdEventHolderChildOne">
+                         <div className="deleteButtonEventById">
+                          <button onClick={onClick} className="deleteEventByIdBtn">Delete Event</button>
+                          </div>
                         {event.EventImages && event.EventImages[0] && event.EventImages[0].url ?(<img src={event.EventImages[0].url} alt="img" className="eventByIdEventHolderChildOneImg"></img>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg" alt="img" className="eventByIdEventHolderChildOneImg"></img>)
 
                             // <img src={event.EventImages[0].url} alt="img" className="eventByIdEventHolderChildOneImg"></img>
@@ -88,10 +91,17 @@ export const EventById = () => {
                         </div>
                         <div className="eventByIdEventHolderChildTwo">
                             <h3>{`Attendees(${event.numAttending})`}</h3>
-                            <ul>
+                            <ul className='attendeeCardEvent'>
                             {attendees && 
                             attendees.map(attendee =>(
-                                <li key={attendee.id}>{attendee.firstName}</li>
+                                
+                                <div>
+                                   <span className="makeCircle">
+                                   <i className="fas fa-user-circle" />
+                                    </span>
+                                <li key={attendee.id}>{`${attendee.firstName} ${attendee.lastName[0]}`}</li>
+                                </div>
+                                
                             ))
                             }
                             </ul>
@@ -133,9 +143,7 @@ export const EventById = () => {
                                  
                           }
                           </ul>
-                          <div>
-                          <button onClick={onClick} className="deleteEventByIdBtn">Delete Event</button>
-                          </div>
+
                         </div>
                         
                     </div>
