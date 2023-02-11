@@ -53,7 +53,7 @@ function ProfileButton({ user }) {
         <NavLink to='/groups' className="innerText">Groups</NavLink>
   
         <NavLink to='/events' className="innerText">Events</NavLink>
-        <NavLink to='/' className="innerText">Home</NavLink>
+        {/* <NavLink to='/' className="innerText">Home</NavLink> */}
         {/* <li><p className="innerText">{user.email}</p></li> */}
         
         <li>

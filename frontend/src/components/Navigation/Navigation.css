@@ -72,7 +72,7 @@ li {
 
 
 .profile-dropdown a {
-    width:60px;
+    width:100px;
     padding:5%;
     position:relative;
     right:20%;
@@ -81,7 +81,7 @@ li {
     
     }
     .profile-dropdown li {
-        width:60px;
+        width:100px;
         padding:5%;
         position:relative;
         right:20%;
@@ -91,7 +91,7 @@ li {
         
         }
         .profile-dropdown li button {
-            width:60px;
+            width:100px;
             padding:5%;
             position:relative;
             right:20%;

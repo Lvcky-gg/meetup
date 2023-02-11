@@ -44,7 +44,7 @@ export const Footer = ({isLoaded}) => {
                 
 
             </div>
-            <div className="mid">
+            {/* <div className="mid">
                 <p className="footerP">Your Account</p>
                 <ul ></ul>
                 <p className="footerP">Discover</p>
@@ -52,7 +52,7 @@ export const Footer = ({isLoaded}) => {
                 <p className="footerP">Meetup</p>
                 <ul></ul>
                 
-            </div>
+            </div> */}
             <div className="bot">
                 <div className="botContainer">
                     <p className="footerP">Follow Me</p>

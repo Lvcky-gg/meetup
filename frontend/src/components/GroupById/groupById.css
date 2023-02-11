@@ -61,7 +61,7 @@ padding-bottom: 5%;
    
 }
 .groupoByidCard{
-  width:30%; 
+  width:20%; 
   height:30%; 
   display:flex;
   flex-direction: column;
@@ -71,6 +71,10 @@ padding-bottom: 5%;
   padding:3%;
   font-family:sans-serif;
 }
+.moveH4toright{
+   padding-left:5%; 
+}
+
 .backGroundcolor{
     display: flex;
     flex-direction: row;
@@ -79,17 +83,24 @@ padding-bottom: 5%;
     padding-bottom: 5%;
 }
 .groupImageBoxContainer div{
-    width:50%;
+    width:80%;
     
 
     padding-left:4%;
     padding-top:2%;
 }
-.groupImageBoxContainerDiv{
+.importantToCenter{
+    width:100%;
+}
+.changeToScroll{
     overflow-y:hidden;
     overflow-x: hidden; /* Hide horizontal scrollbar */
+    height:80%;
 }
-.groupImageBoxContainerDiv:hover{
+.fa-users{
+    width:10%;
+}
+.changeToScroll:hover{
     overflow-y:scroll;
     overflow-x: hidden; /* Hide horizontal scrollbar */
 }

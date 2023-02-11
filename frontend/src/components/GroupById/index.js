@@ -184,11 +184,15 @@ getEvents(dispatch)
             <div className="backGroundcolor">
             <div className='groupImageBoxContainer'>
             <div className='groupImageBoxContainerDiv'>
+                <div>
+
                         <h4>About</h4>
                         {
                             SpecificGroup && <p>{SpecificGroup.about}</p>
                         }
                         <h4>Events</h4> 
+                        </div>
+                        <div className="changeToScroll">
                         {
                             
                             Events ? (
@@ -222,7 +226,7 @@ getEvents(dispatch)
                                 <p>You Have No Events</p>
                             )
                         }
-
+                        </div>
                     </div>
                     
 
@@ -250,8 +254,9 @@ getEvents(dispatch)
                         </ul>
 
                     </div>
+                    <h4 className="moveH4toright">Group Images</h4>
                     <div className="groupImageBoxInner">
-                    <h4>Group Images</h4>
+                    
                 <ul className="groupImageBox">
                         {
                                 SpecificGroup.GroupImages ? (
