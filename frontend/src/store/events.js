@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf"
 
 const ADD_EVENT = 'ADD_EVENT'
-const EDIT_GEVENT='EDIT_EVENT'
+const EDIT_EVENT='EDIT_EVENT'
 const GET_EVENT='GET_EVENT'
 const DELETE_EVENT='DELETE_EVENT'
 
@@ -23,6 +23,12 @@ const deleteEvent = (eventId) =>{
     return {
         type:DELETE_EVENT,
         payload:eventId
+    }
+}
+const editEvent = (data) => {
+    return {
+        type:EDIT_EVENT,
+        paylodad:data
     }
 }
 
@@ -62,6 +68,29 @@ export const createSpecificEvent = (groupId, input) => async dispatch => {
     return response;
   };
 
+  export const editSpecificEvent = (groupId, input) => async dispatch => {
+    console.log(typeof (groupId))
+    
+    const {  name, type, capacity, price, description, startDate, endDate} = input;
+    const response = await csrfFetch(`/api/events/${eventId}`, {
+      method: "POST",
+      body: JSON.stringify({ 
+        
+        name, 
+        venueId:null, 
+        type, 
+        capacity, 
+        price, 
+        description,
+        startDate, 
+        endDate
+    }),
+    });
+    const data = await response.json();
+    dispatch(editEvent(data));
+    return response;
+  };
+
   export const deleteEventById = (eventId) => async (dispatch) => {
     const res = await csrfFetch(`/api/events/${eventId}`,{
         method:"DELETE"
@@ -81,6 +110,13 @@ const eventReducer = (state = initialState, action) => {
         case ADD_EVENT:
             newState.Events.push(action.payload)
             return newState;
+        case EDIT_EVENT:
+            newState = {...state};
+            for(let i = 0; i < newState.Events.length; i++){
+                if(newState.Events[i].id === action.payload.id){
+                    newState.Events[i] = action.payload
+                }
+            }
         case DELETE_EVENT:
             newState = Object.assign({}, state)
 
