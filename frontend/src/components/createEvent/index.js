@@ -40,11 +40,12 @@ useEffect(()=>{
     if(capacity < 0)validationErrors.push("Capacity is too low");
     if(startDate < new Date())validationErrors.push("Start date must be in the future");
     if(endDate < startDate)validationErrors.push("End date must be after start date");
+    if(!price.length)validationErrors.push("Price must be valid price");
+    if(price.length < 4)validationErrors.push("Price must be valid price");
     setErrors(validationErrors)
-
     getEvents(dispatch)
 
-},[dispatch, name, capacity, startDate, endDate])
+},[dispatch, name, capacity, startDate, endDate, price])
 
 
 
