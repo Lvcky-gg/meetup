@@ -39,7 +39,7 @@ useEffect(()=>{
     const validationErrors = [];
     if(name.length < 5)validationErrors.push("Name must be at least 5 characters");
     if(capacity < 0)validationErrors.push("Capacity is too low");
-    if(startDate < new Date())validationErrors.push("Start date must be in the future");
+    if(new Date(startDate) < new Date())validationErrors.push("Start date must be in the future");
     if(endDate < startDate)validationErrors.push("End date must be after start date");
     if(!price.length)validationErrors.push("Price must be valid price");
     if(price.length < 4)validationErrors.push("Price must be valid price");

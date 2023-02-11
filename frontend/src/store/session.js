@@ -43,9 +43,14 @@ export const login = (user) => async (dispatch) => {
       password,
     }),
   });
+  if(response.ok){
   const data = await response.json();
   dispatch(setUser(data.User));
-  return response;
+  // return response
+  return data;
+  }else{
+    return Promise.reject(response)
+  }
 };
 
 export const restoreUser = () => async dispatch => {

@@ -18,7 +18,9 @@ function LoginFormModal() {
   const { closeModal } = useModal();
 
 
-  if (sessionUser) return (
+  if (sessionUser) 
+  // console.log(closeModal)
+  return (
     <Redirect to="/" />
   );
 
@@ -28,11 +30,14 @@ function LoginFormModal() {
     setSubmit(!submit)
    
     return dispatch(sessionActions.login({ credential, password }))
-      .then(closeModal)
+    .then(()=>closeModal())
+      // .then((data)=>data.id ? closeModal:(setErrors(["Password or Credential is incorrect"])))
+      
       .catch(
         async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+          console.log(data)
+          if (data && data.message) setErrors([data.message]);
         }
       );
     

@@ -9,6 +9,7 @@ import { getSpecificGroup } from '../../store/specificGroup';
 import { getEvents } from '../../store/events';
 import { useParams } from 'react-router-dom';
 import './createEvent.css'
+import { getMyGroups } from '../../store/groups';
 
 
 function CreateEventModal({groupId}) {
@@ -38,12 +39,13 @@ useEffect(()=>{
     const validationErrors = [];
     if(name.length < 5)validationErrors.push("Name must be at least 5 characters");
     if(capacity < 0)validationErrors.push("Capacity is too low");
-    if(startDate < new Date())validationErrors.push("Start date must be in the future");
+    if(new Date(startDate) < new Date())validationErrors.push("Start date must be in the future");
     if(endDate < startDate)validationErrors.push("End date must be after start date");
     if(!price.length)validationErrors.push("Price must be valid price");
     if(price.length < 4)validationErrors.push("Price must be valid price");
     setErrors(validationErrors)
     getEvents(dispatch)
+    getMyGroups(dispatch)
 
 },[dispatch, name, capacity, startDate, endDate, price])
 
@@ -67,6 +69,7 @@ useEffect(()=>{
     })(dispatch)
     // .then(async(val)=>{console.log('hello', await val.json())})
       .then(closeModal)
+      .then(getMyGroups(dispatch))
       .then(getEvents(dispatch))
       .catch(
         async (res) => {
