@@ -7,6 +7,7 @@ import { createGroup } from '../../store/groups';
 import { useHistory } from 'react-router-dom';
 import { getMyGroups } from '../../store/groups';
 import { useEffect } from 'react';
+import { getGroups } from '../../store/groups';
 import './createGroup.css'
 import Logo from '../LoginFormModal/PACKAGE_Artboard_1_copy_3.png'
 
@@ -38,6 +39,7 @@ useEffect(()=> {
   if(about.length < 50)validationErrors.push('About must be 50 characters or more')
   setErrors(validationErrors)
   getMyGroups(dispatch)
+  // getGroups(dispatch)
 }, [dispatch, about, name])
 
   const handleSubmit = (e) => {
@@ -55,6 +57,7 @@ useEffect(()=> {
     })(dispatch)
     // return dispatch(createGroup({ name, about, city, state, type, bool}))
       .then(closeModal)
+      // .then(getGroups(dispatch))
       .then(getMyGroups(dispatch))
       .catch(
         async (res) => {

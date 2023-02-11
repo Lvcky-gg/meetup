@@ -1,6 +1,6 @@
 #TPG EVENT MANAGER -- Meetup Clone
 
-![image](image one.png)
+![image](./project%20image%20one.png)
 
 ##Live Link
 
@@ -34,6 +34,32 @@ It uses modals in order to create and edit the group.
 Images are handled with a dropdown.
 Deleting both the event and an image are handled with a button.
 It utilizes a default image for the event.
+
+##Technology
+
+Overall:
+Render--hosting
+Git
+
+Frontend:
+React/Redux
+CSS
+HTML
+JS
+JSON
+
+Backend:
+JS
+node.js
+sequelize.js
+express.js
+postgress
+sqlite3
+dotenv
+cors
+helmet
+bcrypt
+
 
 ##Starting the backend
 
