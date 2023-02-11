@@ -127,15 +127,15 @@ getEvents(dispatch)
                     <div>
                         <h2>{Group.name}</h2>
                         <div>
-                        <i class="fa-solid fa-location-dot"></i>
+                        <i className="fa-solid fa-location-dot"></i>
                         <p> {`${Group.city}, ${Group.state}`}</p>
                             </div>
                         <div>
-                        <i class="fa-solid fa-users"></i>
+                        <i className ="fa-solid fa-users"></i>
                         <p>{` ${Group.numMembers} members`}</p>
                         </div>
                         <div>
-                        <i class="fa-solid fa-user"></i>
+                        <i className="fa-solid fa-user"></i>
                         {SpecificGroup.Organizer &&
                    <p>{`Organized by ${SpecificGroup.Organizer.firstName} ${SpecificGroup.Organizer.lastName}`}</p>
                    
@@ -196,20 +196,19 @@ getEvents(dispatch)
                                         <NavLink to={`/events/${event.id}`} >
                                         
                                                 <div>
-                                                    <div className="handleMe">
+                                                    
                                                     <h4>{makeDate(event.startDate.split('T')[0])}</h4>
                                                     <h2>{event.name}</h2>
-                                                    {
-                                                        event.previewImage ?(<img src={event.previewImage}></img>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg"></img>)
-                                                    }
+                                                    <p>{`number of Attendees:${event.numAttending}`}</p>
                                                     
-                                                    </div>
+                                                   
                                                     
                                                 </div>
-                                                
-
                                             <div>
-                                                <p>{`number of Attendees:${event.numAttending}`}</p>
+                                            {
+                                                        event.previewImage ?(<img src={event.previewImage}></img>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg"></img>)
+                                                    }
+                                               
                                             </div>
                                         </NavLink>
                                     </li>

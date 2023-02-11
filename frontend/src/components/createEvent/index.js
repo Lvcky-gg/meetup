@@ -5,8 +5,9 @@ import { useModal } from "../../context/Modal";
 import { useEffect } from 'react';
 
 import Logo from '../LoginFormModal/PACKAGE_Artboard_1_copy_3.png'
-
+import { getSpecificGroup } from '../../store/specificGroup';
 import { getEvents } from '../../store/events';
+import { useParams } from 'react-router-dom';
 import './createEvent.css'
 
 
@@ -27,6 +28,7 @@ function CreateEventModal({groupId}) {
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
   const sessionUser = useSelector(state => state.session.user);
+
 
 
 
@@ -53,10 +55,12 @@ useEffect(()=>{
 
     })(dispatch)
       .then(closeModal)
+    //   .then(getSpecificGroup(+groupId)(dispatch))
       .then(getEvents(dispatch))
       .catch(
         async (res) => {
           const data = await res.json();
+          console.log(data)
           if (data && data.errors) setErrors(data.errors);
         }
       );
@@ -133,6 +137,7 @@ useEffect(()=>{
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
+          required
          
         /> 
             
@@ -143,6 +148,7 @@ useEffect(()=>{
           type="date"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
+          required
          
         /> 
             
@@ -150,11 +156,13 @@ useEffect(()=>{
     <label>Type</label>
     <select
     name='type'
+    required
     onChange={(e) => setType(e.target.value)}
     value={type}>
          <option value='' disabled>Select Event Type</option>
          <option value='Online'>Online</option>
          <option value='In Person'>In Person</option>
+    
 
     </select>
     </div>

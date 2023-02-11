@@ -145,7 +145,9 @@ export const HomePage = () => {
                     }</h3>
                     <hr></hr>
                     <div className="handleImage">
-                    <img src={event.previewImage} alt="image"/>
+                    {
+                    event.previewImage ? (<img src={event.previewImage} alt="image"/>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg" alt="image"/>)
+                     }
                     <div>
                     <h3>{event.name}</h3>
                     </div>
