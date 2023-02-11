@@ -26,7 +26,6 @@ export const HomePage = () => {
     }
 
     const filterMe = (item)=>{
-        console.log(item)
         for(let i =0; i< arrayForGroupId.length; i++){
             if(item.groupId === arrayForGroupId[i]){
                 

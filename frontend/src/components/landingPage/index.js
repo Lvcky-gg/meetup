@@ -12,8 +12,7 @@ export const LandingPage = () => {
     const dispatch = useDispatch();
     const allGroups = useSelector(state=>state.groups.Groups);
     const allEvents = useSelector(state=>state.events.Events);
-    console.log(allEvents)
-    
+
 
     useEffect(() => {
         getEvents(dispatch)

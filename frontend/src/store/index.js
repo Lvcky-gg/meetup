@@ -8,7 +8,7 @@ import memberReducer from './members';
 import singleEventReducer from './specificEvent';
 import attendeeReducer from './attendees';
 
-// console.log(specificGroupReducer)
+
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   members:memberReducer,
   EventSpecific:singleEventReducer,
   Attendee:attendeeReducer,
-  // eventsForGroup:specificEventReducer,
+
 });
 
 let enhancer;

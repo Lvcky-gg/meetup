@@ -68,7 +68,7 @@ useEffect(()=>{
     endDate,
 
     })(dispatch)
-    // .then(async(val)=>{console.log('hello', await val.json())})
+
       .then(closeModal)
       .then(getEvents(dispatch))
       .then(getEventById(+eventId)(dispatch))

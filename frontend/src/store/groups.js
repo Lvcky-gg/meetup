@@ -35,7 +35,7 @@ export const getGroups = async dispatch=> {
 export const getMyGroups = async dispatch=> {
     const res = await csrfFetch('/api/groups/current')
     const data= await res.json();
-    console.log(data)
+
     dispatch(grabGroups(data));
     return data;
 }
@@ -55,7 +55,6 @@ export const createGroup = (input) => async dispatch => {
       }),
     });
     const data = await response.json();
-    console.log(name)
     dispatch(changeGroup(data));
     return response;
   };
@@ -105,7 +104,6 @@ const groupReducer = (state = initialState, action) => {
             return newState;
           case DELETE_GROUP:
             newState = Object.assign({}, state);
-            console.log('action', action.payload)
            
 
             for(let i = 0; i < newState.Groups.length; i++){
