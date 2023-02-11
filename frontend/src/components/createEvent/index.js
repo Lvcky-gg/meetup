@@ -26,6 +26,7 @@ function CreateEventModal({groupId}) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [errors, setErrors] = useState([]);
+  const [submit, setSubmit] = useState(false)
   const { closeModal } = useModal();
   const sessionUser = useSelector(state => state.session.user);
 
@@ -34,17 +35,24 @@ function CreateEventModal({groupId}) {
 
 
 useEffect(()=>{
+    const validationErrors = [];
+    if(name.length < 5)validationErrors.push("Name must be at least 5 characters");
+    if(capacity < 0)validationErrors.push("Capacity is too low");
+    if(startDate < new Date())validationErrors.push("Start date must be in the future");
+    if(endDate < startDate)validationErrors.push("End date must be after start date");
+    setErrors(validationErrors)
 
     getEvents(dispatch)
 
-},[dispatch])
+},[dispatch, name, capacity, startDate, endDate])
 
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
+    setSubmit(!submit)
     // if(venueId=== 0) setVenueId(null)
+    if(!errors.length){
     return createSpecificEvent(+groupId,{
     // venueId,
     name,
@@ -65,6 +73,7 @@ useEffect(()=>{
           if (data && data.errors) setErrors(data.errors);
         }
       );
+    }
       
   };
 
@@ -72,9 +81,6 @@ useEffect(()=>{
     <div className="createEventModalContainer">
       <img src={Logo} alt="photo"></img>
     <form  className='createEventModal' onSubmit={handleSubmit}>
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
       <div>
       <label>
         name
@@ -122,16 +128,7 @@ useEffect(()=>{
         /> 
             
     </div>
-    {/* <div>
-        <label>Venue</label>
-        <input
-          type="number"
-          value={venueId}
-          onChange={(e) => setVenueId(e.target.value)}
-         
-        /> 
-            
-    </div> */}
+
     <div>
         <label>Start Date</label>
         <input
@@ -170,6 +167,14 @@ useEffect(()=>{
 
     <div>
       <button type="submit">Submit</button>
+      </div>
+      <div>
+      <ul className="validation">
+        {
+          submit && 
+          errors.map((error, idx) => <li key={idx}>{`${error}`}</li>)
+        }
+      </ul>
       </div>
     </form>
     </div>

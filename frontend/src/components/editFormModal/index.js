@@ -23,18 +23,23 @@ function EditGroupModal({Group, groupId}) {
   const [state, setState] = useState(Group.state);
   const [type, setType] = useState(Group.type);
   const [bool, setBool] = useState(Group.bool);
+  const [submit, setSubmit] = useState(false);
   const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
  
 
 useEffect(()=> {
+  const validationErrors = [];
+  if(name.length > 60)validationErrors.push('Name must be 60 characters or less')
+  if(about.length < 50)validationErrors.push('About must be 50 characters or more')
+  setErrors(validationErrors)
     getMyGroups(dispatch)
-  }, [dispatch])
+  }, [dispatch, name, about])
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
-    
+    setSubmit(!submit)
+    if(!errors.length){
     return editGroup({
       name,
       about,
@@ -51,17 +56,14 @@ useEffect(()=> {
           if (data && data.errors) setErrors(data.errors);
         }
       );
-      
+      }   
   };
 
   return (
     <div className="createGroupModalContainer">
       <img src={Logo} alt="photo"></img>
     <form  className='createFormModal' onSubmit={handleSubmit}>
-        
-      <ul>
-        {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-      </ul>
+
       <div>
       <label>
         name
@@ -134,6 +136,14 @@ useEffect(()=> {
     </div>
     <div>
       <button type="submit">Submit</button>
+      </div>
+      <div>
+      <ul className="validation">
+        {
+          submit && 
+          errors.map((error, idx) => <li key={idx}>{`${error}`}</li>)
+        }
+      </ul>
       </div>
     </form>
     </div>
