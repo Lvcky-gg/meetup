@@ -117,10 +117,11 @@ getEvents(dispatch)
             <div className='groupByIdContainerOne'>
                 {Group.name &&
                 <div className='groupByIdContainerImgOne'>
-                   {SpecificGroup.Organizer &&
+                   {SpecificGroup.Organizer && groupImg ?(   <img src={groupImg} alt="GroupImg" className="groupImgMainImg"></img>):
+                   (   <img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg" alt="GroupImg" className="groupImgMainImg"></img>)
                    //https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg
 
-                   <img src={groupImg} alt="GroupImg" className="groupImgMainImg"></img>
+                //    <img src={groupImg} alt="GroupImg" className="groupImgMainImg"></img>
                    }
                         
                     <div>

@@ -77,8 +77,9 @@ export const EventById = () => {
                 </div>
                 <div className="eventByIdEventHolder">
                     <div className="eventByIdEventHolderChildOne">
-                        {event.EventImages && event.EventImages[0] &&
-                            <img src={event.EventImages[0].url} alt="img" className="eventByIdEventHolderChildOneImg"></img>
+                        {event.EventImages && event.EventImages[0] && event.EventImages[0].url ?(<img src={event.EventImages[0].url} alt="img" className="eventByIdEventHolderChildOneImg"></img>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg" alt="img" className="eventByIdEventHolderChildOneImg"></img>)
+
+                            // <img src={event.EventImages[0].url} alt="img" className="eventByIdEventHolderChildOneImg"></img>
                         }
                         
                         <div className="eventByIdEventHolderChildTwo">

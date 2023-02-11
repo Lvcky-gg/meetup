@@ -5,8 +5,14 @@
     height:1000px;
     padding-top:5%;
 }
+
 .eventsHomePage div{
     padding-left:10%;
+
+}
+.fillMeTwo{
+    width:800px;
+
 }
 .fillMe{
     overflow-y: scroll;
@@ -15,7 +21,7 @@
 }
 .homePageFromGroup{
     cursor: pointer;
-    width:190px;
+    width:200px;
 
     font-weight: bolder;
 }

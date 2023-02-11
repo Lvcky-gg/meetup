@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import './events.css'
+import { getEvents } from "../../store/events";
 
 
 
@@ -62,6 +63,7 @@ export const EventPage = () => {
     }
 
     useEffect(()=>{
+        getEvents(dispatch);
 
     },[dispatch])
 
@@ -72,7 +74,7 @@ export const EventPage = () => {
 
             </div>
 
-            <div >
+            <div className="fillMeTwo">
                 <h1>Your events</h1>
                 <div className="fillMe">
             <ul className="myList">
@@ -88,7 +90,10 @@ export const EventPage = () => {
                     }</h3>
                     <hr></hr>
                     <div className="handleImage">
-                    <img src={event.previewImage} alt="image"/>
+                        {
+                           event.previewImage ?(<img src={event.previewImage} alt="image"/>) : (<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg" alt="image"/>)
+                        }
+                    {/* <img src={event.previewImage} alt="image"/> */}
                     <div>
                     <h3>{event.name}</h3>
                     </div>
