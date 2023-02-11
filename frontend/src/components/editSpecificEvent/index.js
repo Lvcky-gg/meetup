@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSpecificEvent } from '../../store/events';
 import { useModal } from "../../context/Modal";
-import { useEffect } from 'react';
+import { useEffect } from 'react';  
+import { getEventById } from '../../store/specificEvent';
 
 import Logo from '../LoginFormModal/PACKAGE_Artboard_1_copy_3.png'
 import { getSpecificGroup } from '../../store/specificGroup';
 import { getEvents } from '../../store/events';
-import { useParams } from 'react-router-dom';
-import './createEvent.css'
+import { editSpecificEvent } from '../../store/events';
+// import './createEvent.css'
 
 
 function EditEventModal({eventId}) {
@@ -43,6 +44,7 @@ useEffect(()=>{
     setErrors(validationErrors)
 
     getEvents(dispatch)
+    getEventById(+eventId)(dispatch)
 
 },[dispatch, name, capacity, startDate, endDate])
 
@@ -53,7 +55,7 @@ useEffect(()=>{
     setSubmit(!submit)
     // if(venueId=== 0) setVenueId(null)
     if(!errors.length){
-    return createSpecificEvent(+groupId,{
+    return editSpecificEvent(+eventId,{
     // venueId,
     name,
     type,
@@ -67,6 +69,7 @@ useEffect(()=>{
     // .then(async(val)=>{console.log('hello', await val.json())})
       .then(closeModal)
       .then(getEvents(dispatch))
+      .then(getEventById(+eventId)(dispatch))
       .catch(
         async (res) => {
           const data = await res.json();

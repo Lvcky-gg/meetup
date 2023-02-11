@@ -12,6 +12,8 @@ import { AddEventImage } from "../addEventImage";
 import { deleteEventById } from "../../store/events";
 import { useHistory } from "react-router-dom";
 import { getAttendees } from "../../store/attendees";
+import EditEventModal from "../editSpecificEvent";
+import OpenModalButton from "../OpenModalButton";
 import "./eventById.css";
 
 
@@ -43,7 +45,7 @@ export const EventById = () => {
     }
 
    useEffect(()=>{
-
+    getEventById(+eventId)(dispatch)
     getEvents(dispatch)
     getEventById(+eventId)(dispatch)
     getSpecificGroup(+event.groupId)(dispatch)
@@ -79,6 +81,11 @@ export const EventById = () => {
                     <div className="eventByIdEventHolderChildOne">
                          <div className="deleteButtonEventById">
                           <button onClick={onClick} className="deleteEventByIdBtn">Delete Event</button>
+                          <OpenModalButton
+      
+                             buttonText="Edit Event"
+                             modalComponent={<EditEventModal   eventId={eventId}></EditEventModal>}
+                                />
                           </div>
                         {event.EventImages && event.EventImages[0] && event.EventImages[0].url ?(<img src={event.EventImages[0].url} alt="img" className="eventByIdEventHolderChildOneImg"></img>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg" alt="img" className="eventByIdEventHolderChildOneImg"></img>)
 
