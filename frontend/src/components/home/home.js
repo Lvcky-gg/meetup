@@ -107,7 +107,16 @@ export const HomePage = () => {
            
             
             />
+            <div className='buttonCarrierGroup'>
+                <button
+                onClick={(e)=>{
+                    e.preventDefault()
+                    getEvents(dispatch)
+                }}
+                >All Events</button>
             </div>
+            </div>
+            
             
 
             <div className='groupCardsFromHome'>
