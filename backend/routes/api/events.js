@@ -5,6 +5,20 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const e = require('express');
 const attendee = require('../../db/models/attendee');
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
+
+// const where = {
+//     [Op.or]: [{
+//         from: {
+//             [Op.between]: [startDate, endDate]
+//         }
+//     }, {
+//         to: {
+//             [Op.between]: [startDate, endDate]
+//         }
+//     }]
+// };
 
 
 router.get('/:eventId/attendees', 
@@ -182,8 +196,18 @@ async (req, res) =>{
         events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where:{type}});
        }
        if(startDate){
-        events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where:{startDate}});
-       }
+        const newDay = new Date(new Date(startDate))
+        newDay.setHours(18,59,59,999)
+        const integerDay = newDay.getUTCDate()-1
+        const timeStamp = newDay.setDate(integerDay)
+        const newDate = new Date (timeStamp)
+        events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where : {[Op.or]: [{
+                startDate: {
+                    [Op.between]: [newDate, new Date(new Date(startDate).setHours(18,59,59,999))]
+                }
+            }]
+       }})
+    }
        if(name && type){
         events =await Event.findAll({include:[{model:Group},{model:Venue}, {model:Attendee}, {model:EventImage}],limit:size,offSet:size * (page -1), where:{name, type}});
        }

@@ -6,6 +6,16 @@
     padding-top:5%;
     padding-left:20%;
 }
+.calendar {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    background-color: white;
+    padding-top:12%;
+    padding-bottom: 3%;
+}
+
 .HomeTop{
     padding-top:5%;
     background-color: white;
