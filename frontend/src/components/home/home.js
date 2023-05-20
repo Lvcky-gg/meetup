@@ -3,19 +3,21 @@ import { useEffect } from 'react';
 import { getGroups, getMyGroups } from '../../store/groups';
 import { NavLink, Redirect } from 'react-router-dom';
 import './home.css'
-import { getEvents, getMyEvents } from '../../store/events';
+import { getEvents, getEventsSearch, getMyEvents } from '../../store/events';
 import { useHistory } from 'react-router-dom';
+import Calendar from 'moedim';
+import { useState } from 'react';
 
 
 //unknown bug in my group grabbing and event grabbing
 export const HomePage = () => {
     const dispatch = useDispatch();
+    const [value, setValue] = useState(new Date())
     const allGroups = useSelector(state=>state.groups.Groups);
     const thisUser = useSelector(state => state.session.user);
     let thisEvents = useSelector(state=> state.events.Events);
     let sessionUser = useSelector(state => state.session.user);
     const history = useHistory();
-
     let arrayForGroupId = []
     if(allGroups){
         for(let i = 0; i < allGroups.length; i++){
@@ -24,7 +26,6 @@ export const HomePage = () => {
     
         };
     }
-
     const filterMe = (item)=>{
         for(let i =0; i< arrayForGroupId.length; i++){
             if(item.groupId === arrayForGroupId[i]){
@@ -52,6 +53,11 @@ export const HomePage = () => {
        
 
     }
+
+    const onCalendarClick = (e) => {
+        e.preventDefault()
+        dispatch(getEventsSearch(`?startDate=${value.toISOString()}`))
+    }
     
    const makeDate=(date)=>{
     let month = ''
@@ -71,20 +77,9 @@ export const HomePage = () => {
     else if(val === 12)month = 'December';
     return `${month} ${valOne[2]}, ${valOne[0]}`
    }
-    
-//modify this!!!
-//push into an array
-
 
     useEffect(() => {
         getMyGroups(dispatch)
-        // if(allGroups){
-        //     for(let i = 0; i <allGroups.length; i++){
-        //         let groupId = allGroups[i].id
-        //         getMyEvents(groupId)(dispatch)
-    
-        //     }
-        // }
         getEvents(dispatch)
 
       }, [ dispatch]);
@@ -95,9 +90,34 @@ export const HomePage = () => {
              <h1>Welcome, {thisUser.firstName} 👋</h1>
             <h4>Events from Your Groups</h4>
         </div>
+        <div>
+
+        </div>
         <div className="home">
+        
+        
 
         <div className="YourInfo">
+        <div className='calendar'>
+            <Calendar 
+            value={value} 
+            onChange={(d) => {
+            setValue(d)
+            dispatch(getEventsSearch(`?startDate=${d.toISOString()}`))}} 
+           
+            
+            />
+            <div className='buttonCarrierGroup'>
+                <button
+                onClick={(e)=>{
+                    e.preventDefault()
+                    getEvents(dispatch)
+                }}
+                >All Events</button>
+            </div>
+            </div>
+            
+            
 
             <div className='groupCardsFromHome'>
             <h4
@@ -124,9 +144,7 @@ export const HomePage = () => {
      }
         </ul>
             </div>
-            <div>
-                
-            </div>
+
             
         </div>
         <div className="HomeEvents">

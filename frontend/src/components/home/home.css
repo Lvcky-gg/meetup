@@ -6,6 +6,30 @@
     padding-top:5%;
     padding-left:20%;
 }
+.calendar {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    background-color: white;
+    padding-top:12%;
+    padding-bottom: 3%;
+}
+.buttonCarrierGroup button{
+    width:100%;
+    margin:auto;
+    margin-top:15%;
+    background:none;
+    border:none;
+    text-decoration: none;
+    color:rgb(53, 51, 51);
+    font-size: larger;
+    font-family: sans-serif;
+    cursor: pointer;
+
+}
+
 .HomeTop{
     padding-top:5%;
     background-color: white;

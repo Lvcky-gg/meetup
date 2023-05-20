@@ -32,8 +32,14 @@ const editEvent = (data) => {
     }
 }
 
-export const getEvents = async dispatch=> {
+export const getEvents =  async dispatch=> {
     const res = await fetch('/api/events')
+    const data= await res.json();
+    dispatch(grabEvents(data));
+    return data;
+}
+export const getEventsSearch = (params)=> async dispatch=> {
+    const res = await fetch(`/api/events${params}`)
     const data= await res.json();
     dispatch(grabEvents(data));
     return data;
