@@ -81,7 +81,7 @@ export const EventPage = () => {
         {
             Events ? (
 
-                Events.sort((a,b)=>a.startDate - b.startDate).filter(filterMe).map(event=>(
+                Events.filter(filterMe).map(event=>(
                  <li key={event.id} className="handleWidth" onClick={onEventClick}>
                     <NavLink to={`/events/${event.id}`}>
                     <h3>{
@@ -101,7 +101,7 @@ export const EventPage = () => {
                     </NavLink>
                
              </li>
-             ))
+             )).sort((a,b)=>a.startDate - b.startDate)
     ):(
       <p>You have no Events </p>
      )
