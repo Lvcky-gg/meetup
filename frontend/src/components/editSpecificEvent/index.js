@@ -12,20 +12,20 @@ import { editSpecificEvent } from '../../store/events';
 // import './createEvent.css'
 
 
-function EditEventModal({eventId}) {
+function EditEventModal({eventId,eventName,eventDescription,eventCapacity,eventStartDate,eventEndDate,eventType, eventPrice}) {
 
 
 
   const dispatch = useDispatch();
 //   const sessionUser = useSelector(state => state.session.user);
-  const [name, setName] = useState('');
-  const [type, setType] = useState('');
-  const [capacity, setCapacity] = useState(0);
+  const [name, setName] = useState(eventName);
+  const [type, setType] = useState(eventType);
+  const [capacity, setCapacity] = useState(eventCapacity);
 //   let [venueId, setVenueId] = useState(0);
-  const [price, setPrice] = useState(0.00);
-  const [description, setDescription] = useState('')
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [price, setPrice] = useState(eventPrice);
+  const [description, setDescription] = useState(eventDescription)
+  const [startDate, setStartDate] = useState(new Date(eventStartDate));
+  const [endDate, setEndDate] = useState(new Date(eventEndDate));
   const [errors, setErrors] = useState([]);
   const [submit, setSubmit] = useState(false)
   const { closeModal } = useModal();

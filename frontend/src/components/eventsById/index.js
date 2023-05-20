@@ -84,7 +84,16 @@ export const EventById = () => {
                           <OpenModalButton
       
                              buttonText="Edit Event"
-                             modalComponent={<EditEventModal   eventId={eventId}></EditEventModal>}
+                             modalComponent={<EditEventModal  
+                                 eventId={eventId}
+                                 eventName={event.name}
+                                 eventDescription={event.description}
+                                 eventCapacity={event.capacity}
+                                 eventStartDate={event.startDate} 
+                                 eventEndDate={event.endDate} 
+                                 eventType={event.type}
+                                 eventPrice={event.price}
+                                 ></EditEventModal>}
                                 />
                           </div>
                         {event.EventImages && event.EventImages[0] && event.EventImages[0].url ?(<img src={event.EventImages[0].url} alt="img" className="eventByIdEventHolderChildOneImg"></img>):(<img src="https://i.ytimg.com/vi/1roy4o4tqQM/maxresdefault.jpg" alt="img" className="eventByIdEventHolderChildOneImg"></img>)
