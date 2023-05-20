@@ -126,7 +126,7 @@ getEvents(dispatch)
                         <h2>{Group.name}</h2>
                         <div>
                         <i className="fa-solid fa-location-dot"></i>
-                        <p> {`${Group.city}, ${Group.state}`}</p>
+                        <p> {` ${Group.city}, ${Group.state}`}</p>
                             </div>
                         <div>
                         <i className ="fa-solid fa-users"></i>
