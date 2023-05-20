@@ -33,6 +33,7 @@ export const EventPage = () => {
     const history=useHistory();
     const Events = useSelector(state=>state.events.Events);
     const allGroups = useSelector(state=>state.groups).Groups;
+    
     const onEventClick=()=> {
        
 
@@ -81,7 +82,9 @@ export const EventPage = () => {
         {
             Events ? (
 
-                Events.filter(filterMe).map(event=>(
+                Events.sort((a,b)=>{
+                    return new Date(a.startDate)  - new Date(b.startDate)    
+                }).filter(filterMe).map(event=>(
                  <li key={event.id} className="handleWidth" onClick={onEventClick}>
                     <NavLink to={`/events/${event.id}`}>
                     <h3>{
@@ -101,7 +104,7 @@ export const EventPage = () => {
                     </NavLink>
                
              </li>
-             )).sort((a,b)=>a.startDate - b.startDate)
+             ))
     ):(
       <p>You have no Events </p>
      )
