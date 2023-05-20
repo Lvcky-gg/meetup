@@ -172,7 +172,10 @@ getEvents(dispatch)
                {
                 imgVal ? (
 
-                   <AddImage></AddImage>
+                   <AddImage
+                   imgVal={imgVal}
+                   setImgVal={setImgVal}
+                   ></AddImage>
                 ):(
 
                     <></>
