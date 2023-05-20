@@ -99,6 +99,14 @@ export const HomePage = () => {
 
         <div className="YourInfo">
         <div className='calendar'>
+        <div className='buttonCarrierGroup'>
+                <button
+                onClick={(e)=>{
+                    e.preventDefault()
+                    getEvents(dispatch)
+                }}
+                >All Events</button>
+            </div>
             <Calendar 
             value={value} 
             onChange={(d) => {
@@ -107,14 +115,7 @@ export const HomePage = () => {
            
             
             />
-            <div className='buttonCarrierGroup'>
-                <button
-                onClick={(e)=>{
-                    e.preventDefault()
-                    getEvents(dispatch)
-                }}
-                >All Events</button>
-            </div>
+
             </div>
             
             

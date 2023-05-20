@@ -20,6 +20,7 @@
     width:100%;
     margin:auto;
     margin-top:15%;
+    margin-bottom: 10%;
     background:none;
     border:none;
     text-decoration: none;
@@ -28,6 +29,9 @@
     font-family: sans-serif;
     cursor: pointer;
 
+}
+.buttonCarrierGroup button:hover{
+    color:gray;
 }
 
 .HomeTop{
