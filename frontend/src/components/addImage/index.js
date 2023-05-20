@@ -10,7 +10,7 @@ import './addImage.css'
 
 
 
-export const AddImage = () => {
+export const AddImage = ({imgVal, setImgVal}) => {
     const {groupId} = useParams()
     const dispatch = useDispatch()
     const [url, setUrl ] = useState('')
@@ -31,6 +31,7 @@ export const AddImage = () => {
             url,
             preview
         }, +groupId)(dispatch)
+        .then(setImgVal(false))
         .catch(
             async (res) => {
               const data = await res.json();

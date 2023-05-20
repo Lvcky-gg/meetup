@@ -14,3 +14,15 @@ a p{
 a img{
     color:gray;
 }
+::-webkit-scrollbar{
+    display: none;
+}
+::-webkit-scrollbar:vertical{
+    display: block;
+    background-color:aliceblue;
+}
+::-webkit-scrollbar-thumb{
+    background:#B4C4BC;
+    border-radius: 10px;
+    height: 2em;
+}
