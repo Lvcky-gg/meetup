@@ -136,7 +136,7 @@ export const HomePage = () => {
         {
             thisEvents ? (
 
-                thisEvents.filter(filterMe).map(event=>(
+                thisEvents.sort((a,b)=>a.startDate - b.startDate).filter(filterMe).map(event=>(
                  <li key={event.id} className="handleWidth" onClick={onEventClick}>
                     <NavLink to={`/events/${event.id}`}>
                     <h3>{
