@@ -14,11 +14,15 @@
     width:720px;
 
 }
+.fillme::-webkit-scrollbar {
+    display:none;
+}
 .fillMe{
     overflow-y: scroll;
     overflow-x:hidden;
     height:80%;
 }
+
 .homePageFromGroup{
     cursor: pointer;
     width:200px;
