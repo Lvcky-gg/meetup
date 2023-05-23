@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./search.css"
@@ -12,29 +13,28 @@ export const SearchBar = () => {
 
     const handleSearch = (e) => {
         e.preventDefault()
+        if(url != ""){
+            history.push(`/events${url}`)
+            setEventName("")
+            setEventType("")
+            setUrl("")
+        }else{
+            history.push(`/events`)
+            setEventName("")
+            setEventType("")
+            setUrl("")
+        }
+    }
+    useEffect(()=>{
         if(eventName != "" && eventType != ""){
             setUrl(`?name=${eventName}&type=${eventType}`)
-            history.push(`/events${url}`)
-            setEventName("")
-            setEventType("")
         }else if(eventName != ""){
             setUrl(`?name=${eventName}`)
-            history.push(`/events${url}`)
-            setEventName("")
-            setEventType("")
         }else if(eventType != ""){
             setUrl(`?type=${eventType}`)
-            history.push(`/events${url}`)
-            setEventName("")
-            setEventType("")
-        }
-        else{
-            history.push('/events')
-            setEventName("")
-            setEventType("")
         }
 
-    }
+    },[url, eventName, eventType])
     return (
         <form 
         onSubmit={handleSearch}
