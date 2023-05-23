@@ -17,6 +17,8 @@
     border: 2px solid black;
     border-left: 0px hidden;
     border-right: 0px hidden;
+    height:90%;
+    width:150px;
 
 }
 .searchBar>button{

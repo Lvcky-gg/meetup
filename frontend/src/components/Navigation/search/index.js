@@ -10,7 +10,7 @@ export const SearchBar = () => {
     const [eventName, setEventName] = useState("");
     const [eventType, setEventType] = useState("");
     const [url, setUrl] = useState("")
-
+    console.log(eventType)
     const handleSearch = (e) => {
         e.preventDefault()
         if(url != ""){
@@ -45,12 +45,21 @@ export const SearchBar = () => {
             value={eventName}
             onChange={(e) => setEventName(e.target.value)}
             ></input>
-            <input
+            {/* <input
             className='searchBarInputTwo'
             placeholder="Event Type"
             value={eventType}
             onChange={(e) => setEventType(e.target.value)}
-            ></input>
+            ></input> */}
+            <select
+            className='searchBarInputTwo'
+            name="Event Type"
+            onChange={(e) => setEventType(e.target.value)}
+            >
+                <option value='' disabled>Event Type</option>
+                <option name="Online">Online</option>
+                <option name="In Person">In Person</option>
+            </select>
             <button>
             <i class="fa-solid fa-magnifying-glass"></i>
             </button>
