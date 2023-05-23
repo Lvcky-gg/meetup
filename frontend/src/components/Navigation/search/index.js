@@ -14,15 +14,26 @@ export const SearchBar = () => {
         e.preventDefault()
         if(eventName != "" && eventType != ""){
             setUrl(`?name=${eventName}&type=${eventType}`)
+            history.push(`/events${url}`)
+            setEventName("")
+            setEventType("")
         }else if(eventName != ""){
             setUrl(`?name=${eventName}`)
+            history.push(`/events${url}`)
+            setEventName("")
+            setEventType("")
         }else if(eventType != ""){
             setUrl(`?type=${eventType}`)
-            console.log(url)
-        }else{
-            history.push('/events')
+            history.push(`/events${url}`)
+            setEventName("")
+            setEventType("")
         }
-        history.push(`/events${url}`)
+        else{
+            history.push('/events')
+            setEventName("")
+            setEventType("")
+        }
+
     }
     return (
         <form 
