@@ -67,7 +67,7 @@ function Navigation({ isLoaded }){
       <li>
         <NavLink exact to="/"><img src={meetUpLogo} alt="Home" className="navBarImg"></img></NavLink>
       </li>
-      <SearchBar></SearchBar>
+      {sessionUser && <SearchBar></SearchBar>}
       {isLoaded && sessionLinks}
     </ul>
   );
