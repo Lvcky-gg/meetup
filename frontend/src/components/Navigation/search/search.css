@@ -28,3 +28,6 @@
     border-left: 0px hidden;
     border-radius:  0% 10px 10px 0% ; 
 }
+.searchBar>button:hover{
+    cursor: pointer;
+}
