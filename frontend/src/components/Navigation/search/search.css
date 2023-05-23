@@ -20,6 +20,7 @@
 .searchBar>button{
     height: 85%;
     width:50px;
-    background-color: red;
+    background-color: rgb(246 88 88);
+    color:white;
     border-radius:  0% 10px 10px 0% ; 
 }
