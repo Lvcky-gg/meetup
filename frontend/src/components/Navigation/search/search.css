@@ -1,0 +1,25 @@
+.searchBar{
+    position: relative;
+    bottom: 75%;
+    right:35%;
+    height:75%;
+    display: flex;
+}
+.searchBar>input{
+    height: 75%;
+}
+.searchBarInputOne{
+   border-radius: 10px 0%  0% 10px; 
+   border: 1px solid #00798a;
+   border-right: 1px solid black;
+}
+.searchBarInputTwo{
+    border: 1px solid black;
+
+}
+.searchBar>button{
+    height: 85%;
+    width:50px;
+    background-color: red;
+    border-radius:  0% 10px 10px 0% ; 
+}
