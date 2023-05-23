@@ -13,28 +13,6 @@ export const SearchBar = () => {
 
     const handleSearch = (e) => {
         e.preventDefault()
-        // if(eventName != "" && eventType != ""){
-        //     setUrl(`?name=${eventName}&type=${eventType}`)
-        //     console.log(url)
-        //     history.push(`/events${url}`)
-        //     setEventName("")
-        //     setEventType("")
-        // }else if(eventName != ""){
-        //     setUrl(`?name=${eventName}`)
-        //     history.push(`/events${url}`)
-        //     setEventName("")
-        //     setEventType("")
-        // }else if(eventType != ""){
-        //     setUrl(`?type=${eventType}`)
-        //     history.push(`/events${url}`)
-        //     setEventName("")
-        //     setEventType("")
-        // }
-        // else{
-        //     history.push('/events')
-        //     setEventName("")
-        //     setEventType("")
-        // }
         if(url != ""){
             history.push(`/events${url}`)
             setEventName("")
