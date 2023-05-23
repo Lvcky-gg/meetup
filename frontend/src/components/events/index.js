@@ -1,12 +1,12 @@
 
 import { getEventById } from "../../store/specificEvent";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import './events.css'
-import { getEvents } from "../../store/events";
+import { getEvents, getEventsSearch } from "../../store/events";
 
 
 
@@ -33,7 +33,9 @@ export const EventPage = () => {
     const history=useHistory();
     const Events = useSelector(state=>state.events.Events);
     const allGroups = useSelector(state=>state.groups).Groups;
-    
+    const location = useLocation();
+    const param = location.search
+    console.log(param)
     const onEventClick=()=> {
        
 
@@ -63,9 +65,10 @@ export const EventPage = () => {
     }
 
     useEffect(()=>{
-        getEvents(dispatch);
+        if(param) dispatch(getEventsSearch(param))
+        else getEvents(dispatch);
 
-    },[dispatch])
+    },[dispatch, param])
 
     return (
         <div className="eventsHomePage">

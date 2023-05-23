@@ -9,6 +9,7 @@ import './Navigation.css';
 import meetUpLogo from './PACKAGE_Artboard_1_copy_4.png';
 import { useHistory } from 'react-router-dom';
 import { demoLogin } from '../../store/session';
+import { SearchBar } from './search';
 
 
 function Navigation({ isLoaded }){
@@ -66,6 +67,7 @@ function Navigation({ isLoaded }){
       <li>
         <NavLink exact to="/"><img src={meetUpLogo} alt="Home" className="navBarImg"></img></NavLink>
       </li>
+      <SearchBar></SearchBar>
       {isLoaded && sessionLinks}
     </ul>
   );
