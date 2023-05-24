@@ -16,6 +16,9 @@
     padding-top:12%;
     padding-bottom: 3%;
 }
+.groupCardsFromHome{
+    border-radius: 2%;
+}
 .buttonCarrierGroup button{
     width:100%;
     margin:auto;
@@ -65,7 +68,7 @@
 
 }
 .YourInfo h4{
-    width:50%;
+    width:fit-content;
     margin: auto;
     font-size: larger;
     margin-top: 10px;
@@ -129,4 +132,5 @@ padding-left:4%;
 
 .routerForGroups{
     cursor: pointer;
+    width:fit-content;
 }
