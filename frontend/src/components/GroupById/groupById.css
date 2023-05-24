@@ -95,30 +95,27 @@ padding-bottom: 5%;
     width:100%;
 }
 .changeToScroll{
-    overflow-y:hidden;
+    overflow-y:scroll;
     overflow-x: hidden; /* Hide horizontal scrollbar */
     height:80%;
+}
+.changeToScroll::-webkit-scrollbar {
+    display:none;
+    scrollbar-width:0px;
 }
 .fa-users{
     width:10%;
 }
-.changeToScroll:hover{
-    overflow-y:scroll;
-    overflow-x: hidden; /* Hide horizontal scrollbar */
-}
+
 .groupImageBoxInner{
     display: flex;
     flex-direction: column;
-    overflow-y: hidden;
+    overflow-y: scroll;
     width:100%;
     overflow-x: hidden; /* Hide horizontal scrollbar */
     height:60%;
 }
-.groupImageBoxInner:hover{
-    overflow-y: scroll;
-    overflow-x: hidden; /* Hide horizontal scrollbar */
 
-}
 hr{
     color:gray;
 }

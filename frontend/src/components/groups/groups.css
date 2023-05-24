@@ -27,19 +27,12 @@
    margin:auto;
    justify-content: center;
    align-items: center;
-   overflow:hidden;
+
+ 
 }
-.myListUli:hover{
-    display: flex; 
-    flex-wrap: wrap;
-    height:auto;
-    width:80%;
-    margin:auto;
-    justify-content: center;
-    align-items: center;
-    overflow-y:scroll;
-    overflow-x:hidden;
- }
+.myListUli::-webkit-scrollbar {
+    display:none;
+}
 
 .myListUli li{
     width:40%;

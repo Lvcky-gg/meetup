@@ -36,6 +36,9 @@ function ProfileButton({ user }) {
     dispatch(sessionActions.logout());
     history.push('/')
   };
+  const closeDrop = (e) => {
+    setShowMenu(false);
+  }
 
   
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -50,9 +53,9 @@ function ProfileButton({ user }) {
         
       </button>
       <ul className={ulClassName} ref={ulRef}>
-        <NavLink to='/groups' className="innerText">Groups</NavLink>
+        <NavLink to='/groups' onClick={closeDrop} className="innerText">Groups</NavLink>
   
-        <NavLink to='/events' className="innerText">Events</NavLink>
+        <NavLink to='/events' onClick={closeDrop} className="innerText">Events</NavLink>
         {/* <NavLink to='/' className="innerText">Home</NavLink> */}
         {/* <li><p className="innerText">{user.email}</p></li> */}
         
