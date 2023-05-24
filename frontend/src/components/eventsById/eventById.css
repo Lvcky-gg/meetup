@@ -143,11 +143,10 @@ display:flex;
    display:flex;
    flex-wrap:wrap;
    overflow-x:hidden;
-   overflow-y:hidden;
+   overflow-y:scroll;
 }
-.specificImageForEventHolder:hover{
-    overflow-x:hidden;
-    overflow-y:scroll;
+.specificImageForEventHolder::-webkit-scrollbar{
+    width:0;
 }
 .specificImageForEventHolder li{
     display:flex;

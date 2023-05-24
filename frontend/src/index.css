@@ -14,6 +14,9 @@ a p{
 a img{
     color:gray;
 }
+button:hover{
+    color:gray;
+}
 ::-webkit-scrollbar{
     display: none;
 }
