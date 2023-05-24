@@ -18,7 +18,8 @@ export const SearchBar = () => {
             setEventName("")
             setEventType("")
             setUrl("")
-        }else{
+        }
+        else{
             history.push(`/events`)
             setEventName("")
             setEventType("")
@@ -45,15 +46,10 @@ export const SearchBar = () => {
             value={eventName}
             onChange={(e) => setEventName(e.target.value)}
             ></input>
-            {/* <input
-            className='searchBarInputTwo'
-            placeholder="Event Type"
-            value={eventType}
-            onChange={(e) => setEventType(e.target.value)}
-            ></input> */}
             <select
             className='searchBarInputTwo'
             name="Event Type"
+            value={eventType}
             onChange={(e) => setEventType(e.target.value)}
             >
                 <option value='' disabled>Event Type</option>
