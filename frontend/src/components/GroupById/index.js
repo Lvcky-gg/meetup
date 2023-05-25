@@ -85,12 +85,11 @@ getEvents(dispatch)
   const onClick = (e) => {
     e.preventDefault()
 
-
- deleteGroupById(+groupId)(dispatch)
- getMyGroups(dispatch)
-
-    
+    if (window.confirm("Are you sure you want to delete this group?")) {
+    deleteGroupById(+groupId)(dispatch)
+    getMyGroups(dispatch)
     history.push('/groups')
+    }
   }
   //make component to add an image
   const onAddImgClick = () => {
@@ -267,7 +266,9 @@ getEvents(dispatch)
                                      <img  src={group.url} alt="image"/>
                                      <form onSubmit={(e)=>{
                                         e.preventDefault()
+                                        if (window.confirm("Are you sure you want to delete this image?")) {
                                         deleteImgById(group.id)(dispatch)
+                                        }
                                      }}>
                                      <button className="deleteImgFromGroupById">Delete Image</button>
                                      </form>

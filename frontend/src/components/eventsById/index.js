@@ -38,9 +38,11 @@ export const EventById = () => {
 
     const onClick = (e) => {
         e.preventDefault()
+        if (window.confirm("Are you sure you want to delete this event?")) {
         deleteEventById(+eventId)(dispatch);
         getEvents(dispatch);
         history.push(`/groups/${+event.groupId}`)
+        }
 
     }
 
@@ -146,7 +148,9 @@ export const EventById = () => {
                                      <img  src={item.url} alt="image"/>
                                      <form onSubmit={(e)=>{
                                         e.preventDefault()
+                                        if (window.confirm("Are you sure you want to delete this image?")) {
                                         deleteEventImgById(item.id)(dispatch)
+                                        }
                                      }}>
                                      <button className="">Delete Image</button>
                                      </form>
