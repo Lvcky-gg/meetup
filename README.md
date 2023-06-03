@@ -1,79 +1,79 @@
-#TPG EVENT MANAGER -- Meetup Clone
+# TPG EVENT MANAGER -- Meetup Clone
 
 ![image][def]
 
-##Live Link
+## Live Link
 
-front end: https://meetup-dk5k.onrender.com
-back end: https://meetup-dk5k.onrender.com/api
+### front end: https://meetup-dk5k.onrender.com
+### back end: https://meetup-dk5k.onrender.com/api
 
 ##Intro
 
-This is a clone of Meetup that brings a new face to the platform for a gaming focused community.
-It contains two Full CRUD features, One for events and one for groups.
+### This is a clone of Meetup that brings a new face to the platform for a gaming focused community.
+### It contains two Full CRUD features, One for events and one for groups.
 
-###Crud Feature One
-####Groups
+## Crud Feature One
+### Groups
 
-/groups allows you to view groups home
-/groups/:groupId allows you to view a specific group
+### /groups allows you to view groups home
+### /groups/:groupId allows you to view a specific group
 
-It uses modals in order to create and edit the group.
-Images are handled with a dropdown.
-Deleting both the group and an image are handled with a button.
-It utilizes a default image for the group.
-
-
-###Crud Feature Two
-####Events
-
-/events allows you to see your events home
-/events/:eventId allows you to view a specific event
-
-It uses modals in order to create and edit the group.
-Images are handled with a dropdown.
-Deleting both the event and an image are handled with a button.
-It utilizes a default image for the event.
-
-##Technology
-
-Overall:
-Render--hosting
-Git
-
-Frontend:
-React/Redux
-CSS
-HTML
-JS
-JSON
-
-Backend:
-JS
-node.js
-sequelize.js
-express.js
-postgress
-sqlite3
-dotenv
-cors
-helmet
-bcrypt
+### It uses modals in order to create and edit the group.
+### Images are handled with a dropdown.
+### Deleting both the group and an image are handled with a button.
+### It utilizes a default image for the group.
 
 
-##Starting the backend
+## Crud Feature Two
+### Events
 
-cd into folder /meetup/backend
-run npm install
-run npx dotenv sequelize db:migrate
-run npx dotenv sequelize db:seed:all
-run npm start
+### /events allows you to see your events home
+### /events/:eventId allows you to view a specific event
 
-##Starting the frontend
+### It uses modals in order to create and edit the group.
+### Images are handled with a dropdown.
+### Deleting both the event and an image are handled with a button.
+### It utilizes a default image for the event.
 
-cd into folder /meetup/frontend
-run npm install
-run npm start
+## Technology
+
+### Overall:
+### Render--hosting
+### Git
+
+### Frontend:
+### React/Redux
+### CSS
+### HTML
+### JS
+### JSON
+
+### Backend:
+### JS
+### node.js
+### sequelize.js
+### express.js
+### postgress
+### sqlite3
+### dotenv
+### cors
+### helmet
+### bcrypt
+
+
+## Starting the backend
+
+### cd into folder /meetup/backend
+### run npm install
+### run npx dotenv sequelize db:migrate
+### run npx dotenv sequelize db:seed:all
+### run npm start
+
+## Starting the frontend
+
+### cd into folder /meetup/frontend
+### run npm install
+### run npm start
 
 
 
